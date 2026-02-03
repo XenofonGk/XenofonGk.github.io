@@ -1,108 +1,92 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XenofonGk | Portfolio</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+<section class="projects-section">
+        
+        <h2 class="section-title">PROJECTS</h2>
 
-    <section class="hero">
-        <h1>XenofonGk</h1>
-        <p>Junior Software Developer</p>
-        <div class="scroll-indicator">Scroll Down</div>
-    </section>
+        <div class="carousel-container">
+            
+            <div class="nav-btn prev" id="prevBtn">
+                <i class="fas fa-chevron-left"></i>
+            </div>
+            <div class="nav-btn next" id="nextBtn">
+                <i class="fas fa-chevron-right"></i>
+            </div>
 
-    <section class="slider-section">
+            <div class="slider-window">
+                <div class="slider-track" id="track">
 
-        <div class="nav-zone left" id="prevBtn">
-            <i class="fas fa-arrow-left"></i>
-        </div>
-        <div class="nav-zone right" id="nextBtn">
-            <i class="fas fa-arrow-right"></i>
-        </div>
-
-        <div class="slider-window">
-            <div class="slider-track" id="track">
-
-                <div class="slide">
-                    <div class="project-card">
-                        <i class="fas fa-hard-hat watermark"></i>
-                        <div class="card-content">
-                            <span class="tag wip">Work in Progress.</span>
-                            <h2>CrewFlow</h2>
-                            <p>Autonomous construction management. Real-time crew tracking, smart inventory logic, and AI-driven resource delegation.</p>
-                            <a href="https://github.com/XenofonGk/CrewFlow" target="_blank" class="btn">View Project</a>
+                    <div class="slide">
+                        <div class="project-card">
+                            <i class="fas fa-hard-hat watermark"></i>
+                            <div class="card-content">
+                                <span class="tag wip">Work in Progress</span>
+                                <h3>CrewFlow</h3>
+                                <p>Autonomous construction management. Real-time crew tracking and AI resource delegation.</p>
+                                <a href="https://github.com/XenofonGk/CrewFlow" target="_blank" class="btn">View Project</a>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="slide">
-                    <div class="project-card">
-                        <i class="fas fa-brain watermark"></i>
-                        <div class="card-content">
-                            <span class="tag">Artificial Intelligence</span>
-                            <h2>AI Tools</h2>
-                            <p>Python utilities for automated programming workflows. Features prompt engineering scripts and neural network fundamentals.</p>
-                            <a href="https://github.com/XenofonGk/ai-programming-tools" target="_blank" class="btn">View Source</a>
+                    <div class="slide">
+                        <div class="project-card">
+                            <i class="fas fa-brain watermark"></i>
+                            <div class="card-content">
+                                <span class="tag">AI Tools</span>
+                                <h3>Python AI Utils</h3>
+                                <p>Automated programming workflows, neural network basics, and prompt engineering scripts.</p>
+                                <a href="https://github.com/XenofonGk/ai-programming-tools" target="_blank" class="btn">View Source</a>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="slide">
-                    <div class="project-card">
-                        <i class="fas fa-shopping-cart watermark"></i>
-                        <div class="card-content">
-                            <span class="tag">C++ Systems</span>
-                            <h2>MarketPlus</h2>
-                            <p>High-performance inventory engine. Features manual memory allocation, operator overloading, and "Safe Empty State" architecture.</p>
-                            <a href="https://github.com/XenofonGk/oop244-cpp/tree/main/MarketPlus" target="_blank" class="btn">View Code</a>
+                    <div class="slide">
+                        <div class="project-card">
+                            <i class="fas fa-shopping-cart watermark"></i>
+                            <div class="card-content">
+                                <span class="tag">C++ Systems</span>
+                                <h3>MarketPlus</h3>
+                                <p>High-performance inventory engine. Manual memory allocation and "Safe Empty State" logic.</p>
+                                <a href="https://github.com/XenofonGk/oop244-cpp/tree/main/MarketPlus" target="_blank" class="btn">View Code</a>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="slide">
-                    <div class="project-card">
-                        <i class="fas fa-shield-alt watermark"></i>
-                        <div class="card-content">
-                            <span class="tag">C++ Systems</span>
-                            <h2>CreditCard</h2>
-                            <p>A financial utility that validates card numbers using Luhn's Algorithm and manages credit limits.</p>
-                            <a href="https://github.com/XenofonGk/oop244-cpp/tree/main/CreditCard" target="_blank" class="btn">View Code</a>
+                    <div class="slide">
+                        <div class="project-card">
+                            <i class="fas fa-shield-alt watermark"></i>
+                            <div class="card-content">
+                                <span class="tag">Security</span>
+                                <h3>Validator</h3>
+                                <p>Financial utility utilizing Luhn's Algorithm for secure, real-time credit card validation.</p>
+                                <a href="https://github.com/XenofonGk/oop244-cpp/tree/main/CreditCard" target="_blank" class="btn">View Code</a>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="slide">
-                    <div class="project-card">
-                        <i class="fas fa-terminal watermark"></i>
-                        <div class="card-content">
-                            <span class="tag">DevOps Automation</span>
-                            <h2>Shell Suite</h2>
-                            <p>20+ Battle-tested automation scripts. Handles disk cleanup, Docker resets, log rotation, and system maintenance.</p>
-                            <a href="https://github.com/XenofonGk/shell-automation" target="_blank" class="btn">View Scripts</a>
+                    <div class="slide">
+                        <div class="project-card">
+                            <i class="fas fa-terminal watermark"></i>
+                            <div class="card-content">
+                                <span class="tag">DevOps</span>
+                                <h3>Shell Suite</h3>
+                                <p>20+ Battle-tested automation scripts. Automates disk cleanup, Docker resets, and maintenance.</p>
+                                <a href="https://github.com/XenofonGk/shell-automation" target="_blank" class="btn">View Scripts</a>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="slide">
-                    <div class="project-card">
-                        <i class="fas fa-microchip watermark"></i>
-                        <div class="card-content">
-                            <span class="tag">C Language</span>
-                            <h2>Sys Utils</h2>
-                            <p>These projects demonstrate proficiency in structured programming, memory management, and algorithm design.</p>
-                            <a href="https://github.com/XenofonGk/ipc144-c-programming" target="_blank" class="btn">View Profile</a>
+                    <div class="slide">
+                        <div class="project-card">
+                            <i class="fas fa-microchip watermark"></i>
+                            <div class="card-content">
+                                <span class="tag">C Language</span>
+                                <h3>System Utils</h3>
+                                <p>Low-level system utilities focusing on direct memory manipulation and pointer arithmetic.</p>
+                                <a href="https://github.com/XenofonGk" target="_blank" class="btn">View Profile</a>
+                            </div>
                         </div>
                     </div>
-                </div>
 
+                </div>
             </div>
         </div>
     </section>
-
-    <script src="script.js"></script>
-</body>
-</html>
