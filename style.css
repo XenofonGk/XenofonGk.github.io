@@ -29,13 +29,14 @@ body {
 }
 
 .hero h1 {
-    font-size: 5rem;
+    font-size: 6rem;
     font-weight: 800;
     letter-spacing: -3px;
     margin: 0;
-    background: linear-gradient(to bottom, #fff, #666);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: #e2e2e2; 
+    transition: filter 0.1s ease-out;
+    cursor: default;
+}
 }
 
 .hero p { color: #888; font-size: 1.2rem; margin-top: 10px; }
