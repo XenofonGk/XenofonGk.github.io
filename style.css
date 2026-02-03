@@ -1,10 +1,77 @@
-/* --- PROJECTS SECTION --- */
+/* =========================================
+   1. CSS VARIABLES & RESET
+   ========================================= */
+:root {
+    --bg: #050505;
+    --card-bg: #111;
+    --text: #fff;
+    --accent: #3b82f6;    /* Blue */
+    --wip: #eab308;       /* Yellow */
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+}
+
+/* =========================================
+   2. HERO SECTION (Sun/Shadow Effect)
+   ========================================= */
+.hero {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+.hero h1 {
+    font-size: 6rem;
+    font-weight: 800;
+    letter-spacing: -3px;
+    margin: 0;
+    color: #e0e0e0; /* Light Grey for shadow contrast */
+    cursor: default;
+    transition: text-shadow 0.1s ease-out;
+    /* Default shadow */
+    text-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+}
+
+.hero p {
+    color: #888;
+    font-size: 1.25rem;
+    margin-top: 1rem;
+    letter-spacing: 1px;
+}
+
+.scroll-indicator {
+    position: absolute;
+    bottom: 40px;
+    font-size: 0.8rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #444;
+    animation: bounce 2s infinite;
+}
+@keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(10px); } }
+
+/* =========================================
+   3. PROJECTS CAROUSEL SECTION
+   ========================================= */
 .projects-section {
-    padding: 4rem 0; /* Add space top/bottom */
+    padding: 4rem 0;
     background: #000;
     display: flex;
     flex-direction: column;
     align-items: center;
+    min-height: 100vh;
 }
 
 .section-title {
@@ -12,23 +79,23 @@
     letter-spacing: 5px;
     margin-bottom: 3rem;
     color: var(--text);
-    opacity: 0.8;
+    opacity: 0.9;
     position: relative;
-    padding-bottom: 10px;
+    padding-bottom: 15px;
 }
 
-/* Small underline for the title */
 .section-title::after {
     content: '';
     position: absolute;
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: 50px;
-    height: 2px;
+    width: 60px;
+    height: 3px;
     background: var(--accent);
 }
 
+/* Container for Window + Buttons */
 .carousel-container {
     width: 100%;
     max-width: 1200px;
@@ -36,40 +103,45 @@
     align-items: center;
     justify-content: center;
     position: relative;
-    padding: 0 50px; /* Space for buttons */
+    padding: 0 80px; /* Space for the buttons */
 }
 
 /* The Window (Visible Area) */
 .slider-window {
     width: 100%;
-    max-width: 900px; /* Compact width */
-    height: 500px;    /* Compact height */
+    max-width: 900px; 
+    height: 500px;
     overflow: hidden;
     position: relative;
+    border-radius: 16px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
 }
 
+/* The Track (Long strip) */
 .slider-track {
     display: flex;
     height: 100%;
+    width: 100%;
     transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 /* Individual Slide */
 .slide {
-    min-width: 100%;
+    min-width: 100%; 
     height: 100%;
-    padding: 10px; /* Gap between slides if we show multiple (currently 1) */
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
-/* --- THE CARD DESIGN --- */
+/* =========================================
+   4. CARD DESIGN
+   ========================================= */
 .project-card {
     width: 100%;
     height: 100%;
     background: var(--card-bg);
     border: 1px solid #222;
-    border-radius: 16px;
     position: relative;
     overflow: hidden;
     display: flex;
@@ -78,29 +150,29 @@
     align-items: center;
     text-align: center;
     transition: transform 0.3s ease, border-color 0.3s ease;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
+/* Hover Effect */
 .project-card:hover {
-    transform: translateY(-5px);
     border-color: #444;
 }
 
-/* Watermark Icon */
+/* Watermark Background Icon */
 .watermark {
     position: absolute;
-    font-size: 15rem; /* Smaller for smaller card */
-    color: rgba(255,255,255,0.03);
+    font-size: 18rem;
+    color: rgba(255,255,255,0.02);
     z-index: 1;
     transition: transform 0.5s ease;
+    pointer-events: none;
 }
 
 .project-card:hover .watermark {
     transform: scale(1.1) rotate(-5deg);
-    color: rgba(255,255,255,0.05);
+    color: rgba(255,255,255,0.04);
 }
 
-/* Content */
+/* Card Content */
 .card-content {
     position: relative;
     z-index: 10;
@@ -110,36 +182,37 @@
 
 .tag {
     display: inline-block;
-    font-size: 0.7rem;
+    font-size: 0.8rem;
     letter-spacing: 2px;
     text-transform: uppercase;
     color: var(--accent);
     margin-bottom: 1rem;
     font-weight: 700;
 }
-.tag.wip { color: var(--wip); border: 1px solid var(--wip); padding: 4px 8px; border-radius: 50px; }
+.tag.wip { color: var(--wip); border: 1px solid var(--wip); padding: 4px 10px; border-radius: 50px; }
 
-h3 { font-size: 2.5rem; margin-bottom: 1rem; color: #fff; }
+h3 { font-size: 3rem; margin-bottom: 1rem; color: #fff; line-height: 1.1; }
 
-p { color: #999; font-size: 1rem; line-height: 1.6; margin-bottom: 2rem; }
+p { color: #999; font-size: 1.1rem; line-height: 1.6; margin-bottom: 2rem; }
 
 .btn {
     display: inline-block;
-    padding: 0.8rem 2rem;
+    padding: 1rem 2.5rem;
     background: #fff;
     color: #000;
     text-decoration: none;
     font-weight: 700;
     border-radius: 50px;
-    font-size: 0.9rem;
     transition: 0.3s;
 }
-.btn:hover { background: var(--accent); color: #fff; }
+.btn:hover { background: var(--accent); color: #fff; transform: translateY(-2px); }
 
-/* --- NAVIGATION BUTTONS --- */
+/* =========================================
+   5. NAVIGATION BUTTONS
+   ========================================= */
 .nav-btn {
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     background: #1a1a1a;
     color: #fff;
@@ -148,21 +221,23 @@ p { color: #999; font-size: 1rem; line-height: 1.6; margin-bottom: 2rem; }
     justify-content: center;
     cursor: pointer;
     transition: 0.2s;
-    font-size: 1.2rem;
-    z-index: 20;
+    font-size: 1.5rem;
+    z-index: 100;
     position: absolute;
+    border: 1px solid #333;
 }
 
-.nav-btn:hover { background: var(--accent); transform: scale(1.1); }
+.nav-btn:hover { background: var(--accent); border-color: var(--accent); transform: scale(1.1); }
 
 .prev { left: 0; }
 .next { right: 0; }
 
-/* Responsive */
+/* Responsive Mobile */
 @media (max-width: 768px) {
+    .hero h1 { font-size: 3rem; }
     .carousel-container { padding: 0 10px; }
-    .nav-btn { display: none; } /* Hide buttons on mobile, maybe add swipe later */
-    .slider-window { height: 400px; }
+    .nav-btn { display: none; }
+    .slider-window { height: 450px; }
     h3 { font-size: 2rem; }
     .watermark { font-size: 10rem; }
 }
