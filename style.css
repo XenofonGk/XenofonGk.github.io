@@ -1,0 +1,200 @@
+/* --- VARIABLES --- */
+:root {
+    --bg: #050505;
+    --card-bg: #111;
+    --text: #fff;
+    --accent: #3b82f6;
+    --wip: #eab308;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+}
+
+/* --- HERO --- */
+.hero {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    z-index: 2;
+    position: relative;
+}
+
+.hero h1 {
+    font-size: 5rem;
+    font-weight: 800;
+    letter-spacing: -3px;
+    margin: 0;
+    background: linear-gradient(to bottom, #fff, #666);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero p { color: #888; font-size: 1.2rem; margin-top: 10px; }
+
+.scroll-indicator {
+    position: absolute;
+    bottom: 40px;
+    font-size: 0.8rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #444;
+    animation: bounce 2s infinite;
+}
+@keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(10px); } }
+
+/* --- SLIDER CONTAINER --- */
+.slider-section {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background: #000;
+    overflow: hidden;
+}
+
+/* Nav Zones (Invisible Hover Buttons) */
+.nav-zone {
+    position: absolute;
+    top: 0; bottom: 0;
+    width: 15vw;
+    z-index: 50;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s;
+}
+.nav-zone:hover { background: rgba(255,255,255,0.03); }
+.nav-zone i { font-size: 2rem; opacity: 0; transition: 0.3s; }
+.nav-zone:hover i { opacity: 1; transform: scale(1.2); }
+
+.left { left: 0; }
+.right { right: 0; }
+
+/* The Window */
+.slider-window {
+    width: 80%;
+    max-width: 1000px;
+    height: 60vh;
+    position: relative;
+    z-index: 10;
+}
+
+/* The Track */
+.slider-track {
+    display: flex;
+    height: 100%;
+    transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* --- THE UNIFIED CARD --- */
+.slide {
+    min-width: 100%;
+    height: 100%;
+    padding: 0 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.project-card {
+    width: 100%;
+    height: 100%;
+    background: var(--card-bg);
+    border: 1px solid #222;
+    border-radius: 24px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    transition: transform 0.4s ease, border-color 0.4s ease;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+}
+
+/* Hover Zoom Effect */
+.project-card:hover {
+    transform: scale(1.02);
+    border-color: #444;
+}
+
+/* The "Watermark" Icon */
+.watermark {
+    position: absolute;
+    font-size: 20rem;
+    color: rgba(255,255,255,0.03);
+    z-index: 1;
+    transition: transform 0.5s ease;
+    pointer-events: none;
+}
+
+/* Watermark moves on hover */
+.project-card:hover .watermark {
+    transform: scale(1.1) rotate(-5deg);
+    color: rgba(255,255,255,0.05);
+}
+
+/* Content Overlay */
+.card-content {
+    position: relative;
+    z-index: 10;
+    padding: 2rem;
+    max-width: 600px;
+}
+
+.tag {
+    display: inline-block;
+    font-size: 0.75rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+}
+.tag.wip { color: var(--wip); border: 1px solid var(--wip); padding: 5px 10px; border-radius: 50px; }
+
+h2 { font-size: 3.5rem; margin-bottom: 1rem; line-height: 1.1; }
+
+p { 
+    color: #999; 
+    font-size: 1.1rem; 
+    line-height: 1.6; 
+    margin-bottom: 2.5rem; 
+}
+
+/* The Button */
+.btn {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    background: #fff;
+    color: #000;
+    text-decoration: none;
+    font-weight: 700;
+    border-radius: 50px;
+    transition: 0.3s;
+}
+.btn:hover {
+    background: var(--accent);
+    color: #fff;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(59, 130, 246, 0.4);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hero h1 { font-size: 3rem; }
+    .watermark { font-size: 12rem; }
+    h2 { font-size: 2.5rem; }
+    .nav-zone { display: none; }
+}
