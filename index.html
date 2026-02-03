@@ -3,23 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XenofonGk | Minimalist Portfolio</title>
+    <title>XenofonGk | Portfolio</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        /* --- 1. MINIMALIST VARIABLES --- */
+        /* --- 1. CORE VARIABLES --- */
         :root {
-            --bg: #111;           /* Pure Black/Dark Gray */
-            --text: #fff;         /* Pure White */
-            --accent: #3b82f6;    /* Minimal Blue Accent */
-            --gray: #333;         /* Subtle borders */
+            --bg: #050505;        /* Deep Black */
+            --surface: #121212;   /* Card Surface */
+            --text-main: #ffffff;
+            --text-muted: #888888;
+            --accent: #3b82f6;    /* Blue */
+            --border: #222222;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        
+
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             background-color: var(--bg);
-            color: var(--text);
+            color: var(--text-main);
             overflow-x: hidden;
         }
 
@@ -32,76 +34,84 @@
             align-items: center;
             text-align: center;
             padding: 2rem;
+            border-bottom: 1px solid var(--border);
         }
 
         .hero h1 {
-            font-size: 5rem;
+            font-size: 4rem;
             font-weight: 800;
             letter-spacing: -2px;
-            margin-bottom: 1rem;
-            background: linear-gradient(to right, #fff, #666);
+            margin-bottom: 0.5rem;
+            background: linear-gradient(to right, #fff, #888);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         .hero p {
-            font-size: 1.2rem;
-            color: #888;
-            max-width: 500px;
-            margin-bottom: 3rem;
+            color: var(--text-muted);
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
         }
 
-        .scroll-down {
+        .scroll-indicator {
             position: absolute;
-            bottom: 50px;
-            animation: bounce 2s infinite;
-            opacity: 0.5;
+            bottom: 40px;
+            color: var(--text-muted);
+            animation: float 2s infinite;
         }
 
-        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(10px); } }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(10px); } }
 
-        /* --- 3. SLIDER CONTAINER --- */
+        /* --- 3. SLIDER ARCHITECTURE (The Fixed Part) --- */
         .slider-section {
             height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
-            background: #0a0a0a;
-            border-top: 1px solid var(--gray);
+            background-color: #000;
         }
 
-        .slider-container {
+        /* The Window (Visible Area) */
+        .slider-window {
             width: 90%;
             max-width: 1200px;
             height: 80vh;
-            position: relative;
-            display: flex;
-            overflow: hidden;
+            overflow: hidden; /* Hides everything outside */
             border-radius: 20px;
-            background: #161616;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            border: 1px solid var(--border);
+            box-shadow: 0 0 50px rgba(0,0,0,0.8);
+            position: relative;
+            background: var(--surface);
         }
 
-        /* --- 4. SLIDES --- */
-        .slide {
-            min-width: 100%;
+        /* The Track (Long strip containing all slides) */
+        .slider-track {
+            display: flex;
             height: 100%;
-            transition: transform 0.5s ease-in-out;
+            transition: transform 0.5s cubic-bezier(0.2, 1, 0.3, 1); /* Smooth Easing */
+            width: 100%; /* Will be dynamically adjusted if needed, but flex handles it */
+        }
+
+        /* The Individual Slide */
+        .slide {
+            min-width: 100%; /* Takes up full width of window */
+            height: 100%;
             display: flex;
         }
 
-        /* Split Layout: Info on Left, "App" on Right */
-        .slide-content {
+        /* --- 4. SLIDE CONTENT LAYOUT --- */
+        .slide-info {
             flex: 1;
-            padding: 4rem;
+            padding: 5rem;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            border-right: 1px solid var(--gray);
+            border-right: 1px solid var(--border);
+            background: var(--surface);
         }
 
-        .slide-demo {
+        .slide-visual {
             flex: 1.5;
             background: #000;
             display: flex;
@@ -110,122 +120,261 @@
             position: relative;
         }
 
-        /* Content Styling */
+        /* Typography */
         .tag {
-            display: inline-block;
             color: var(--accent);
             text-transform: uppercase;
+            font-size: 0.75rem;
             letter-spacing: 2px;
-            font-size: 0.8rem;
-            font-weight: bold;
+            font-weight: 700;
             margin-bottom: 1rem;
         }
 
-        h2 { font-size: 3rem; margin-bottom: 1.5rem; line-height: 1.1; }
-        .description { color: #aaa; line-height: 1.8; margin-bottom: 2rem; font-size: 1rem; }
+        h2 { font-size: 3rem; margin-bottom: 1.5rem; line-height: 1; }
+        
+        .desc {
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+            max-width: 450px;
+        }
 
         .btn {
-            display: inline-block;
-            padding: 1rem 2rem;
-            border: 1px solid var(--text);
-            color: var(--text);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 24px;
+            background: #fff;
+            color: #000;
             text-decoration: none;
-            transition: 0.3s;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            font-weight: 700;
+            border-radius: 4px;
             width: fit-content;
+            transition: 0.2s;
         }
-        .btn:hover { background: var(--text); color: var(--bg); }
+        .btn:hover { opacity: 0.9; transform: translateY(-2px); }
 
-        /* --- 5. THE "RUNNING APP" WINDOW --- */
-        .app-window {
-            width: 90%;
-            height: 90%;
-            border: 1px solid #333;
-            border-radius: 8px;
+        /* --- 5. THE "APP WINDOW" VISUAL --- */
+        .mockup-window {
+            width: 85%;
+            height: 80%;
             background: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 8px;
             display: flex;
             flex-direction: column;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
             overflow: hidden;
         }
 
-        .window-header {
-            background: #1f1f1f;
-            padding: 10px 15px;
+        .mockup-header {
+            padding: 12px;
+            background: #161b22;
+            border-bottom: 1px solid #30363d;
             display: flex;
             gap: 8px;
-            border-bottom: 1px solid #333;
+            align-items: center;
         }
 
-        .dot { width: 12px; height: 12px; border-radius: 50%; }
+        .traffic-light { width: 10px; height: 10px; border-radius: 50%; }
         .red { background: #ff5f56; }
         .yellow { background: #ffbd2e; }
         .green { background: #27c93f; }
+        
+        .mockup-title { font-family: monospace; font-size: 12px; color: #8b949e; margin-left: 10px; }
 
-        .window-body {
-            flex-grow: 1;
-            padding: 0;
+        .mockup-body {
+            flex: 1;
+            padding: 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            color: #c9d1d9;
+            overflow-y: auto;
             position: relative;
         }
 
-        /* Iframes for running code */
-        iframe { width: 100%; height: 100%; border: none; }
+        /* Fake Terminal Text */
+        .term-line { display: block; margin-bottom: 5px; }
+        .term-green { color: #7ee787; }
+        .term-blue { color: #58a6ff; }
+        .cursor { display: inline-block; width: 8px; height: 16px; background: #c9d1d9; animation: blink 1s infinite; vertical-align: middle; }
+        @keyframes blink { 50% { opacity: 0; } }
 
-        /* Fallback for C++ (Since we can't run .exe easily) */
-        .terminal-text {
-            font-family: 'Courier New', monospace;
-            color: #27c93f;
-            padding: 20px;
-            font-size: 0.9rem;
-        }
-
-        /* --- 6. NAVIGATION BUTTONS --- */
+        /* --- 6. NAVIGATION CONTROLS --- */
         .nav-btn {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background: transparent;
+            background: rgba(255,255,255,0.1);
             border: none;
             color: white;
-            font-size: 2rem;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
             cursor: pointer;
-            padding: 20px;
             z-index: 10;
-            opacity: 0.5;
-            transition: 0.3s;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        .nav-btn:hover { opacity: 1; transform: translateY(-50%) scale(1.1); }
+        .nav-btn:hover { background: rgba(255,255,255,0.3); }
         .prev { left: 20px; }
         .next { right: 20px; }
 
-        /* Responsive */
-        @media (max-width: 768px) {
+        /* --- 7. RESPONSIVE --- */
+        @media (max-width: 900px) {
             .slide { flex-direction: column; }
-            .slide-content { padding: 2rem; border-right: none; border-bottom: 1px solid var(--gray); flex: 1; }
-            .slide-demo { flex: 1; }
-            .hero h1 { font-size: 3rem; }
+            .slide-info { padding: 2rem; border-right: none; border-bottom: 1px solid var(--border); flex: 1; }
+            .slide-visual { flex: 1; padding: 2rem; }
+            .mockup-window { width: 100%; height: 100%; }
+            .hero h1 { font-size: 2.5rem; }
         }
     </style>
 </head>
 <body>
 
-    <section class="hero">
+    <header class="hero">
         <h1>XenofonGk</h1>
-        <p>Full Stack Engineer | Systems Architect | Minimalist</p>
-        <div class="scroll-down">
-            <i class="fas fa-chevron-down"></i>
+        <p>Full Stack Engineer & System Architect</p>
+        <div class="scroll-indicator">
+            SCROLL DOWN <br> <i class="fas fa-chevron-down"></i>
         </div>
-    </section>
+    </header>
 
     <section class="slider-section">
         
-        <button class="nav-btn prev" onclick="moveSlide(-1)">&#10094;</button>
-        <button class="nav-btn next" onclick="moveSlide(1)">&#10095;</button>
+        <button class="nav-btn prev" id="prevBtn"><i class="fas fa-arrow-left"></i></button>
+        <button class="nav-btn next" id="nextBtn"><i class="fas fa-arrow-right"></i></button>
 
-        <div class="slider-container" id="slider">
-            
-            <div class="slide">
-                <div class="slide-content">
-                    <span class="tag">Mobile Application</span>
-                    <h2>Crew
+        <div class="slider-window">
+            <div class="slider-track" id="track">
+                
+                <div class="slide">
+                    <div class="slide-info">
+                        <span class="tag">Mobile & AI</span>
+                        <h2>CrewFlow</h2>
+                        <p class="desc">Autonomous construction management application. Features real-time crew tracking, inventory logic, and automated resource delegation.</p>
+                        <a href="https://github.com/XenofonGk/CrewFlow" target="_blank" class="btn">
+                            View on GitHub <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                    <div class="slide-visual">
+                        <div class="mockup-window">
+                            <div class="mockup-header">
+                                <span class="traffic-light red"></span><span class="traffic-light yellow"></span><span class="traffic-light green"></span>
+                                <span class="mockup-title">crewflow_logs.json</span>
+                            </div>
+                            <div class="mockup-body">
+                                <span class="term-line"><span class="term-green">✓</span> Server initialized on port 8080</span>
+                                <span class="term-line"><span class="term-blue">INFO</span> Connected to CrewDatabase</span>
+                                <span class="term-line"><span class="term-blue">INFO</span> Agent "SiteManager" active</span>
+                                <span class="term-line">> Assigning Tool #402 to Worker: John Doe</span>
+                                <span class="term-line">> Status: <span class="term-green">CONFIRMED</span></span>
+                                <span class="term-line">> Tracking hours: 8h 30m logged</span>
+                                <span class="term-line">_ <span class="cursor"></span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slide">
+                    <div class="slide-info">
+                        <span class="tag">C++ Systems</span>
+                        <h2>MarketPlus</h2>
+                        <p class="desc">High-performance inventory engine simulating e-commerce backends. Built with manual memory management and operator overloading.</p>
+                        <a href="https://github.com/XenofonGk/oop244-cpp/tree/main/MarketPlus" target="_blank" class="btn">
+                            View Source <i class="fas fa-code"></i>
+                        </a>
+                    </div>
+                    <div class="slide-visual">
+                        <div class="mockup-window">
+                            <div class="mockup-header">
+                                <span class="traffic-light red"></span><span class="traffic-light yellow"></span><span class="traffic-light green"></span>
+                                <span class="mockup-title">bash — ./marketplus</span>
+                            </div>
+                            <div class="mockup-body">
+                                <span class="term-line">$ ./marketplus</span>
+                                <span class="term-line">=============================</span>
+                                <span class="term-line">&nbsp; MarketPlus Inventory System</span>
+                                <span class="term-line">=============================</span>
+                                <span class="term-line">> Added: MacBook Pro (SKU: 5005)</span>
+                                <span class="term-line">> Added: Mechanical Keyboard</span>
+                                <br>
+                                <span class="term-line">Total Cart Value: <span class="term-green">$2,450.00</span></span>
+                                <span class="term-line">Allocating Memory... [OK]</span>
+                                <span class="term-line">_ <span class="cursor"></span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slide">
+                    <div class="slide-info">
+                        <span class="tag">DevOps</span>
+                        <h2>Automation</h2>
+                        <p class="desc">A suite of 20+ shell scripts for Linux/macOS system administration. Automates cleanup, backups, and network diagnostics.</p>
+                        <a href="https://github.com/XenofonGk/shell-automation" target="_blank" class="btn">
+                            View Scripts <i class="fas fa-terminal"></i>
+                        </a>
+                    </div>
+                    <div class="slide-visual">
+                        <div class="mockup-window">
+                            <div class="mockup-header">
+                                <span class="traffic-light red"></span><span class="traffic-light yellow"></span><span class="traffic-light green"></span>
+                                <span class="mockup-title">zsh</span>
+                            </div>
+                            <div class="mockup-body">
+                                <span class="term-line">$ ./nuke_node.sh</span>
+                                <span class="term-line">Scanning for node_modules...</span>
+                                <span class="term-line text-red">DELETED</span> ./client/node_modules (450MB)
+                                <span class="term-line text-red">DELETED</span> ./server/node_modules (200MB)
+                                <br>
+                                <span class="term-line">$ ./docker_nuke.sh</span>
+                                <span class="term-line">Stopping containers... [OK]</span>
+                                <span class="term-line">System Pruned. 2.1GB Freed.</span>
+                                <span class="term-line">_ <span class="cursor"></span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const track = document.getElementById('track');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        
+        // We have 3 slides. 0, 1, 2.
+        let currentIndex = 0;
+        const totalSlides = 3;
+
+        function updateSlide() {
+            // Move the track to the left by (Index * 100)%
+            const percentage = -(currentIndex * 100);
+            track.style.transform = `translateX(${percentage}%)`;
+        }
+
+        nextBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % totalSlides; // Loop back to 0
+            updateSlide();
+        });
+
+        prevBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex - 1 + totalSlides) % totalSlides; // Loop to end
+            updateSlide();
+        });
+
+        // Keyboard Support
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') nextBtn.click();
+            if (e.key === 'ArrowLeft') prevBtn.click();
+        });
+    </script>
+
+</body>
+</html>
