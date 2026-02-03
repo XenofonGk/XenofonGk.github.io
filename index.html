@@ -3,180 +3,212 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XenofonGk | Software Portfolio</title>
+    <title>XenofonGk | Full Stack Engineer</title>
     <style>
-        /* Modern, Clean, Professional Variables */
+        /* --- ELITE DEVELOPER THEME --- */
         :root {
-            --bg: #0f172a;       /* Deep Navy Background */
-            --card: #1e293b;     /* Lighter Navy Card */
-            --text: #e2e8f0;     /* White/Grey Text */
-            --subtext: #94a3b8;  /* Muted Text */
+            --bg: #0b1120;       /* Darker Navy */
+            --card: #1e293b;     /* Slate Card */
+            --text: #f1f5f9;     /* Bright White Text */
+            --subtext: #94a3b8;  /* Muted Grey */
+            
+            /* Tech Stack Colors */
+            --ai: #f43f5e;       /* Rose for AI */
             --cpp: #3b82f6;      /* Blue for C++ */
-            --web: #f59e0b;      /* Orange for Web */
-            --btn: #38bdf8;      /* Light Blue Buttons */
+            --c: #64748b;        /* Steel Grey for C */
+            --shell: #10b981;    /* Emerald for Shell */
+            --web: #f59e0b;      /* Amber for Web */
+            
+            --btn: #38bdf8;      /* Sky Blue Buttons */
+            --border: #334155;
         }
         
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', system-ui, sans-serif;
             background-color: var(--bg);
             color: var(--text);
             margin: 0;
-            padding: 0;
             line-height: 1.6;
         }
 
-        /* 1. Hero Section: The "Hook" */
+        /* HERO SECTION */
         .hero {
-            background: linear-gradient(180deg, rgba(15,23,42,0) 0%, rgba(30,41,59,0.5) 100%);
-            padding: 4rem 2rem;
+            background: radial-gradient(circle at top, #1e293b 0%, #0b1120 100%);
+            padding: 6rem 2rem;
             text-align: center;
-            border-bottom: 1px solid #334155;
+            border-bottom: 1px solid var(--border);
         }
 
-        .hero h1 { margin: 0; font-size: 3rem; letter-spacing: -1px; }
-        .hero p { color: var(--subtext); font-size: 1.2rem; max-width: 600px; margin: 1rem auto; }
+        .hero h1 { font-size: 4rem; margin: 0; letter-spacing: -2px; background: linear-gradient(to right, #fff, #94a3b8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero p { font-size: 1.5rem; color: var(--subtext); margin-top: 1rem; }
+        
+        .hero-tags { margin-top: 1.5rem; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+        .hero-tag { background: rgba(255,255,255,0.1); padding: 5px 15px; border-radius: 20px; font-size: 0.9rem; color: #fff; }
 
-        /* 2. Container for the grid */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-
-        .section-title {
-            border-left: 4px solid var(--btn);
-            padding-left: 1rem;
+        /* GRID SYSTEM */
+        .container { max-width: 1200px; margin: 0 auto; padding: 3rem 2rem; }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-top: 4rem;
             margin-bottom: 2rem;
-            margin-top: 2rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 1rem;
         }
+        
+        .section-header h2 { font-size: 2rem; margin: 0; }
+        .section-icon { margin-right: 1rem; font-size: 1.5rem; }
 
-        /* 3. The Grid */
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
         }
 
-        /* 4. The Card Design */
+        /* CARD STYLING */
         .card {
             background: var(--card);
-            border-radius: 8px;
-            padding: 1.5rem;
-            border: 1px solid #334155;
-            transition: transform 0.2s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            border-color: var(--btn);
-        }
-
-        .card-header {
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
             display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 1rem;
+            flex-direction: column;
         }
 
-        .card h3 { margin: 0; font-size: 1.4rem; }
+        .card:hover { transform: translateY(-7px); border-color: var(--btn); box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5); }
         
-        /* Badges for Languages */
-        .badge {
-            font-size: 0.75rem;
-            padding: 0.2rem 0.6rem;
-            border-radius: 20px;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-        .badge-cpp { background: rgba(59, 130, 246, 0.2); color: var(--cpp); }
-        .badge-web { background: rgba(245, 158, 11, 0.2); color: var(--web); }
+        /* Top Colored Line on Card */
+        .card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; }
+        .card.ai::before { background: var(--ai); }
+        .card.cpp::before { background: var(--cpp); }
+        .card.c::before { background: var(--c); }
+        .card.shell::before { background: var(--shell); }
+        .card.web::before { background: var(--web); }
 
-        .card p { color: var(--subtext); font-size: 0.95rem; }
+        .card h3 { font-size: 1.5rem; margin: 0 0 0.5rem 0; }
+        .card p { color: var(--subtext); font-size: 1rem; flex-grow: 1; margin-bottom: 1.5rem; }
 
-        .links { margin-top: 1.5rem; }
-        
+        /* BADGES */
+        .badge { display: inline-block; font-size: 0.75rem; padding: 4px 12px; border-radius: 100px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 1rem; }
+        .bg-ai { background: rgba(244, 63, 94, 0.2); color: var(--ai); }
+        .bg-cpp { background: rgba(59, 130, 246, 0.2); color: var(--cpp); }
+        .bg-c { background: rgba(100, 116, 139, 0.2); color: var(--c); }
+        .bg-shell { background: rgba(16, 185, 129, 0.2); color: var(--shell); }
+        .bg-web { background: rgba(245, 158, 11, 0.2); color: var(--web); }
+
+        /* BUTTONS */
         .btn {
+            display: inline-block;
             text-decoration: none;
             color: var(--bg);
-            background-color: var(--btn);
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            font-weight: bold;
-            font-size: 0.9rem;
-            display: inline-block;
+            background: var(--btn);
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 700;
+            text-align: center;
+            transition: opacity 0.2s;
         }
-        
         .btn:hover { opacity: 0.9; }
 
-        footer { text-align: center; padding: 2rem; color: var(--subtext); font-size: 0.9rem; }
+        footer { text-align: center; padding: 4rem; color: var(--subtext); margin-top: 4rem; border-top: 1px solid var(--border); }
     </style>
 </head>
 <body>
 
-    <div class="hero">
+    <header class="hero">
         <h1>XenofonGk</h1>
-        <p>Software Developer specializing in C++ System Architecture and Modern Web Technologies.</p>
-    </div>
+        <p>Full Stack Engineer & System Architect</p>
+        <div class="hero-tags">
+            <span class="hero-tag">AI Agents</span>
+            <span class="hero-tag">C++ Systems</span>
+            <span class="hero-tag">Linux Automation</span>
+            <span class="hero-tag">Full Stack Web</span>
+        </div>
+    </header>
 
     <div class="container">
-        
-        <h2 class="section-title">Backend & Systems</h2>
+
+        <div class="section-header">
+            <span class="section-icon">🤖</span>
+            <h2>Artificial Intelligence</h2>
+        </div>
         <div class="grid">
-            
-            <div class="card">
-                <div class="card-header">
-                    <h3>MarketPlus</h3>
-                    <span class="badge badge-cpp">C++</span>
-                </div>
-                <p>A dynamic inventory management engine using manual memory allocation, operator overloading, and safe state logic.</p>
-                <div class="links">
-                    <a href="https://github.com/XenofonGk/oop244-cpp/tree/main/MarketPlus" class="btn">View Source</a>
-                </div>
+            <div class="card ai">
+                <div><span class="badge bg-ai">Python / AI Agents</span></div>
+                <h3>CrewFlow</h3>
+                <p>Autonomous multi-agent orchestration system. Designed to automate complex workflows by delegating tasks to specialized AI roles using advanced prompt engineering and process management.</p>
+                <a href="https://github.com/XenofonGk/CrewFlow" class="btn">View Source Code</a>
             </div>
-
-            <div class="card">
-                <div class="card-header">
-                    <h3>CreditCard Validator</h3>
-                    <span class="badge badge-cpp">C++</span>
-                </div>
-                <p>Financial utility using Luhn's Algorithm to validate transaction numbers securely and manage credit limits.</p>
-                <div class="links">
-                    <a href="https://github.com/XenofonGk/oop244-cpp/tree/main/CreditCard" class="btn">View Source</a>
-                </div>
-            </div>
-
         </div>
 
-        <h2 class="section-title">Web & Frontend</h2>
-        <div class="grid">
-            
-            <div class="card">
-                <div class="card-header">
-                    <h3>Web Principles Repo</h3>
-                    <span class="badge badge-web">HTML / CSS / JS</span>
-                </div>
-                <p>A collection of labs and assignments demonstrating DOM manipulation, responsive layouts, and form validation.</p>
-                <div class="links">
-                    <a href="https://github.com/XenofonGk/web-programming-fundamentals" class="btn">View Repository</a>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header">
-                    <h3>Assignment 1 (Coming Soon)</h3>
-                    <span class="badge badge-web">HTML5</span>
-                </div>
-                <p>Upcoming major assignment for Web Programming Fundamentals.</p>
-                <div class="links">
-                    <a href="#" class="btn" style="background-color: gray; cursor: not-allowed;">Pending</a>
-                </div>
-            </div>
-
+        <div class="section-header">
+            <span class="section-icon">⚡</span>
+            <h2>Systems Engineering (C++ / C)</h2>
         </div>
+        <div class="grid">
+            <div class="card cpp">
+                <div><span class="badge bg-cpp">C++ / OOP</span></div>
+                <h3>MarketPlus Engine</h3>
+                <p>High-performance inventory system featuring manual dynamic memory allocation, operator overloading, and custom container logic for e-commerce backends.</p>
+                <a href="https://github.com/XenofonGk/oop244-cpp/tree/main/MarketPlus" class="btn">View Source Code</a>
+            </div>
+
+            <div class="card cpp">
+                <div><span class="badge bg-cpp">C++ / Security</span></div>
+                <h3>Secure Validator</h3>
+                <p>Financial transaction utility implementing Luhn's Algorithm for real-time credit card validation and limit management using strict encapsulation.</p>
+                <a href="https://github.com/XenofonGk/oop244-cpp/tree/main/CreditCard" class="btn">View Source Code</a>
+            </div>
+
+            <div class="card c">
+                <div><span class="badge bg-c">C Language</span></div>
+                <h3>System Core Utils</h3>
+                <p>Low-level system utilities focusing on direct memory manipulation, pointers, and algorithmic efficiency in pure C.</p>
+                <a href="https://github.com/XenofonGk" class="btn">View Source Code</a>
+            </div>
+        </div>
+
+        <div class="section-header">
+            <span class="section-icon">🐧</span>
+            <h2>DevOps & Scripting</h2>
+        </div>
+        <div class="grid">
+            <div class="card shell">
+                <div><span class="badge bg-shell">Bash / Shell</span></div>
+                <h3>Linux Automation Suite</h3>
+                <p>Collection of shell scripts for automating environment configuration, file processing pipelines, and system administration tasks.</p>
+                <a href="https://github.com/XenofonGk" class="btn">View Source Code</a>
+            </div>
+        </div>
+
+        <div class="section-header">
+            <span class="section-icon">🌐</span>
+            <h2>Web Development</h2>
+        </div>
+        <div class="grid">
+            <div class="card web">
+                <div><span class="badge bg-web">HTML5 / JS</span></div>
+                <h3>Web Principles</h3>
+                <p>Interactive frontend applications demonstrating DOM manipulation, responsive CSS Grid layouts, and modern JavaScript ES6+.</p>
+                <a href="https://github.com/XenofonGk/web-programming-fundamentals" class="btn">View Repository</a>
+            </div>
+
+            <div class="card web">
+                <div><span class="badge bg-web">Frontend Architecture</span></div>
+                <h3>Portfolio Hub</h3>
+                <p>The source code for this website. Built with semantic HTML5, CSS Variables, and responsive design principles.</p>
+                <a href="https://github.com/XenofonGk/XenofonGk.github.io" class="btn">View Repository</a>
+            </div>
+        </div>
+
     </div>
 
     <footer>
-        &copy; 2026 XenofonGk. Hosted on GitHub Pages.
+        <p>&copy; 2026 XenofonGk. Building the future with C++, AI, and Web Tech.</p>
     </footer>
 
 </body>
