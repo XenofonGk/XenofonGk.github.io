@@ -3,10 +3,181 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to my portofolio</title>
+    <title>XenofonGk | Software Portfolio</title>
+    <style>
+        /* Modern, Clean, Professional Variables */
+        :root {
+            --bg: #0f172a;       /* Deep Navy Background */
+            --card: #1e293b;     /* Lighter Navy Card */
+            --text: #e2e8f0;     /* White/Grey Text */
+            --subtext: #94a3b8;  /* Muted Text */
+            --cpp: #3b82f6;      /* Blue for C++ */
+            --web: #f59e0b;      /* Orange for Web */
+            --btn: #38bdf8;      /* Light Blue Buttons */
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        /* 1. Hero Section: The "Hook" */
+        .hero {
+            background: linear-gradient(180deg, rgba(15,23,42,0) 0%, rgba(30,41,59,0.5) 100%);
+            padding: 4rem 2rem;
+            text-align: center;
+            border-bottom: 1px solid #334155;
+        }
+
+        .hero h1 { margin: 0; font-size: 3rem; letter-spacing: -1px; }
+        .hero p { color: var(--subtext); font-size: 1.2rem; max-width: 600px; margin: 1rem auto; }
+
+        /* 2. Container for the grid */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .section-title {
+            border-left: 4px solid var(--btn);
+            padding-left: 1rem;
+            margin-bottom: 2rem;
+            margin-top: 2rem;
+        }
+
+        /* 3. The Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        /* 4. The Card Design */
+        .card {
+            background: var(--card);
+            border-radius: 8px;
+            padding: 1.5rem;
+            border: 1px solid #334155;
+            transition: transform 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--btn);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .card h3 { margin: 0; font-size: 1.4rem; }
+        
+        /* Badges for Languages */
+        .badge {
+            font-size: 0.75rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .badge-cpp { background: rgba(59, 130, 246, 0.2); color: var(--cpp); }
+        .badge-web { background: rgba(245, 158, 11, 0.2); color: var(--web); }
+
+        .card p { color: var(--subtext); font-size: 0.95rem; }
+
+        .links { margin-top: 1.5rem; }
+        
+        .btn {
+            text-decoration: none;
+            color: var(--bg);
+            background-color: var(--btn);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            display: inline-block;
+        }
+        
+        .btn:hover { opacity: 0.9; }
+
+        footer { text-align: center; padding: 2rem; color: var(--subtext); font-size: 0.9rem; }
+    </style>
 </head>
 <body>
-    <h1>Hello, Everyone!</h1>
-    <p>My name is Xenofon & this is my portofolio</p>
+
+    <div class="hero">
+        <h1>XenofonGk</h1>
+        <p>Software Developer specializing in C++ System Architecture and Modern Web Technologies.</p>
+    </div>
+
+    <div class="container">
+        
+        <h2 class="section-title">Backend & Systems</h2>
+        <div class="grid">
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3>MarketPlus</h3>
+                    <span class="badge badge-cpp">C++</span>
+                </div>
+                <p>A dynamic inventory management engine using manual memory allocation, operator overloading, and safe state logic.</p>
+                <div class="links">
+                    <a href="https://github.com/XenofonGk/oop244-cpp/tree/main/MarketPlus" class="btn">View Source</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h3>CreditCard Validator</h3>
+                    <span class="badge badge-cpp">C++</span>
+                </div>
+                <p>Financial utility using Luhn's Algorithm to validate transaction numbers securely and manage credit limits.</p>
+                <div class="links">
+                    <a href="https://github.com/XenofonGk/oop244-cpp/tree/main/CreditCard" class="btn">View Source</a>
+                </div>
+            </div>
+
+        </div>
+
+        <h2 class="section-title">Web & Frontend</h2>
+        <div class="grid">
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3>Web Principles Repo</h3>
+                    <span class="badge badge-web">HTML / CSS / JS</span>
+                </div>
+                <p>A collection of labs and assignments demonstrating DOM manipulation, responsive layouts, and form validation.</p>
+                <div class="links">
+                    <a href="https://github.com/XenofonGk/web-programming-fundamentals" class="btn">View Repository</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h3>Assignment 1 (Coming Soon)</h3>
+                    <span class="badge badge-web">HTML5</span>
+                </div>
+                <p>Upcoming major assignment for Web Programming Fundamentals.</p>
+                <div class="links">
+                    <a href="#" class="btn" style="background-color: gray; cursor: not-allowed;">Pending</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2026 XenofonGk. Hosted on GitHub Pages.
+    </footer>
+
 </body>
 </html>
