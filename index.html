@@ -3,229 +3,229 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XenofonGk | Full Stack Engineer</title>
+    <title>XenofonGk | Minimalist Portfolio</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        /* --- ELITE DEVELOPER THEME --- */
+        /* --- 1. MINIMALIST VARIABLES --- */
         :root {
-            --bg: #0b1120;       /* Darker Navy */
-            --card: #1e293b;     /* Slate Card */
-            --text: #f1f5f9;     /* Bright White Text */
-            --subtext: #94a3b8;  /* Muted Grey */
-            
-            /* Tech Stack Colors */
-            --ai: #f43f5e;       /* Rose for AI */
-            --app: #8b5cf6;      /* Purple for Apps */
-            --cpp: #3b82f6;      /* Blue for C++ */
-            --c: #64748b;        /* Steel Grey for C */
-            --shell: #10b981;    /* Emerald for Shell */
-            --web: #f59e0b;      /* Amber for Web */
-            
-            --btn: #38bdf8;      /* Sky Blue Buttons */
-            --border: #334155;
+            --bg: #111;           /* Pure Black/Dark Gray */
+            --text: #fff;         /* Pure White */
+            --accent: #3b82f6;    /* Minimal Blue Accent */
+            --gray: #333;         /* Subtle borders */
         }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         
         body {
-            font-family: 'Segoe UI', system-ui, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             background-color: var(--bg);
             color: var(--text);
-            margin: 0;
-            line-height: 1.6;
+            overflow-x: hidden;
         }
 
-        /* HERO SECTION */
+        /* --- 2. HERO SECTION --- */
         .hero {
-            background: radial-gradient(circle at top, #1e293b 0%, #0b1120 100%);
-            padding: 6rem 2rem;
-            text-align: center;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .hero h1 { font-size: 4rem; margin: 0; letter-spacing: -2px; background: linear-gradient(to right, #fff, #94a3b8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .hero p { font-size: 1.5rem; color: var(--subtext); margin-top: 1rem; }
-        
-        .hero-tags { margin-top: 1.5rem; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
-        .hero-tag { background: rgba(255,255,255,0.1); padding: 5px 15px; border-radius: 20px; font-size: 0.9rem; color: #fff; }
-
-        /* GRID SYSTEM */
-        .container { max-width: 1200px; margin: 0 auto; padding: 3rem 2rem; }
-        
-        .section-header {
-            display: flex;
-            align-items: center;
-            margin-top: 4rem;
-            margin-bottom: 2rem;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 1rem;
-        }
-        
-        .section-header h2 { font-size: 2rem; margin: 0; }
-        .section-icon { margin-right: 1rem; font-size: 1.5rem; }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-        }
-
-        /* CARD STYLING */
-        .card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 2rem;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
+            height: 100vh;
             display: flex;
             flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
         }
 
-        .card:hover { transform: translateY(-7px); border-color: var(--btn); box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5); }
-        
-        /* Top Colored Line on Card */
-        .card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; }
-        .card.ai::before { background: var(--ai); }
-        .card.app::before { background: var(--app); }
-        .card.cpp::before { background: var(--cpp); }
-        .card.c::before { background: var(--c); }
-        .card.shell::before { background: var(--shell); }
-        .card.web::before { background: var(--web); }
+        .hero h1 {
+            font-size: 5rem;
+            font-weight: 800;
+            letter-spacing: -2px;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, #fff, #666);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
-        .card h3 { font-size: 1.5rem; margin: 0 0 0.5rem 0; }
-        .card p { color: var(--subtext); font-size: 1rem; flex-grow: 1; margin-bottom: 1.5rem; }
+        .hero p {
+            font-size: 1.2rem;
+            color: #888;
+            max-width: 500px;
+            margin-bottom: 3rem;
+        }
 
-        /* BADGES */
-        .badge { display: inline-block; font-size: 0.75rem; padding: 4px 12px; border-radius: 100px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 1rem; }
-        .bg-ai { background: rgba(244, 63, 94, 0.2); color: var(--ai); }
-        .bg-app { background: rgba(139, 92, 246, 0.2); color: var(--app); }
-        .bg-cpp { background: rgba(59, 130, 246, 0.2); color: var(--cpp); }
-        .bg-c { background: rgba(100, 116, 139, 0.2); color: var(--c); }
-        .bg-shell { background: rgba(16, 185, 129, 0.2); color: var(--shell); }
-        .bg-web { background: rgba(245, 158, 11, 0.2); color: var(--web); }
+        .scroll-down {
+            position: absolute;
+            bottom: 50px;
+            animation: bounce 2s infinite;
+            opacity: 0.5;
+        }
 
-        /* BUTTONS */
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(10px); } }
+
+        /* --- 3. SLIDER CONTAINER --- */
+        .slider-section {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: #0a0a0a;
+            border-top: 1px solid var(--gray);
+        }
+
+        .slider-container {
+            width: 90%;
+            max-width: 1200px;
+            height: 80vh;
+            position: relative;
+            display: flex;
+            overflow: hidden;
+            border-radius: 20px;
+            background: #161616;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        /* --- 4. SLIDES --- */
+        .slide {
+            min-width: 100%;
+            height: 100%;
+            transition: transform 0.5s ease-in-out;
+            display: flex;
+        }
+
+        /* Split Layout: Info on Left, "App" on Right */
+        .slide-content {
+            flex: 1;
+            padding: 4rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-right: 1px solid var(--gray);
+        }
+
+        .slide-demo {
+            flex: 1.5;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        /* Content Styling */
+        .tag {
+            display: inline-block;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        h2 { font-size: 3rem; margin-bottom: 1.5rem; line-height: 1.1; }
+        .description { color: #aaa; line-height: 1.8; margin-bottom: 2rem; font-size: 1rem; }
+
         .btn {
             display: inline-block;
+            padding: 1rem 2rem;
+            border: 1px solid var(--text);
+            color: var(--text);
             text-decoration: none;
-            color: var(--bg);
-            background: var(--btn);
-            padding: 0.75rem 1.5rem;
-            border-radius: 8px;
-            font-weight: 700;
-            text-align: center;
-            transition: opacity 0.2s;
+            transition: 0.3s;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            width: fit-content;
         }
-        .btn:hover { opacity: 0.9; }
+        .btn:hover { background: var(--text); color: var(--bg); }
 
-        footer { text-align: center; padding: 4rem; color: var(--subtext); margin-top: 4rem; border-top: 1px solid var(--border); }
+        /* --- 5. THE "RUNNING APP" WINDOW --- */
+        .app-window {
+            width: 90%;
+            height: 90%;
+            border: 1px solid #333;
+            border-radius: 8px;
+            background: #0d1117;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .window-header {
+            background: #1f1f1f;
+            padding: 10px 15px;
+            display: flex;
+            gap: 8px;
+            border-bottom: 1px solid #333;
+        }
+
+        .dot { width: 12px; height: 12px; border-radius: 50%; }
+        .red { background: #ff5f56; }
+        .yellow { background: #ffbd2e; }
+        .green { background: #27c93f; }
+
+        .window-body {
+            flex-grow: 1;
+            padding: 0;
+            position: relative;
+        }
+
+        /* Iframes for running code */
+        iframe { width: 100%; height: 100%; border: none; }
+
+        /* Fallback for C++ (Since we can't run .exe easily) */
+        .terminal-text {
+            font-family: 'Courier New', monospace;
+            color: #27c93f;
+            padding: 20px;
+            font-size: 0.9rem;
+        }
+
+        /* --- 6. NAVIGATION BUTTONS --- */
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            padding: 20px;
+            z-index: 10;
+            opacity: 0.5;
+            transition: 0.3s;
+        }
+        .nav-btn:hover { opacity: 1; transform: translateY(-50%) scale(1.1); }
+        .prev { left: 20px; }
+        .next { right: 20px; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .slide { flex-direction: column; }
+            .slide-content { padding: 2rem; border-right: none; border-bottom: 1px solid var(--gray); flex: 1; }
+            .slide-demo { flex: 1; }
+            .hero h1 { font-size: 3rem; }
+        }
     </style>
 </head>
 <body>
 
-    <header class="hero">
+    <section class="hero">
         <h1>XenofonGk</h1>
-        <p>Full Stack Engineer | Systems Architect | Mobile Solutions</p>
-        <div class="hero-tags">
-            <span class="hero-tag">C++ Systems</span>
-            <span class="hero-tag">Mobile App Dev</span>
-            <span class="hero-tag">Artificial Intelligence</span>
-            <span class="hero-tag">Web Technologies</span>
+        <p>Full Stack Engineer | Systems Architect | Minimalist</p>
+        <div class="scroll-down">
+            <i class="fas fa-chevron-down"></i>
         </div>
-    </header>
+    </section>
 
-    <div class="container">
+    <section class="slider-section">
+        
+        <button class="nav-btn prev" onclick="moveSlide(-1)">&#10094;</button>
+        <button class="nav-btn next" onclick="moveSlide(1)">&#10095;</button>
 
-        <div class="section-header">
-            <span class="section-icon">📱</span>
-            <h2>Mobile & Application Software</h2>
-        </div>
-        <div class="grid">
-            <div class="card app">
-                <div><span class="badge bg-app">Mobile Application</span></div>
-                <h3>👷 CrewFlow</h3>
-                <p>A comprehensive construction management mobile application designed to streamline job site operations. Features include real-time employee hour tracking, tool inventory management, and resource allocation logic.</p>
-                <a href="https://github.com/XenofonGk/CrewFlow" class="btn">View Source Code</a>
-            </div>
-        </div>
-
-        <div class="section-header">
-            <span class="section-icon">🤖</span>
-            <h2>Artificial Intelligence</h2>
-        </div>
-        <div class="grid">
-            <div class="card ai">
-                <div><span class="badge bg-ai">Python / AI</span></div>
-                <h3>AI Programming Tools</h3>
-                <p>A collection of artificial intelligence utilities and scripts focused on automated programming workflows and machine learning integration.</p>
-                <a href="https://github.com/XenofonGk/ai-programming-tools" class="btn">View Source Code</a>
-            </div>
-        </div>
-
-        <div class="section-header">
-            <span class="section-icon">⚡</span>
-            <h2>Systems Engineering (C++ / C)</h2>
-        </div>
-        <div class="grid">
-            <div class="card cpp">
-                <div><span class="badge bg-cpp">C++ / OOP</span></div>
-                <h3>MarketPlus Engine</h3>
-                <p>High-performance inventory system featuring manual dynamic memory allocation, operator overloading, and custom container logic for e-commerce backends.</p>
-                <a href="https://github.com/XenofonGk/oop244-cpp/tree/main/MarketPlus" class="btn">View Source Code</a>
-            </div>
-
-            <div class="card cpp">
-                <div><span class="badge bg-cpp">C++ / Security</span></div>
-                <h3>Secure Validator</h3>
-                <p>Financial transaction utility implementing Luhn's Algorithm for real-time credit card validation and limit management using strict encapsulation.</p>
-                <a href="https://github.com/XenofonGk/oop244-cpp/tree/main/CreditCard" class="btn">View Source Code</a>
-            </div>
-
-            <div class="card c">
-                <div><span class="badge bg-c">C Language</span></div>
-                <h3>System Core Utils</h3>
-                <p>Low-level system utilities focusing on direct memory manipulation, pointers, and algorithmic efficiency in pure C.</p>
-                <a href="https://github.com/XenofonGk/ipc144-c-programming" class="btn">View Source Code</a>
-            </div>
-        </div>
-
-        <div class="section-header">
-            <span class="section-icon">🐧</span>
-            <h2>DevOps & Scripting</h2>
-        </div>
-        <div class="grid">
-            <div class="card shell">
-                <div><span class="badge bg-shell">Bash / Shell</span></div>
-                <h3>Linux Automation Suite</h3>
-                <p>Collection of shell scripts for automating environment configuration, file processing pipelines, and system administration tasks.</p>
-                <a href="https://github.com/XenofonGk/Shell-Scripts" class="btn">View Source Code</a>
-            </div>
-        </div>
-
-        <div class="section-header">
-            <span class="section-icon">🌐</span>
-            <h2>Web Development</h2>
-        </div>
-        <div class="grid">
-            <div class="card web">
-                <div><span class="badge bg-web">HTML5 / JS</span></div>
-                <h3>Web Principles</h3>
-                <p>Interactive frontend applications demonstrating DOM manipulation, responsive CSS Grid layouts, and modern JavaScript ES6+.</p>
-                <a href="https://github.com/XenofonGk/web-programming-fundamentals" class="btn">View Repository</a>
-            </div>
-
-            <div class="card web">
-                <div><span class="badge bg-web">Frontend Architecture</span></div>
-                <h3>Portfolio Hub</h3>
-                <p>The source code for this website. Built with semantic HTML5, CSS Variables, and responsive design principles.</p>
-                <a href="https://github.com/XenofonGk/XenofonGk.github.io" class="btn">View Repository</a>
-            </div>
-        </div>
-
-    </div>
-
-    <footer>
-        <p>&copy; 2026 XenofonGk. Building the future with Systems, Apps, and AI.</p>
-    </footer>
-
-</body>
-</html>
+        <div class="slider-container" id="slider">
+            
+            <div class="slide">
+                <div class="slide-content">
+                    <span class="tag">Mobile Application</span>
+                    <h2>Crew
