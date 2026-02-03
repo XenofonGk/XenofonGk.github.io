@@ -5,349 +5,96 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>XenofonGk | Portfolio</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <style>
-        /* --- CORE VARIABLES --- */
-        :root {
-            --bg: #050505;
-            --surface: #121212;
-            --text-main: #ffffff;
-            --text-muted: #888888;
-            --accent: #3b82f6;
-            --wip: #eab308;
-            --border: #222222;
-        }
-
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-
-        body {
-            font-family: 'Inter', system-ui, sans-serif;
-            background-color: var(--bg);
-            color: var(--text-main);
-            overflow-x: hidden;
-        }
-
-        /* --- HERO SECTION --- */
-        .hero {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 2rem;
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero h1 {
-            font-size: 5rem;
-            font-weight: 800;
-            letter-spacing: -3px;
-            margin-bottom: 0.5rem;
-            background: linear-gradient(to right, #fff, #666);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero p { color: var(--text-muted); font-size: 1.25rem; margin-bottom: 3rem; }
-
-        .scroll-indicator {
-            position: absolute;
-            bottom: 40px;
-            color: var(--text-muted);
-            animation: float 2s infinite;
-            font-size: 0.9rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(10px); } }
-
-        /* --- SLIDER ARCHITECTURE --- */
-        .slider-section {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            background-color: #000;
-            overflow: hidden;
-        }
-
-        /* The Window */
-        .slider-window {
-            width: 85%;
-            max-width: 1400px;
-            height: 70vh;
-            display: flex;
-            position: relative;
-            z-index: 1; /* Behind nav zones */
-        }
-
-        /* The Track */
-        .slider-track {
-            display: flex;
-            height: 100%;
-            width: 100%;
-            transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1); /* Very smooth ease */
-        }
-
-        /* Individual Slide */
-        .slide {
-            min-width: 100%;
-            height: 100%;
-            display: flex;
-            padding: 0 50px; /* Spacing between content and edges */
-        }
-
-        /* --- SLIDE CONTENT --- */
-        .slide-content {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding-right: 4rem;
-            z-index: 10; /* Clickable links need z-index */
-        }
-
-        .slide-visual {
-            flex: 1.5;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-
-        /* --- ZOOM CARD EFFECT --- */
-        .project-card {
-            width: 100%;
-            height: 90%;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            overflow: hidden;
-            position: relative;
-            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s ease;
-            cursor: pointer;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-            
-            /* Center the placeholder icon */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-        }
-
-        /* The Zoom Hover */
-        .project-card:hover {
-            transform: scale(1.03); /* Slight Zoom */
-            box-shadow: 0 30px 60px rgba(59, 130, 246, 0.15); /* Blue glow */
-            border-color: var(--accent);
-        }
-
-        /* Placeholder Images (You will replace these with <img> tags later) */
-        .placeholder-icon { font-size: 5rem; color: #333; margin-bottom: 1rem; transition: 0.3s; }
-        .project-card:hover .placeholder-icon { color: var(--accent); transform: scale(1.1); }
-        .placeholder-text { color: #555; font-family: monospace; }
-
-        /* Typography */
-        .tag {
-            color: var(--accent);
-            font-size: 0.8rem;
-            letter-spacing: 3px;
-            font-weight: 700;
-            text-transform: uppercase;
-            margin-bottom: 1.5rem;
-            display: block;
-        }
-        .tag.wip { color: var(--wip); }
-
-        h2 { font-size: 3.5rem; line-height: 1; margin-bottom: 1.5rem; }
-        
-        .desc {
-            color: var(--text-muted);
-            font-size: 1.1rem;
-            line-height: 1.6;
-            margin-bottom: 2.5rem;
-            max-width: 500px;
-        }
-
-        .btn-link {
-            color: var(--text-main);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1.1rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            transition: 0.3s;
-            border-bottom: 1px solid transparent;
-            width: fit-content;
-        }
-        .btn-link:hover { color: var(--accent); border-bottom-color: var(--accent); gap: 15px; }
-
-        /* --- NAVIGATION ZONES (Hover Sides) --- */
-        .nav-zone {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            width: 15%; /* 15% of screen width */
-            z-index: 20;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        /* Hover Effect for Zones */
-        .nav-zone:hover { background: linear-gradient(90deg, rgba(0,0,0,0.8), transparent); }
-        .nav-zone.right:hover { background: linear-gradient(-90deg, rgba(0,0,0,0.8), transparent); }
-
-        .nav-zone .arrow {
-            font-size: 3rem;
-            color: white;
-            opacity: 0; /* Hidden by default */
-            transition: opacity 0.3s, transform 0.3s;
-        }
-
-        .nav-zone:hover .arrow { opacity: 1; }
-        
-        .left { left: 0; }
-        .left:hover .arrow { transform: translateX(-10px); }
-        
-        .right { right: 0; }
-        .right:hover .arrow { transform: translateX(10px); }
-
-        /* Mobile Adjustments */
-        @media (max-width: 900px) {
-            .slide { flex-direction: column; padding: 20px; }
-            .slide-content { padding: 0; order: 2; text-align: center; align-items: center; }
-            .slide-visual { order: 1; margin-bottom: 2rem; }
-            .project-card { height: 300px; }
-            .nav-zone { display: none; } /* Disable zones on mobile, use swipe or tap edges */
-            .hero h1 { font-size: 3rem; }
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <section class="hero">
         <h1>XenofonGk</h1>
-        <p>Full Stack Engineer | Systems Architect | AI Innovation</p>
+        <p>System Architect | AI | Full Stack</p>
         <div class="scroll-indicator">Scroll Down</div>
     </section>
 
     <section class="slider-section">
 
-        <div class="nav-zone left" onclick="prevSlide()">
-            <i class="fas fa-chevron-left arrow"></i>
+        <div class="nav-zone left" id="prevBtn">
+            <i class="fas fa-arrow-left"></i>
         </div>
-
-        <div class="nav-zone right" onclick="nextSlide()">
-            <i class="fas fa-chevron-right arrow"></i>
+        <div class="nav-zone right" id="nextBtn">
+            <i class="fas fa-arrow-right"></i>
         </div>
 
         <div class="slider-window">
             <div class="slider-track" id="track">
 
                 <div class="slide">
-                    <div class="slide-content">
-                        <span class="tag wip">Work in Progress</span>
-                        <h2>CrewFlow</h2>
-                        <p class="desc">Autonomous construction management app. AI-driven resource delegation, real-time crew tracking, and smart inventory logic.</p>
-                        <a href="https://github.com/XenofonGk/CrewFlow" target="_blank" class="btn-link">
-                            View Project <i class="fas fa-arrow-right"></i>
-                        </a>
-                    </div>
-                    <div class="slide-visual">
-                        <div class="project-card">
-                            <i class="fas fa-mobile-alt placeholder-icon"></i>
-                            <span class="placeholder-text">App Interface Preview</span>
+                    <div class="project-card">
+                        <i class="fas fa-hard-hat watermark"></i>
+                        <div class="card-content">
+                            <span class="tag wip">Work in Progress</span>
+                            <h2>CrewFlow</h2>
+                            <p>Autonomous construction management. Real-time crew tracking, smart inventory logic, and AI-driven resource delegation.</p>
+                            <a href="https://github.com/XenofonGk/CrewFlow" target="_blank" class="btn">View Project</a>
                         </div>
                     </div>
                 </div>
 
                 <div class="slide">
-                    <div class="slide-content">
-                        <span class="tag">Artificial Intelligence</span>
-                        <h2>AI Tools</h2>
-                        <p class="desc">Python-based AI utilities for automated programming workflows. Includes prompt engineering scripts and neural network basics.</p>
-                        <a href="https://github.com/XenofonGk/ai-programming-tools" target="_blank" class="btn-link">
-                            View Source <i class="fas fa-arrow-right"></i>
-                        </a>
-                    </div>
-                    <div class="slide-visual">
-                        <div class="project-card">
-                            <i class="fas fa-brain placeholder-icon"></i>
-                            <span class="placeholder-text">Neural Network Viz</span>
+                    <div class="project-card">
+                        <i class="fas fa-brain watermark"></i>
+                        <div class="card-content">
+                            <span class="tag">Artificial Intelligence</span>
+                            <h2>AI Tools</h2>
+                            <p>Python utilities for automated programming workflows. Features prompt engineering scripts and neural network fundamentals.</p>
+                            <a href="https://github.com/XenofonGk/ai-programming-tools" target="_blank" class="btn">View Source</a>
                         </div>
                     </div>
                 </div>
 
                 <div class="slide">
-                    <div class="slide-content">
-                        <span class="tag">C++ Systems</span>
-                        <h2>MarketPlus</h2>
-                        <p class="desc">High-performance inventory engine. Manual memory allocation, operator overloading, and "Safe Empty State" architecture.</p>
-                        <a href="https://github.com/XenofonGk/oop244-cpp/tree/main/MarketPlus" target="_blank" class="btn-link">
-                            View Code <i class="fas fa-arrow-right"></i>
-                        </a>
-                    </div>
-                    <div class="slide-visual">
-                        <div class="project-card">
-                            <i class="fas fa-shopping-cart placeholder-icon"></i>
-                            <span class="placeholder-text">Inventory Backend</span>
+                    <div class="project-card">
+                        <i class="fas fa-shopping-cart watermark"></i>
+                        <div class="card-content">
+                            <span class="tag">C++ Systems</span>
+                            <h2>MarketPlus</h2>
+                            <p>High-performance inventory engine. Features manual memory allocation, operator overloading, and "Safe Empty State" architecture.</p>
+                            <a href="https://github.com/XenofonGk/oop244-cpp/tree/main/MarketPlus" target="_blank" class="btn">View Code</a>
                         </div>
                     </div>
                 </div>
 
                 <div class="slide">
-                    <div class="slide-content">
-                        <span class="tag">Security</span>
-                        <h2>Validator</h2>
-                        <p class="desc">Financial utility implementing Luhn's Algorithm for real-time credit card validation and secure limit handling.</p>
-                        <a href="https://github.com/XenofonGk/oop244-cpp/tree/main/CreditCard" target="_blank" class="btn-link">
-                            View Code <i class="fas fa-arrow-right"></i>
-                        </a>
-                    </div>
-                    <div class="slide-visual">
-                        <div class="project-card">
-                            <i class="fas fa-credit-card placeholder-icon"></i>
-                            <span class="placeholder-text">Security Algorithm</span>
+                    <div class="project-card">
+                        <i class="fas fa-shield-alt watermark"></i>
+                        <div class="card-content">
+                            <span class="tag">Security</span>
+                            <h2>Validator</h2>
+                            <p>Financial utility utilizing Luhn's Algorithm for secure, real-time credit card validation and limit handling.</p>
+                            <a href="https://github.com/XenofonGk/oop244-cpp/tree/main/CreditCard" target="_blank" class="btn">View Code</a>
                         </div>
                     </div>
                 </div>
 
                 <div class="slide">
-                    <div class="slide-content">
-                        <span class="tag">DevOps</span>
-                        <h2>Shell Suite</h2>
-                        <p class="desc">20+ Battle-tested automation scripts. Automates disk cleanup, Docker resets, log rotation, and system maintenance.</p>
-                        <a href="https://github.com/XenofonGk/shell-automation" target="_blank" class="btn-link">
-                            View Scripts <i class="fas fa-arrow-right"></i>
-                        </a>
-                    </div>
-                    <div class="slide-visual">
-                        <div class="project-card">
-                            <i class="fas fa-terminal placeholder-icon"></i>
-                            <span class="placeholder-text">Automation Logs</span>
+                    <div class="project-card">
+                        <i class="fas fa-terminal watermark"></i>
+                        <div class="card-content">
+                            <span class="tag">DevOps Automation</span>
+                            <h2>Shell Suite</h2>
+                            <p>20+ Battle-tested automation scripts. Handles disk cleanup, Docker resets, log rotation, and system maintenance.</p>
+                            <a href="https://github.com/XenofonGk/shell-automation" target="_blank" class="btn">View Scripts</a>
                         </div>
                     </div>
                 </div>
 
                 <div class="slide">
-                    <div class="slide-content">
-                        <span class="tag">C Language</span>
-                        <h2>Sys Utils</h2>
-                        <p class="desc">Low-level system utilities focusing on direct memory manipulation, pointer arithmetic, and algorithmic efficiency.</p>
-                        <a href="https://github.com/XenofonGk" target="_blank" class="btn-link">
-                            View Profile <i class="fas fa-arrow-right"></i>
-                        </a>
-                    </div>
-                    <div class="slide-visual">
-                        <div class="project-card">
-                            <i class="fas fa-microchip placeholder-icon"></i>
-                            <span class="placeholder-text">Memory Management</span>
+                    <div class="project-card">
+                        <i class="fas fa-microchip watermark"></i>
+                        <div class="card-content">
+                            <span class="tag">C Language</span>
+                            <h2>Sys Utils</h2>
+                            <p>Low-level system utilities focusing on direct memory manipulation, pointer arithmetic, and algorithmic efficiency.</p>
+                            <a href="https://github.com/XenofonGk" target="_blank" class="btn">View Profile</a>
                         </div>
                     </div>
                 </div>
@@ -356,32 +103,6 @@
         </div>
     </section>
 
-    <script>
-        const track = document.getElementById('track');
-        let currentIndex = 0;
-        const totalSlides = 6; 
-
-        function updateSlide() {
-            // Translate X based on percentage
-            track.style.transform = `translateX(-${currentIndex * 100}%)`;
-        }
-
-        function nextSlide() {
-            currentIndex = (currentIndex + 1) % totalSlides;
-            updateSlide();
-        }
-
-        function prevSlide() {
-            currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
-            updateSlide();
-        }
-
-        // Keyboard Support
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight') nextSlide();
-            if (e.key === 'ArrowLeft') prevSlide();
-        });
-    </script>
-
+    <script src="script.js"></script>
 </body>
 </html>
