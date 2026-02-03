@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XenofonGk | System Architect</title>
+    <title>XenofonGk | Portofolio</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     
     <style>
@@ -183,7 +183,7 @@
             overflow: hidden; border-radius: 24px;
             box-shadow: 0 40px 100px rgba(0,0,0,0.5);
             border: 1px solid var(--glass-border);
-            background: #000; /* Fallback */
+            background: #000;
         }
 
         .slider-track {
@@ -291,8 +291,8 @@
     </nav>
 
     <section class="hero">
-        <h1 id="heroTitle">XenofonGk</h1>
-        <h2 class="fade-in-delayed">System Architect building scalable backend systems & AI tooling.</h2>
+        <h1 id="heroTitle">Xenofon Gkiokas</h1>
+        <h2 class="fade-in-delayed">Junior Software Deleloper.</h2>
         
         <div class="hero-buttons fade-in-delayed">
             <a href="#work" class="btn btn-primary">View Work</a>
@@ -308,7 +308,9 @@
     <div class="skills-marquee hidden">
         <div class="marquee-track">
             <div class="marquee-content">
-                <span class="skill-item"><i class="fab fa-cuttlefish"></i> C++</span>
+                <span class="skill-item"><i class="fab fa-cuttlefish"></i> C++ </span>
+                <span class="skill-item"><i class="fas fa-brain"></i>C</span>
+                <span class="skill-item"><i class="fas fa-brain"></i>OOP</span>
                 <span class="skill-item"><i class="fab fa-python"></i> Python</span>
                 <span class="skill-item"><i class="fas fa-terminal"></i> Bash</span>
                 <span class="skill-item"><i class="fab fa-linux"></i> Linux</span>
@@ -317,6 +319,8 @@
                 <span class="skill-item"><i class="fab fa-js"></i> JavaScript</span>
                 <span class="skill-item"><i class="fas fa-brain"></i> AI Agents</span>
                 <span class="skill-item"><i class="fab fa-cuttlefish"></i> C++</span>
+                <span class="skill-item"><i class="fas fa-brain"></i>C</span>
+                <span class="skill-item"><i class="fas fa-brain"></i>OOP</span>
                 <span class="skill-item"><i class="fab fa-python"></i> Python</span>
                 <span class="skill-item"><i class="fas fa-terminal"></i> Bash</span>
                 <span class="skill-item"><i class="fab fa-linux"></i> Linux</span>
@@ -330,8 +334,8 @@
 
     <section id="work" class="projects-section">
         <div class="section-header hidden">
-            <h2 class="section-title">Selected Work</h2>
-            <p class="section-subtitle">Engineering solutions for complex problems.</p>
+            <h2 class="section-title">Projects</h2>
+            <p class="section-subtitle">Solutions for complex problems.</p>
         </div>
 
         <div class="carousel-container hidden">
@@ -358,6 +362,36 @@
 
                     <div class="slide">
                         <div class="project-card">
+                            <i class="fas fa-shopping-cart watermark"></i>
+                            <div class="card-content">
+                                <span class="tag">C++ Architecture</span>
+                                <h3 class="project-title">Object-Oriented Suite</h3>
+                                <p class="project-desc">High-performance systems featuring 'MarketPlus' inventory engine & 'CreditCard' validator. Focus on manual memory management.</p>
+                                <div class="tech-icons">
+                                    <i class="fab fa-cuttlefish"></i> <i class="fas fa-memory"></i> <i class="fas fa-server"></i>
+                                </div>
+                                <a href="https://github.com/XenofonGk/oop244-cpp" target="_blank" class="btn btn-primary">View Repo</a>
+                            </div>
+                        </div>
+                    </div>
+
+                     <div class="slide">
+                        <div class="project-card">
+                            <i class="fas fa-microchip watermark"></i>
+                            <div class="card-content">
+                                <span class="tag">C Language</span>
+                                <h3 class="project-title">Low-Level Utils</h3>
+                                <p class="project-desc">System utilities focusing on direct memory manipulation, pointer arithmetic, and algorithmic efficiency.</p>
+                                <div class="tech-icons">
+                                    <i class="fab fa-cuttlefish"></i> <i class="fas fa-microchip"></i> <i class="fas fa-code"></i>
+                                </div>
+                                <a href="https://github.com/XenofonGk/ipc144-c-programming" target="_blank" class="btn btn-primary">View Profile</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="slide">
+                        <div class="project-card">
                             <i class="fas fa-brain watermark"></i>
                             <div class="card-content">
                                 <span class="tag">Artificial Intelligence</span>
@@ -367,21 +401,6 @@
                                     <i class="fab fa-python"></i> <i class="fas fa-robot"></i> <i class="fas fa-code-branch"></i>
                                 </div>
                                 <a href="https://github.com/XenofonGk/ai-programming-tools" target="_blank" class="btn btn-primary">View Source</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="slide">
-                        <div class="project-card">
-                            <i class="fas fa-shopping-cart watermark"></i>
-                            <div class="card-content">
-                                <span class="tag">C++ Systems</span>
-                                <h3 class="project-title">MarketPlus</h3>
-                                <p class="project-desc">High-performance inventory engine featuring manual memory management and fail-safe architecture.</p>
-                                <div class="tech-icons">
-                                    <i class="fab fa-cuttlefish"></i> <i class="fas fa-memory"></i> <i class="fas fa-server"></i>
-                                </div>
-                                <a href="https://github.com/XenofonGk/oop244-cpp/tree/main/MarketPlus" target="_blank" class="btn btn-primary">View Code</a>
                             </div>
                         </div>
                     </div>
@@ -434,7 +453,7 @@
             const btnPrev = document.getElementById('btnPrev');
             const btnNext = document.getElementById('btnNext');
             let currentIndex = 0;
-            const totalSlides = 4; // Update if you add more slides
+            const totalSlides = 5; // Updated to 5 slides
 
             function updateSlide() {
                 track.style.transform = `translateX(-${currentIndex * 100}%)`;
