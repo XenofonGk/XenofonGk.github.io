@@ -13,6 +13,7 @@
             --text-main: #ffffff;
             --text-muted: #888888;
             --accent: #3b82f6;    /* Blue */
+            --wip: #eab308;       /* Yellow for WIP */
             --border: #222222;
         }
 
@@ -62,7 +63,7 @@
 
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(10px); } }
 
-        /* --- 3. SLIDER ARCHITECTURE (The Fixed Part) --- */
+        /* --- 3. SLIDER ARCHITECTURE --- */
         .slider-section {
             height: 100vh;
             display: flex;
@@ -72,12 +73,11 @@
             background-color: #000;
         }
 
-        /* The Window (Visible Area) */
         .slider-window {
             width: 90%;
             max-width: 1200px;
             height: 80vh;
-            overflow: hidden; /* Hides everything outside */
+            overflow: hidden;
             border-radius: 20px;
             border: 1px solid var(--border);
             box-shadow: 0 0 50px rgba(0,0,0,0.8);
@@ -85,17 +85,15 @@
             background: var(--surface);
         }
 
-        /* The Track (Long strip containing all slides) */
         .slider-track {
             display: flex;
             height: 100%;
-            transition: transform 0.5s cubic-bezier(0.2, 1, 0.3, 1); /* Smooth Easing */
-            width: 100%; /* Will be dynamically adjusted if needed, but flex handles it */
+            transition: transform 0.5s cubic-bezier(0.2, 1, 0.3, 1);
+            width: 100%;
         }
 
-        /* The Individual Slide */
         .slide {
-            min-width: 100%; /* Takes up full width of window */
+            min-width: 100%;
             height: 100%;
             display: flex;
         }
@@ -120,7 +118,7 @@
             position: relative;
         }
 
-        /* Typography */
+        /* Typography & Badges */
         .tag {
             color: var(--accent);
             text-transform: uppercase;
@@ -128,7 +126,10 @@
             letter-spacing: 2px;
             font-weight: 700;
             margin-bottom: 1rem;
+            display: inline-block;
         }
+
+        .tag.wip { color: var(--wip); border: 1px solid var(--wip); padding: 4px 8px; border-radius: 4px; }
 
         h2 { font-size: 3rem; margin-bottom: 1.5rem; line-height: 1; }
         
@@ -194,10 +195,10 @@
             position: relative;
         }
 
-        /* Fake Terminal Text */
         .term-line { display: block; margin-bottom: 5px; }
         .term-green { color: #7ee787; }
         .term-blue { color: #58a6ff; }
+        .term-yellow { color: #eab308; }
         .cursor { display: inline-block; width: 8px; height: 16px; background: #c9d1d9; animation: blink 1s infinite; vertical-align: middle; }
         @keyframes blink { 50% { opacity: 0; } }
 
@@ -223,7 +224,7 @@
         .prev { left: 20px; }
         .next { right: 20px; }
 
-        /* --- 7. RESPONSIVE --- */
+        /* Responsive */
         @media (max-width: 900px) {
             .slide { flex-direction: column; }
             .slide-info { padding: 2rem; border-right: none; border-bottom: 1px solid var(--border); flex: 1; }
@@ -237,7 +238,7 @@
 
     <header class="hero">
         <h1>XenofonGk</h1>
-        <p>Full Stack Engineer & System Architect</p>
+        <p>Junior Software Developer</p>
         <div class="scroll-indicator">
             SCROLL DOWN <br> <i class="fas fa-chevron-down"></i>
         </div>
@@ -253,9 +254,9 @@
                 
                 <div class="slide">
                     <div class="slide-info">
-                        <span class="tag">Mobile & AI</span>
+                        <span class="tag wip">🚧 Work in Progress</span>
                         <h2>CrewFlow</h2>
-                        <p class="desc">Autonomous construction management application. Features real-time crew tracking, inventory logic, and automated resource delegation.</p>
+                        <p class="desc">Autonomous construction management application. Features real-time crew tracking, inventory logic, and AI-driven resource delegation.</p>
                         <a href="https://github.com/XenofonGk/CrewFlow" target="_blank" class="btn">
                             View on GitHub <i class="fab fa-github"></i>
                         </a>
@@ -267,12 +268,41 @@
                                 <span class="mockup-title">crewflow_logs.json</span>
                             </div>
                             <div class="mockup-body">
-                                <span class="term-line"><span class="term-green">✓</span> Server initialized on port 8080</span>
-                                <span class="term-line"><span class="term-blue">INFO</span> Connected to CrewDatabase</span>
-                                <span class="term-line"><span class="term-blue">INFO</span> Agent "SiteManager" active</span>
+                                <span class="term-line"><span class="term-yellow">WARN</span> Database migration pending...</span>
+                                <span class="term-line"><span class="term-blue">INFO</span> Agent "SiteManager" initializing...</span>
                                 <span class="term-line">> Assigning Tool #402 to Worker: John Doe</span>
-                                <span class="term-line">> Status: <span class="term-green">CONFIRMED</span></span>
+                                <span class="term-line">> Status: <span class="term-green">PENDING APPROVAL</span></span>
                                 <span class="term-line">> Tracking hours: 8h 30m logged</span>
+                                <span class="term-line">_ <span class="cursor"></span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slide">
+                    <div class="slide-info">
+                        <span class="tag">Artificial Intelligence</span>
+                        <h2>AI Tools</h2>
+                        <p class="desc">A collection of Python-based AI utilities for automated programming workflows, featuring neural network basics and prompt engineering scripts.</p>
+                        <a href="https://github.com/XenofonGk/ai-programming-tools" target="_blank" class="btn">
+                            View Source <i class="fas fa-robot"></i>
+                        </a>
+                    </div>
+                    <div class="slide-visual">
+                        <div class="mockup-window">
+                            <div class="mockup-header">
+                                <span class="traffic-light red"></span><span class="traffic-light yellow"></span><span class="traffic-light green"></span>
+                                <span class="mockup-title">python3</span>
+                            </div>
+                            <div class="mockup-body">
+                                <span class="term-line">import torch</span>
+                                <span class="term-line">import crewai</span>
+                                <br>
+                                <span class="term-line">def initiate_agent():</span>
+                                <span class="term-line">&nbsp;&nbsp;agent = Agent(role='Coder', goal='Refactor C++')</span>
+                                <span class="term-line">&nbsp;&nbsp;return agent.execute()</span>
+                                <br>
+                                <span class="term-line">>>> Agent Initialized.</span>
                                 <span class="term-line">_ <span class="cursor"></span></span>
                             </div>
                         </div>
@@ -283,7 +313,7 @@
                     <div class="slide-info">
                         <span class="tag">C++ Systems</span>
                         <h2>MarketPlus</h2>
-                        <p class="desc">High-performance inventory engine simulating e-commerce backends. Built with manual memory management and operator overloading.</p>
+                        <p class="desc">High-performance inventory engine simulating e-commerce backends. Features manual memory allocation, operator overloading, and "Safe Empty State" logic.</p>
                         <a href="https://github.com/XenofonGk/oop244-cpp/tree/main/MarketPlus" target="_blank" class="btn">
                             View Source <i class="fas fa-code"></i>
                         </a>
@@ -292,10 +322,9 @@
                         <div class="mockup-window">
                             <div class="mockup-header">
                                 <span class="traffic-light red"></span><span class="traffic-light yellow"></span><span class="traffic-light green"></span>
-                                <span class="mockup-title">bash — ./marketplus</span>
+                                <span class="mockup-title">./marketplus</span>
                             </div>
                             <div class="mockup-body">
-                                <span class="term-line">$ ./marketplus</span>
                                 <span class="term-line">=============================</span>
                                 <span class="term-line">&nbsp; MarketPlus Inventory System</span>
                                 <span class="term-line">=============================</span>
@@ -312,9 +341,37 @@
 
                 <div class="slide">
                     <div class="slide-info">
-                        <span class="tag">DevOps</span>
-                        <h2>Automation</h2>
-                        <p class="desc">A suite of 20+ shell scripts for Linux/macOS system administration. Automates cleanup, backups, and network diagnostics.</p>
+                        <span class="tag">C++ Security</span>
+                        <h2>Card Validator</h2>
+                        <p class="desc">Financial utility implementing Luhn's Algorithm for real-time credit card validation. Focuses on strict encapsulation and secure data handling.</p>
+                        <a href="https://github.com/XenofonGk/oop244-cpp/tree/main/CreditCard" target="_blank" class="btn">
+                            View Source <i class="fas fa-lock"></i>
+                        </a>
+                    </div>
+                    <div class="slide-visual">
+                        <div class="mockup-window">
+                            <div class="mockup-header">
+                                <span class="traffic-light red"></span><span class="traffic-light yellow"></span><span class="traffic-light green"></span>
+                                <span class="mockup-title">./validator</span>
+                            </div>
+                            <div class="mockup-body">
+                                <span class="term-line">Enter Card Number: ****-****-****-4242</span>
+                                <span class="term-line">Running Luhn Check...</span>
+                                <span class="term-line">Checksum: <span class="term-green">VALID</span></span>
+                                <br>
+                                <span class="term-line">Checking Credit Limit...</span>
+                                <span class="term-line">Transaction: <span class="term-green">APPROVED</span></span>
+                                <span class="term-line">_ <span class="cursor"></span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slide">
+                    <div class="slide-info">
+                        <span class="tag">DevOps Automation</span>
+                        <h2>Shell Suite</h2>
+                        <p class="desc">20+ Battle-tested automation scripts for macOS and Linux. Automates disk cleanup, Docker resets, and log rotation.</p>
                         <a href="https://github.com/XenofonGk/shell-automation" target="_blank" class="btn">
                             View Scripts <i class="fas fa-terminal"></i>
                         </a>
@@ -328,12 +385,41 @@
                             <div class="mockup-body">
                                 <span class="term-line">$ ./nuke_node.sh</span>
                                 <span class="term-line">Scanning for node_modules...</span>
-                                <span class="term-line text-red">DELETED</span> ./client/node_modules (450MB)
-                                <span class="term-line text-red">DELETED</span> ./server/node_modules (200MB)
+                                <span class="term-line text-red">DELETED</span> ./client/node_modules
                                 <br>
                                 <span class="term-line">$ ./docker_nuke.sh</span>
                                 <span class="term-line">Stopping containers... [OK]</span>
                                 <span class="term-line">System Pruned. 2.1GB Freed.</span>
+                                <span class="term-line">_ <span class="cursor"></span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slide">
+                    <div class="slide-info">
+                        <span class="tag">C Language</span>
+                        <h2>System Utils</h2>
+                        <p class="desc">Low-level system utilities focusing on direct memory manipulation, pointer arithmetic, and algorithmic efficiency in pure C.</p>
+                        <a href="https://github.com/XenofonGk" target="_blank" class="btn">
+                            View Profile <i class="fas fa-microchip"></i>
+                        </a>
+                    </div>
+                    <div class="slide-visual">
+                        <div class="mockup-window">
+                            <div class="mockup-header">
+                                <span class="traffic-light red"></span><span class="traffic-light yellow"></span><span class="traffic-light green"></span>
+                                <span class="mockup-title">gcc main.c</span>
+                            </div>
+                            <div class="mockup-body">
+                                <span class="term-line">#include &lt;stdio.h&gt;</span>
+                                <span class="term-line">#include &lt;stdlib.h&gt;</span>
+                                <br>
+                                <span class="term-line">void* safe_malloc(size_t size) {</span>
+                                <span class="term-line">&nbsp;&nbsp;void* p = malloc(size);</span>
+                                <span class="term-line">&nbsp;&nbsp;if (!p) exit(1);</span>
+                                <span class="term-line">&nbsp;&nbsp;return p;</span>
+                                <span class="term-line">}</span>
                                 <span class="term-line">_ <span class="cursor"></span></span>
                             </div>
                         </div>
@@ -349,27 +435,24 @@
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');
         
-        // We have 3 slides. 0, 1, 2.
         let currentIndex = 0;
-        const totalSlides = 3;
+        const totalSlides = 6; // Updated to 6 slides
 
         function updateSlide() {
-            // Move the track to the left by (Index * 100)%
             const percentage = -(currentIndex * 100);
             track.style.transform = `translateX(${percentage}%)`;
         }
 
         nextBtn.addEventListener('click', () => {
-            currentIndex = (currentIndex + 1) % totalSlides; // Loop back to 0
+            currentIndex = (currentIndex + 1) % totalSlides;
             updateSlide();
         });
 
         prevBtn.addEventListener('click', () => {
-            currentIndex = (currentIndex - 1 + totalSlides) % totalSlides; // Loop to end
+            currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
             updateSlide();
         });
 
-        // Keyboard Support
         document.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowRight') nextBtn.click();
             if (e.key === 'ArrowLeft') prevBtn.click();
