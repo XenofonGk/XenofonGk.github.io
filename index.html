@@ -6,27 +6,27 @@
     <title>XenofonGk | Portfolio</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        /* --- 1. CORE VARIABLES --- */
+        /* --- CORE VARIABLES --- */
         :root {
-            --bg: #050505;        /* Deep Black */
-            --surface: #121212;   /* Card Surface */
+            --bg: #050505;
+            --surface: #121212;
             --text-main: #ffffff;
             --text-muted: #888888;
-            --accent: #3b82f6;    /* Blue */
-            --wip: #eab308;       /* Yellow for WIP */
+            --accent: #3b82f6;
+            --wip: #eab308;
             --border: #222222;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-family: 'Inter', system-ui, sans-serif;
             background-color: var(--bg);
             color: var(--text-main);
             overflow-x: hidden;
         }
 
-        /* --- 2. HERO SECTION --- */
+        /* --- HERO SECTION --- */
         .hero {
             height: 100vh;
             display: flex;
@@ -35,35 +35,34 @@
             align-items: center;
             text-align: center;
             padding: 2rem;
-            border-bottom: 1px solid var(--border);
+            position: relative;
+            z-index: 2;
         }
 
         .hero h1 {
-            font-size: 4rem;
+            font-size: 5rem;
             font-weight: 800;
-            letter-spacing: -2px;
+            letter-spacing: -3px;
             margin-bottom: 0.5rem;
-            background: linear-gradient(to right, #fff, #888);
+            background: linear-gradient(to right, #fff, #666);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .hero p {
-            color: var(--text-muted);
-            font-size: 1.25rem;
-            margin-bottom: 2rem;
-        }
+        .hero p { color: var(--text-muted); font-size: 1.25rem; margin-bottom: 3rem; }
 
         .scroll-indicator {
             position: absolute;
             bottom: 40px;
             color: var(--text-muted);
             animation: float 2s infinite;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
-
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(10px); } }
 
-        /* --- 3. SLIDER ARCHITECTURE --- */
+        /* --- SLIDER ARCHITECTURE --- */
         .slider-section {
             height: 100vh;
             display: flex;
@@ -71,357 +70,284 @@
             justify-content: center;
             position: relative;
             background-color: #000;
-        }
-
-        .slider-window {
-            width: 90%;
-            max-width: 1200px;
-            height: 80vh;
             overflow: hidden;
-            border-radius: 20px;
-            border: 1px solid var(--border);
-            box-shadow: 0 0 50px rgba(0,0,0,0.8);
-            position: relative;
-            background: var(--surface);
         }
 
+        /* The Window */
+        .slider-window {
+            width: 85%;
+            max-width: 1400px;
+            height: 70vh;
+            display: flex;
+            position: relative;
+            z-index: 1; /* Behind nav zones */
+        }
+
+        /* The Track */
         .slider-track {
             display: flex;
             height: 100%;
-            transition: transform 0.5s cubic-bezier(0.2, 1, 0.3, 1);
             width: 100%;
+            transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1); /* Very smooth ease */
         }
 
+        /* Individual Slide */
         .slide {
             min-width: 100%;
             height: 100%;
             display: flex;
+            padding: 0 50px; /* Spacing between content and edges */
         }
 
-        /* --- 4. SLIDE CONTENT LAYOUT --- */
-        .slide-info {
+        /* --- SLIDE CONTENT --- */
+        .slide-content {
             flex: 1;
-            padding: 5rem;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            border-right: 1px solid var(--border);
-            background: var(--surface);
+            padding-right: 4rem;
+            z-index: 10; /* Clickable links need z-index */
         }
 
         .slide-visual {
             flex: 1.5;
-            background: #000;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
         }
 
-        /* Typography & Badges */
-        .tag {
-            color: var(--accent);
-            text-transform: uppercase;
-            font-size: 0.75rem;
-            letter-spacing: 2px;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            display: inline-block;
+        /* --- ZOOM CARD EFFECT --- */
+        .project-card {
+            width: 100%;
+            height: 90%;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s ease;
+            cursor: pointer;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            
+            /* Center the placeholder icon */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
         }
 
-        .tag.wip { color: var(--wip); border: 1px solid var(--wip); padding: 4px 8px; border-radius: 4px; }
+        /* The Zoom Hover */
+        .project-card:hover {
+            transform: scale(1.03); /* Slight Zoom */
+            box-shadow: 0 30px 60px rgba(59, 130, 246, 0.15); /* Blue glow */
+            border-color: var(--accent);
+        }
 
-        h2 { font-size: 3rem; margin-bottom: 1.5rem; line-height: 1; }
+        /* Placeholder Images (You will replace these with <img> tags later) */
+        .placeholder-icon { font-size: 5rem; color: #333; margin-bottom: 1rem; transition: 0.3s; }
+        .project-card:hover .placeholder-icon { color: var(--accent); transform: scale(1.1); }
+        .placeholder-text { color: #555; font-family: monospace; }
+
+        /* Typography */
+        .tag {
+            color: var(--accent);
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+        .tag.wip { color: var(--wip); }
+
+        h2 { font-size: 3.5rem; line-height: 1; margin-bottom: 1.5rem; }
         
         .desc {
             color: var(--text-muted);
-            line-height: 1.6;
-            margin-bottom: 2rem;
             font-size: 1.1rem;
-            max-width: 450px;
+            line-height: 1.6;
+            margin-bottom: 2.5rem;
+            max-width: 500px;
         }
 
-        .btn {
+        .btn-link {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            padding: 12px 24px;
-            background: #fff;
-            color: #000;
-            text-decoration: none;
-            font-weight: 700;
-            border-radius: 4px;
+            transition: 0.3s;
+            border-bottom: 1px solid transparent;
             width: fit-content;
-            transition: 0.2s;
         }
-        .btn:hover { opacity: 0.9; transform: translateY(-2px); }
+        .btn-link:hover { color: var(--accent); border-bottom-color: var(--accent); gap: 15px; }
 
-        /* --- 5. THE "APP WINDOW" VISUAL --- */
-        .mockup-window {
-            width: 85%;
-            height: 80%;
-            background: #0d1117;
-            border: 1px solid #30363d;
-            border-radius: 8px;
-            display: flex;
-            flex-direction: column;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-            overflow: hidden;
-        }
-
-        .mockup-header {
-            padding: 12px;
-            background: #161b22;
-            border-bottom: 1px solid #30363d;
-            display: flex;
-            gap: 8px;
-            align-items: center;
-        }
-
-        .traffic-light { width: 10px; height: 10px; border-radius: 50%; }
-        .red { background: #ff5f56; }
-        .yellow { background: #ffbd2e; }
-        .green { background: #27c93f; }
-        
-        .mockup-title { font-family: monospace; font-size: 12px; color: #8b949e; margin-left: 10px; }
-
-        .mockup-body {
-            flex: 1;
-            padding: 20px;
-            font-family: 'Courier New', monospace;
-            font-size: 14px;
-            color: #c9d1d9;
-            overflow-y: auto;
-            position: relative;
-        }
-
-        .term-line { display: block; margin-bottom: 5px; }
-        .term-green { color: #7ee787; }
-        .term-blue { color: #58a6ff; }
-        .term-yellow { color: #eab308; }
-        .cursor { display: inline-block; width: 8px; height: 16px; background: #c9d1d9; animation: blink 1s infinite; vertical-align: middle; }
-        @keyframes blink { 50% { opacity: 0; } }
-
-        /* --- 6. NAVIGATION CONTROLS --- */
-        .nav-btn {
+        /* --- NAVIGATION ZONES (Hover Sides) --- */
+        .nav-zone {
             position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(255,255,255,0.1);
-            border: none;
-            color: white;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            cursor: pointer;
-            z-index: 10;
-            transition: 0.2s;
+            top: 0;
+            bottom: 0;
+            width: 15%; /* 15% of screen width */
+            z-index: 20;
             display: flex;
             align-items: center;
             justify-content: center;
+            cursor: pointer;
+            transition: background 0.3s;
         }
-        .nav-btn:hover { background: rgba(255,255,255,0.3); }
-        .prev { left: 20px; }
-        .next { right: 20px; }
 
-        /* Responsive */
+        /* Hover Effect for Zones */
+        .nav-zone:hover { background: linear-gradient(90deg, rgba(0,0,0,0.8), transparent); }
+        .nav-zone.right:hover { background: linear-gradient(-90deg, rgba(0,0,0,0.8), transparent); }
+
+        .nav-zone .arrow {
+            font-size: 3rem;
+            color: white;
+            opacity: 0; /* Hidden by default */
+            transition: opacity 0.3s, transform 0.3s;
+        }
+
+        .nav-zone:hover .arrow { opacity: 1; }
+        
+        .left { left: 0; }
+        .left:hover .arrow { transform: translateX(-10px); }
+        
+        .right { right: 0; }
+        .right:hover .arrow { transform: translateX(10px); }
+
+        /* Mobile Adjustments */
         @media (max-width: 900px) {
-            .slide { flex-direction: column; }
-            .slide-info { padding: 2rem; border-right: none; border-bottom: 1px solid var(--border); flex: 1; }
-            .slide-visual { flex: 1; padding: 2rem; }
-            .mockup-window { width: 100%; height: 100%; }
-            .hero h1 { font-size: 2.5rem; }
+            .slide { flex-direction: column; padding: 20px; }
+            .slide-content { padding: 0; order: 2; text-align: center; align-items: center; }
+            .slide-visual { order: 1; margin-bottom: 2rem; }
+            .project-card { height: 300px; }
+            .nav-zone { display: none; } /* Disable zones on mobile, use swipe or tap edges */
+            .hero h1 { font-size: 3rem; }
         }
     </style>
 </head>
 <body>
 
-    <header class="hero">
+    <section class="hero">
         <h1>XenofonGk</h1>
-        <p>Junior Software Developer</p>
-        <div class="scroll-indicator">
-            SCROLL DOWN <br> <i class="fas fa-chevron-down"></i>
-        </div>
-    </header>
+        <p>Full Stack Engineer | Systems Architect | AI Innovation</p>
+        <div class="scroll-indicator">Scroll Down</div>
+    </section>
 
     <section class="slider-section">
-        
-        <button class="nav-btn prev" id="prevBtn"><i class="fas fa-arrow-left"></i></button>
-        <button class="nav-btn next" id="nextBtn"><i class="fas fa-arrow-right"></i></button>
+
+        <div class="nav-zone left" onclick="prevSlide()">
+            <i class="fas fa-chevron-left arrow"></i>
+        </div>
+
+        <div class="nav-zone right" onclick="nextSlide()">
+            <i class="fas fa-chevron-right arrow"></i>
+        </div>
 
         <div class="slider-window">
             <div class="slider-track" id="track">
-                
+
                 <div class="slide">
-                    <div class="slide-info">
-                        <span class="tag wip">🚧 Work in Progress</span>
+                    <div class="slide-content">
+                        <span class="tag wip">Work in Progress</span>
                         <h2>CrewFlow</h2>
-                        <p class="desc">Autonomous construction management application. Features real-time crew tracking, inventory logic, and AI-driven resource delegation.</p>
-                        <a href="https://github.com/XenofonGk/CrewFlow" target="_blank" class="btn">
-                            View on GitHub <i class="fab fa-github"></i>
+                        <p class="desc">Autonomous construction management app. AI-driven resource delegation, real-time crew tracking, and smart inventory logic.</p>
+                        <a href="https://github.com/XenofonGk/CrewFlow" target="_blank" class="btn-link">
+                            View Project <i class="fas fa-arrow-right"></i>
                         </a>
                     </div>
                     <div class="slide-visual">
-                        <div class="mockup-window">
-                            <div class="mockup-header">
-                                <span class="traffic-light red"></span><span class="traffic-light yellow"></span><span class="traffic-light green"></span>
-                                <span class="mockup-title">crewflow_logs.json</span>
-                            </div>
-                            <div class="mockup-body">
-                                <span class="term-line"><span class="term-yellow">WARN</span> Database migration pending...</span>
-                                <span class="term-line"><span class="term-blue">INFO</span> Agent "SiteManager" initializing...</span>
-                                <span class="term-line">> Assigning Tool #402 to Worker: John Doe</span>
-                                <span class="term-line">> Status: <span class="term-green">PENDING APPROVAL</span></span>
-                                <span class="term-line">> Tracking hours: 8h 30m logged</span>
-                                <span class="term-line">_ <span class="cursor"></span></span>
-                            </div>
+                        <div class="project-card">
+                            <i class="fas fa-mobile-alt placeholder-icon"></i>
+                            <span class="placeholder-text">App Interface Preview</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="slide">
-                    <div class="slide-info">
+                    <div class="slide-content">
                         <span class="tag">Artificial Intelligence</span>
                         <h2>AI Tools</h2>
-                        <p class="desc">A collection of Python-based AI utilities for automated programming workflows, featuring neural network basics and prompt engineering scripts.</p>
-                        <a href="https://github.com/XenofonGk/ai-programming-tools" target="_blank" class="btn">
-                            View Source <i class="fas fa-robot"></i>
+                        <p class="desc">Python-based AI utilities for automated programming workflows. Includes prompt engineering scripts and neural network basics.</p>
+                        <a href="https://github.com/XenofonGk/ai-programming-tools" target="_blank" class="btn-link">
+                            View Source <i class="fas fa-arrow-right"></i>
                         </a>
                     </div>
                     <div class="slide-visual">
-                        <div class="mockup-window">
-                            <div class="mockup-header">
-                                <span class="traffic-light red"></span><span class="traffic-light yellow"></span><span class="traffic-light green"></span>
-                                <span class="mockup-title">python3</span>
-                            </div>
-                            <div class="mockup-body">
-                                <span class="term-line">import torch</span>
-                                <span class="term-line">import crewai</span>
-                                <br>
-                                <span class="term-line">def initiate_agent():</span>
-                                <span class="term-line">&nbsp;&nbsp;agent = Agent(role='Coder', goal='Refactor C++')</span>
-                                <span class="term-line">&nbsp;&nbsp;return agent.execute()</span>
-                                <br>
-                                <span class="term-line">>>> Agent Initialized.</span>
-                                <span class="term-line">_ <span class="cursor"></span></span>
-                            </div>
+                        <div class="project-card">
+                            <i class="fas fa-brain placeholder-icon"></i>
+                            <span class="placeholder-text">Neural Network Viz</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="slide">
-                    <div class="slide-info">
+                    <div class="slide-content">
                         <span class="tag">C++ Systems</span>
                         <h2>MarketPlus</h2>
-                        <p class="desc">High-performance inventory engine simulating e-commerce backends. Features manual memory allocation, operator overloading, and "Safe Empty State" logic.</p>
-                        <a href="https://github.com/XenofonGk/oop244-cpp/tree/main/MarketPlus" target="_blank" class="btn">
-                            View Source <i class="fas fa-code"></i>
+                        <p class="desc">High-performance inventory engine. Manual memory allocation, operator overloading, and "Safe Empty State" architecture.</p>
+                        <a href="https://github.com/XenofonGk/oop244-cpp/tree/main/MarketPlus" target="_blank" class="btn-link">
+                            View Code <i class="fas fa-arrow-right"></i>
                         </a>
                     </div>
                     <div class="slide-visual">
-                        <div class="mockup-window">
-                            <div class="mockup-header">
-                                <span class="traffic-light red"></span><span class="traffic-light yellow"></span><span class="traffic-light green"></span>
-                                <span class="mockup-title">./marketplus</span>
-                            </div>
-                            <div class="mockup-body">
-                                <span class="term-line">=============================</span>
-                                <span class="term-line">&nbsp; MarketPlus Inventory System</span>
-                                <span class="term-line">=============================</span>
-                                <span class="term-line">> Added: MacBook Pro (SKU: 5005)</span>
-                                <span class="term-line">> Added: Mechanical Keyboard</span>
-                                <br>
-                                <span class="term-line">Total Cart Value: <span class="term-green">$2,450.00</span></span>
-                                <span class="term-line">Allocating Memory... [OK]</span>
-                                <span class="term-line">_ <span class="cursor"></span></span>
-                            </div>
+                        <div class="project-card">
+                            <i class="fas fa-shopping-cart placeholder-icon"></i>
+                            <span class="placeholder-text">Inventory Backend</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="slide">
-                    <div class="slide-info">
-                        <span class="tag">C++ Security</span>
-                        <h2>Card Validator</h2>
-                        <p class="desc">Financial utility implementing Luhn's Algorithm for real-time credit card validation. Focuses on strict encapsulation and secure data handling.</p>
-                        <a href="https://github.com/XenofonGk/oop244-cpp/tree/main/CreditCard" target="_blank" class="btn">
-                            View Source <i class="fas fa-lock"></i>
+                    <div class="slide-content">
+                        <span class="tag">Security</span>
+                        <h2>Validator</h2>
+                        <p class="desc">Financial utility implementing Luhn's Algorithm for real-time credit card validation and secure limit handling.</p>
+                        <a href="https://github.com/XenofonGk/oop244-cpp/tree/main/CreditCard" target="_blank" class="btn-link">
+                            View Code <i class="fas fa-arrow-right"></i>
                         </a>
                     </div>
                     <div class="slide-visual">
-                        <div class="mockup-window">
-                            <div class="mockup-header">
-                                <span class="traffic-light red"></span><span class="traffic-light yellow"></span><span class="traffic-light green"></span>
-                                <span class="mockup-title">./validator</span>
-                            </div>
-                            <div class="mockup-body">
-                                <span class="term-line">Enter Card Number: ****-****-****-4242</span>
-                                <span class="term-line">Running Luhn Check...</span>
-                                <span class="term-line">Checksum: <span class="term-green">VALID</span></span>
-                                <br>
-                                <span class="term-line">Checking Credit Limit...</span>
-                                <span class="term-line">Transaction: <span class="term-green">APPROVED</span></span>
-                                <span class="term-line">_ <span class="cursor"></span></span>
-                            </div>
+                        <div class="project-card">
+                            <i class="fas fa-credit-card placeholder-icon"></i>
+                            <span class="placeholder-text">Security Algorithm</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="slide">
-                    <div class="slide-info">
-                        <span class="tag">DevOps Automation</span>
+                    <div class="slide-content">
+                        <span class="tag">DevOps</span>
                         <h2>Shell Suite</h2>
-                        <p class="desc">20+ Battle-tested automation scripts for macOS and Linux. Automates disk cleanup, Docker resets, and log rotation.</p>
-                        <a href="https://github.com/XenofonGk/shell-automation" target="_blank" class="btn">
-                            View Scripts <i class="fas fa-terminal"></i>
+                        <p class="desc">20+ Battle-tested automation scripts. Automates disk cleanup, Docker resets, log rotation, and system maintenance.</p>
+                        <a href="https://github.com/XenofonGk/shell-automation" target="_blank" class="btn-link">
+                            View Scripts <i class="fas fa-arrow-right"></i>
                         </a>
                     </div>
                     <div class="slide-visual">
-                        <div class="mockup-window">
-                            <div class="mockup-header">
-                                <span class="traffic-light red"></span><span class="traffic-light yellow"></span><span class="traffic-light green"></span>
-                                <span class="mockup-title">zsh</span>
-                            </div>
-                            <div class="mockup-body">
-                                <span class="term-line">$ ./nuke_node.sh</span>
-                                <span class="term-line">Scanning for node_modules...</span>
-                                <span class="term-line text-red">DELETED</span> ./client/node_modules
-                                <br>
-                                <span class="term-line">$ ./docker_nuke.sh</span>
-                                <span class="term-line">Stopping containers... [OK]</span>
-                                <span class="term-line">System Pruned. 2.1GB Freed.</span>
-                                <span class="term-line">_ <span class="cursor"></span></span>
-                            </div>
+                        <div class="project-card">
+                            <i class="fas fa-terminal placeholder-icon"></i>
+                            <span class="placeholder-text">Automation Logs</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="slide">
-                    <div class="slide-info">
+                    <div class="slide-content">
                         <span class="tag">C Language</span>
-                        <h2>System Utils</h2>
-                        <p class="desc">Low-level system utilities focusing on direct memory manipulation, pointer arithmetic, and algorithmic efficiency in pure C.</p>
-                        <a href="https://github.com/XenofonGk" target="_blank" class="btn">
-                            View Profile <i class="fas fa-microchip"></i>
+                        <h2>Sys Utils</h2>
+                        <p class="desc">Low-level system utilities focusing on direct memory manipulation, pointer arithmetic, and algorithmic efficiency.</p>
+                        <a href="https://github.com/XenofonGk" target="_blank" class="btn-link">
+                            View Profile <i class="fas fa-arrow-right"></i>
                         </a>
                     </div>
                     <div class="slide-visual">
-                        <div class="mockup-window">
-                            <div class="mockup-header">
-                                <span class="traffic-light red"></span><span class="traffic-light yellow"></span><span class="traffic-light green"></span>
-                                <span class="mockup-title">gcc main.c</span>
-                            </div>
-                            <div class="mockup-body">
-                                <span class="term-line">#include &lt;stdio.h&gt;</span>
-                                <span class="term-line">#include &lt;stdlib.h&gt;</span>
-                                <br>
-                                <span class="term-line">void* safe_malloc(size_t size) {</span>
-                                <span class="term-line">&nbsp;&nbsp;void* p = malloc(size);</span>
-                                <span class="term-line">&nbsp;&nbsp;if (!p) exit(1);</span>
-                                <span class="term-line">&nbsp;&nbsp;return p;</span>
-                                <span class="term-line">}</span>
-                                <span class="term-line">_ <span class="cursor"></span></span>
-                            </div>
+                        <div class="project-card">
+                            <i class="fas fa-microchip placeholder-icon"></i>
+                            <span class="placeholder-text">Memory Management</span>
                         </div>
                     </div>
                 </div>
@@ -432,30 +358,28 @@
 
     <script>
         const track = document.getElementById('track');
-        const prevBtn = document.getElementById('prevBtn');
-        const nextBtn = document.getElementById('nextBtn');
-        
         let currentIndex = 0;
-        const totalSlides = 6; // Updated to 6 slides
+        const totalSlides = 6; 
 
         function updateSlide() {
-            const percentage = -(currentIndex * 100);
-            track.style.transform = `translateX(${percentage}%)`;
+            // Translate X based on percentage
+            track.style.transform = `translateX(-${currentIndex * 100}%)`;
         }
 
-        nextBtn.addEventListener('click', () => {
+        function nextSlide() {
             currentIndex = (currentIndex + 1) % totalSlides;
             updateSlide();
-        });
+        }
 
-        prevBtn.addEventListener('click', () => {
+        function prevSlide() {
             currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
             updateSlide();
-        });
+        }
 
+        // Keyboard Support
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight') nextBtn.click();
-            if (e.key === 'ArrowLeft') prevBtn.click();
+            if (e.key === 'ArrowRight') nextSlide();
+            if (e.key === 'ArrowLeft') prevSlide();
         });
     </script>
 
