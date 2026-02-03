@@ -1,3 +1,6 @@
+/* =========================================
+   1. SLIDER LOGIC
+   ========================================= */
 const track = document.getElementById('track');
 const prevBtn = document.getElementById('prevBtn');
 const nextBtn = document.getElementById('nextBtn');
@@ -6,57 +9,52 @@ let currentIndex = 0;
 const totalSlides = 6; 
 
 function updateSlide() {
+    // Moves the track left by 100% * index
     track.style.transform = `translateX(-${currentIndex * 100}%)`;
 }
 
 function nextSlide() {
+    // (0 + 1) % 6 = 1 ... (5 + 1) % 6 = 0 (Loops back to start)
     currentIndex = (currentIndex + 1) % totalSlides;
     updateSlide();
 }
 
 function prevSlide() {
+    // (0 - 1 + 6) % 6 = 5 (Loops to end)
     currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
     updateSlide();
 }
 
-// Click Events
+// Click Listeners
 nextBtn.addEventListener('click', nextSlide);
 prevBtn.addEventListener('click', prevSlide);
 
-// Keyboard Support
+// Keyboard Listeners
 document.addEventListener('keydown', (e) => {
     if (e.key === 'ArrowRight') nextSlide();
     if (e.key === 'ArrowLeft') prevSlide();
 });
 
-const heroSection = document.querySelector('.hero');
+
+/* =========================================
+   2. SUN / SHADOW EFFECT
+   ========================================= */
 const heroText = document.querySelector('.hero h1');
 
-heroSection.addEventListener('mousemove', (e) => {
-    // 1. Get the width and height of the window
-    const { offsetWidth: width, offsetHeight: height } = heroSection;
+document.addEventListener('mousemove', (e) => {
+    // 1. Get the center of the screen
+    const centerX = window.innerWidth / 2;
+    const centerY = window.innerHeight / 2;
 
-    // 2. Get mouse position
-    let { offsetX: x, offsetY: y } = e;
+    // 2. Calculate distance of mouse from center
+    // We divide by 20 to make the movement subtle and smooth.
+    // Negative sign (-) makes shadow move Opposite to the "Sun" (Mouse).
+    const xWalk = (centerX - e.clientX) / 20;
+    const yWalk = (centerY - e.clientY) / 20;
 
-    // 3. Fix for hovering over children elements
-    if (this !== e.target) {
-        x = x + e.target.offsetLeft;
-        y = y + e.target.offsetTop;
-    }
-
-    // 4. Calculate how far mouse is from the center (The "Walk")
-    // If mouse is left (-), shadow goes right (+). 
-    // We divide by a factor (e.g., 20) to keep the shadow contained.
-    const xWalk = Math.round((width / 2 - x) / 20);
-    const yWalk = Math.round((height / 2 - y) / 20);
-
-    // 5. Apply the Shadow
-    // drop-shadow(x-offset y-offset blur color)
-    heroText.style.filter = `drop-shadow(${xWalk}px ${yWalk}px 10px rgba(0,0,0,0.8))`;
-});
-
-// Reset when mouse leaves (optional, brings shadow back to center)
-heroSection.addEventListener('mouseleave', () => {
-    heroText.style.filter = `drop-shadow(0px 0px 10px rgba(0,0,0,0.5))`;
+    // 3. Apply the shadow
+    // Format: h-shadow v-shadow blur color
+    heroText.style.textShadow = `
+        ${xWalk}px ${yWalk}px 15px rgba(0, 0, 0, 0.9)
+    `;
 });
