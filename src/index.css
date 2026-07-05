@@ -3,6 +3,3 @@
 /* Core PrimeReact styles */
 @import "primereact/resources/primereact.min.css";
 @import "primeicons/primeicons.css";
-
-/* Material Design Light Indigo theme as default */
-@import "primereact/resources/themes/lara-light-indigo/theme.css";
