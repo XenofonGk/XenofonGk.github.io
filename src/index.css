@@ -1,3 +1,17 @@
+@import "tailwindcss";
+
+/* Force the layout to be full desktop width and reset text colors */
+html,
+body,
+#root {
+  margin: 0 !important;
+  padding: 0 !important;
+  max-width: 100% !important;
+  width: 100% !important;
+  background-color: #f8fafc !important;
+  color: #0f172a !important;
+  text-align: left !important;
+}
 :root {
   --text: #6b6375;
   --text-h: #08060d;
@@ -11,8 +25,8 @@
   --shadow:
     rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --sans: system-ui, "Segoe UI", Roboto, sans-serif;
+  --heading: system-ui, "Segoe UI", Roboto, sans-serif;
   --mono: ui-monospace, Consolas, monospace;
 
   font: 18px/145% var(--sans);
