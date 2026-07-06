@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { projectsData, experienceData } from "./data/projectsData";
 import { ProjectCard } from "./components/ProjectCard";
 import { ContactForm } from "./components/ContactForm";
@@ -175,6 +175,7 @@ function App() {
             <div className="flex gap-4">
               <a
                 href="https://github.com/XenofonGk"
+                aria-label="Github"
                 target="_blank"
                 rel="noreferrer"
                 className="w-12 h-12 flex items-center justify-center bg-white border border-slate-200 rounded-xl text-slate-700 hover:text-indigo-600 hover:border-indigo-500 hover:shadow-md transition-all duration-300"

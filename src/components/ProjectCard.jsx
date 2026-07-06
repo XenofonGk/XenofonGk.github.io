@@ -1,5 +1,4 @@
-import React from "react";
-import { Card } from "primereact/card";
+import "react";
 
 export function ProjectCard({ project }) {
   return (
