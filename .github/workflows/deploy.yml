@@ -1,18 +1,13 @@
-name: Deploy Static Content to Pages
+name: Deploy Portfolio
 
 on:
   push:
-    branches: ["main"]
-  workflow_dispatch:
+    branches: [main]
 
 permissions:
   contents: read
   pages: write
   id-token: write
-
-concurrency:
-  group: "pages"
-  cancel-in-progress: true
 
 jobs:
   deploy:
@@ -24,23 +19,22 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Setup Node.js Environment
+      - name: Setup Node Node 22
         uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: "npm"
 
       - name: Install Dependencies
-        run: npm install
+        run: npm ci
 
       - name: Compile Production Build
         run: npm run build
 
-      - name: Upload Build Output
-        uses: actions/upload-pages-artifact@v4
+      - name: Upload Compiled Dist Folder
+        uses: actions/upload-pages-artifact@v3
         with:
           path: "./dist"
-
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
