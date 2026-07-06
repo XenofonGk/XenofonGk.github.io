@@ -123,3 +123,19 @@ code {
   padding: 4px 8px;
   background: var(--code-bg);
 }
+
+html,
+body,
+#root {
+  margin: 0 !important;
+  padding: 0 !important;
+  max-width: 100% !important;
+  width: 100% !important;
+  background-color: #f8fafc !important;
+  color: #0f172a !important;
+  text-align: left !important;
+}
+
+.p-timeline-event-content {
+  width: 100% !important;
+}

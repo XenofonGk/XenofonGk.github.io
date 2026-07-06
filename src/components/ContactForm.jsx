@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { InputText } from "primereact/inputtext";
 import { InputTextarea } from "primereact/inputtextarea";
@@ -15,11 +15,14 @@ export function ContactForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!formData.name || !formData.email || !formData.message) return;
+    if (!formData.name || !formData.email || !formData.message) {
+      alert("Please check your inputs.");
+      return;
+    }
     setIsSubmitting(true);
     try {
       const payload = {
-        access_key: "YOUR_WEB3FORMS_ACCESS_KEY_HERE",
+        access_key: "YOUR_WEB3FORMS_ACCESS_KEY_HERE", // <-- Overwrite with token string
         name: formData.name,
         email: formData.email,
         message: formData.message,
@@ -34,27 +37,34 @@ export function ContactForm() {
       });
       const result = await response.json();
       if (result.success) {
-        alert("Message sent!");
+        alert("Message delivered!");
         setFormData({ name: "", email: "", message: "" });
+      } else {
+        throw new Error(result.message);
       }
     } catch (error) {
       console.error(error);
+      alert("Pipeline failure sending input.");
     } finally {
       setIsSubmitting(false);
     }
   };
 
   return (
-    <div className="bg-white p-8 rounded-2xl border border-slate-200/80 shadow-sm w-full">
+    <div className="bg-white p-8 rounded-2xl border border-slate-200/80 shadow-sm w-full text-left">
       <h3 className="text-xl font-bold text-slate-950 mb-6 tracking-tight">
         {t("formSend")}
       </h3>
       <form onSubmit={handleSubmit} className="flex flex-col gap-5">
         <div className="flex flex-col gap-2">
-          <label className="text-xs font-bold uppercase tracking-wider text-slate-500">
+          <label
+            htmlFor="form-name"
+            className="text-xs font-bold uppercase tracking-wider text-slate-500"
+          >
             {t("formName")}
           </label>
           <InputText
+            id="form-name"
             value={formData.name}
             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
             disabled={isSubmitting}
@@ -62,10 +72,14 @@ export function ContactForm() {
           />
         </div>
         <div className="flex flex-col gap-2">
-          <label className="text-xs font-bold uppercase tracking-wider text-slate-500">
+          <label
+            htmlFor="form-email"
+            className="text-xs font-bold uppercase tracking-wider text-slate-500"
+          >
             {t("formEmail")}
           </label>
           <InputText
+            id="form-email"
             type="email"
             value={formData.email}
             onChange={(e) =>
@@ -76,10 +90,14 @@ export function ContactForm() {
           />
         </div>
         <div className="flex flex-col gap-2">
-          <label className="text-xs font-bold uppercase tracking-wider text-slate-500">
+          <label
+            htmlFor="form-msg"
+            className="text-xs font-bold uppercase tracking-wider text-slate-500"
+          >
             {t("formMessage")}
           </label>
           <InputTextarea
+            id="form-msg"
             value={formData.message}
             onChange={(e) =>
               setFormData({ ...formData, message: e.target.value })
