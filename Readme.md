@@ -1,16 +1,42 @@
-# React + Vite
+# Premium Software Engineering Portfolio Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A high-performance, accessible, and fully localized developer portfolio built to showcase enterprise fullstack workflows, low-level systems programming utilities, and modern frontend architecture.
 
-Currently, two official plugins are available:
+🚀 **Live Demo:** [https://XenofonGk.github.io](https://XenofonGk.github.io)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🛠️ Tech Stack & Architecture
 
-## React Compiler
+- **Frontend Core:** React 18 (Vite SPA Architecture)
+- **UI & Component Suite:** PrimeReact (Interactive Timelines, Core UI Inputs)
+- **Styling Pipeline:** Tailwind CSS v4 (Sleek dark-mode contrast layouts, fluid typography)
+- **Localization (i18n):** `react-i18next` (Dynamic client-side dictionary translations)
+- **Serverless Form Pipeline:** Web3Forms API (Secure, edge-forwarded contact system)
+- **CI/CD Automation:** GitHub Actions (Automated cloud testing and compilation pipeline)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## ✨ Standout Engineering Features
 
-## Expanding the ESLint configuration
+### 1. Global Multi-Language Support (i18n)
+Fully localized across the **5 most spoken languages globally**: English, Mandarin Chinese (简体中文), Hindi (हिन्दी), Spanish (Español), and French (Français). Implemented via a zero-latency memory state switcher.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### 2. Form State Management & Secure Delivery
+Utilizes React **Controlled Components** for unified client-side state validation. Form delivery bypasses standard client vulnerabilities by mapping inputs directly to a secure public-safe API gateway, eliminating the threat of secret key exposures on static hosting environments.
+
+### 3. 100% Lighthouse Optimization (A11y & SEO)
+Engineered around semantic HTML5 standards (`<main>`, `<section>`, `<header>`), strict keyboard navigability, full ARIA tracking definitions, screen-reader optimized form pairings (`htmlFor`), and complete metadata coverage.
+
+## 🚀 Local Development Setup
+
+To clone and run this project locally on your machine:
+
+```bash
+# 1. Clone the repository
+git clone [https://github.com/XenofonGk/XenofonGk.github.io.git](https://github.com/XenofonGk/XenofonGk.github.io.git)
+
+# 2. Navigate into the directory
+cd XenofonGk.github.io
+
+# 3. Install optimized dependencies
+npm install
+
+# 4. Spin up the Vite local development server
+npm run dev
