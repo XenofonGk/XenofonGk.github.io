@@ -1,3 +1,5 @@
+import TrainYardDemo from './TrainYardDemo.jsx'
+
 const projects = [
   {
     num: '01',
@@ -41,6 +43,15 @@ export default function Projects() {
     <section className="sheet" id="projects">
       <div className="wrap">
         <h2 className="title-block"><span className="num">04</span> Projects <span className="rule" aria-hidden="true"></span> As-Built</h2>
+
+        <h3 className="demo-heading">Try it — the train yard validator, running here</h3>
+        <p className="demo-intro">
+          The C below is compiled to WebAssembly and running in your browser. It is the same
+          translation unit the project&rsquo;s 21-test suite exercises — none of the rules are
+          reimplemented in JavaScript. Build a train and watch it accept or reject each car.
+        </p>
+        <TrainYardDemo />
+
         <div className="proj-grid">
           {projects.map((p) => (
             <div className="proj" key={p.title}>
