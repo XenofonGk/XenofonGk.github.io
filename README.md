@@ -1,6 +1,7 @@
 # Xenofon Gkioka — Portfolio
 
-React + Vite build of the portfolio site. Blueprint-drafting design theme.
+React + Vite portfolio site, blueprint-drafting design theme.
+Live at **[xenofongk.github.io](https://xenofongk.github.io)**.
 
 ## Local dev
 
@@ -8,6 +9,8 @@ React + Vite build of the portfolio site. Blueprint-drafting design theme.
 npm install
 npm run dev
 ```
+
+`npm run build` outputs to `dist/`; `npm run preview` serves that build locally.
 
 ## Structure
 
@@ -18,35 +21,26 @@ src/
   components/
     Nav.jsx
     Hero.jsx
-    About.jsx
+    About.jsx           # edit `specs` array
     Experience.jsx      # edit `jobs` array to update work history
-    Skills.jsx           # edit `categories` array
-    Projects.jsx          # edit `projects` array — update repo links here
+    Skills.jsx          # edit `categories` array
+    Projects.jsx        # edit `projects` array — update repo links here
     Contact.jsx
     Footer.jsx
 ```
 
 To update content (new job, new project, new skill), you don't touch CSS or layout —
-just edit the data arrays at the top of the relevant component file.
+just edit the data array at the top of the relevant component file.
 
-## Deploying to XenofonGk.github.io
+## Deploying
 
-This repo is set up to deploy automatically via GitHub Actions on every push to `main`.
+`.github/workflows/deploy.yml` builds the site and publishes it on every push to `main`.
+It runs `npm ci && npm run build` and uploads `dist/` via `actions/deploy-pages`.
 
-**One-time setup:**
+This requires **Settings → Pages → Source → "GitHub Actions"** on this repo. If Pages is
+instead set to "Deploy from a branch", GitHub serves the repo root as static files — which
+means it serves `index.html` pointing at `/src/main.jsx`, the browser refuses to execute it
+as `text/jsx`, and the site renders as a blank page. The build step is not optional.
 
-1. Push this code to your `XenofonGk.github.io` repository (this whole folder, not just `dist/`).
-2. In that repo on GitHub: **Settings → Pages → Source → GitHub Actions**.
-3. Push to `main` — the workflow in `.github/workflows/deploy.yml` builds and deploys
-   automatically. Check the **Actions** tab to watch it run.
-4. Site goes live at `https://XenofonGk.github.io` a minute or two later.
-
-**After that**, every time you edit a component and push to `main`, the site
-rebuilds and redeploys on its own — no manual `npm run build` + copy step needed.
-
-## Before going live
-
-- [ ] Confirm your GitHub repo names actually match the links in `Projects.jsx`
-      (currently pointing at `xenofongk/DotNet` and `xenofongk/Cpp`)
-- [ ] Double check `linkedin.com/in/xenofongkioka` is your real profile URL
-- [ ] Swap in your actual Mercell accessibility total (400 out of how many?) once you have it
+To watch a deploy, use the **Actions** tab. To redeploy without pushing, run the workflow
+manually from there (`workflow_dispatch`).
