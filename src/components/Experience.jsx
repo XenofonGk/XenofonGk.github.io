@@ -42,7 +42,7 @@ export default function Experience() {
   return (
     <section className="sheet" id="experience">
       <div className="wrap">
-        <div className="title-block"><span className="num">02</span> Experience <span className="rule"></span> Elevation</div>
+        <h2 className="title-block"><span className="num">02</span> Experience <span className="rule" aria-hidden="true"></span> Elevation</h2>
         {jobs.map((job) => (
           <div className="job" key={job.co}>
             <div className="job-head">

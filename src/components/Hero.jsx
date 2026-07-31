@@ -11,7 +11,7 @@ export default function Hero() {
       <div className="cta-row">
         <a className="btn solid" href="#contact">Get in touch</a>
         <a className="btn" href="#experience">See the work</a>
-        <a className="btn" href="https://github.com/xenofongk" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+        <a className="btn" href="https://github.com/XenofonGk" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
       </div>
 
       <svg

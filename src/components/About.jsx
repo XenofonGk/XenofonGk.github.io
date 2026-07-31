@@ -11,7 +11,7 @@ export default function About() {
   return (
     <section className="sheet" id="about">
       <div className="wrap">
-        <div className="title-block"><span className="num">01</span> About <span className="rule"></span> Scale 1:1</div>
+        <h2 className="title-block"><span className="num">01</span> About <span className="rule" aria-hidden="true"></span> Scale 1:1</h2>
         <div className="about-grid">
           <div>
             <p>

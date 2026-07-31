@@ -9,7 +9,7 @@ export default function Skills() {
   return (
     <section className="sheet" id="skills">
       <div className="wrap">
-        <div className="title-block"><span className="num">03</span> Skills <span className="rule"></span> Materials List</div>
+        <h2 className="title-block"><span className="num">03</span> Skills <span className="rule" aria-hidden="true"></span> Materials List</h2>
         <div className="skills-grid">
           {categories.map((cat) => (
             <div key={cat.name}>
