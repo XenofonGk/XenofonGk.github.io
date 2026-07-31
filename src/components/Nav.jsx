@@ -1,18 +1,28 @@
+import { NavLink, Link } from 'react-router-dom'
+
+const links = [
+  { to: '/projects', label: 'Projects' },
+  { to: '/about', label: 'About' },
+  { to: '/contact', label: 'Contact' },
+]
+
 export default function Nav() {
-  const links = [
-    { href: '#about', label: 'About' },
-    { href: '#experience', label: 'Experience' },
-    { href: '#skills', label: 'Skills' },
-    { href: '#projects', label: 'Projects' },
-    { href: '#contact', label: 'Contact' },
-  ]
   return (
-    <nav>
+    <nav className="nav" aria-label="Primary">
       <div className="wrap">
-        <div className="mark">XG<span>—</span>02</div>
+        <Link className="mark" to="/">
+          XG<span className="dash">—</span>02
+        </Link>
         <ul>
           {links.map((l) => (
-            <li key={l.href}><a href={l.href}>{l.label}</a></li>
+            <li key={l.to}>
+              <NavLink
+                to={l.to}
+                className={({ isActive }) => (isActive ? 'active' : undefined)}
+              >
+                {l.label}
+              </NavLink>
+            </li>
           ))}
         </ul>
       </div>

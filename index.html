@@ -5,8 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Xenofon Gkioka — Software Engineer</title>
   <meta name="description" content="Xenofon Gkioka — full-stack developer working in C#/.NET, React, and TypeScript. Software Engineer Intern at Mercell, Copenhagen." />
+  <meta name="theme-color" content="#f1eee7" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#100f0d" media="(prefers-color-scheme: dark)" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script>
+    // GitHub Pages has no server-side rewrite, so a direct request to /projects
+    // 404s. 404.html encodes the requested path into a query string and bounces
+    // here; this restores the real URL before React Router mounts.
+    (function () {
+      var redirect = new URLSearchParams(window.location.search).get('p');
+      if (redirect) {
+        history.replaceState(null, '', redirect + window.location.hash);
+      }
+    })();
+  </script>
 </head>
 <body>
   <div id="root"></div>

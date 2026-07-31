@@ -205,7 +205,7 @@ export default function TrainYardDemo() {
       )}
 
       <div className="demo-rules">
-        <h4>Rules enforced by the C validator</h4>
+        <h3>Rules enforced by the C validator</h3>
         <ul>
           {RULES.map((r) => <li key={r}>{r}</li>)}
         </ul>

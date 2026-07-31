@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Redirecting…</title>
+  <script>
+    // GitHub Pages serves this for any path it cannot find. Rather than showing
+    // a 404, encode the requested path as a query parameter and hand it back to
+    // index.html, which restores the URL and lets React Router take over.
+    var path = window.location.pathname + window.location.search;
+    window.location.replace('/?p=' + encodeURIComponent(path) + window.location.hash);
+  </script>
+  <meta name="robots" content="noindex" />
+</head>
+<body>
+  <p>Redirecting… <a href="/">Go to the home page</a>.</p>
+</body>
+</html>
