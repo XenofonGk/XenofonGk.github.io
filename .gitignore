@@ -1,11 +1,10 @@
 node_modules/
 dist/
+dist-ssr/
 .DS_Store
 *.local
 *.log
 
-# local editor/tooling config
+# local editor config
 .vscode/
 .idea/
-.claude/
-CLAUDE.md

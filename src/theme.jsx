@@ -30,9 +30,12 @@ export function ThemeProvider({ children }) {
   }, [mode])
 
   // Resolve what is actually showing, so the toggle can label the *next* state.
+  // Guarded because this runs during render, and prerendering executes the tree
+  // in Node where matchMedia does not exist. Light is the documented default.
   const resolved =
     mode === 'system'
-      ? window.matchMedia('(prefers-color-scheme: dark)').matches
+      ? typeof window !== 'undefined' &&
+        window.matchMedia('(prefers-color-scheme: dark)').matches
         ? 'dark'
         : 'light'
       : mode

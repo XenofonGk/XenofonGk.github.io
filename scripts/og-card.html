@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<!--
+  Source for public/og.png — the 1200x630 card link unfurlers show.
+  Regenerate with: npm run build:og   (needs Google Chrome installed)
+  Kept as HTML rather than a binary-only asset so the card can be edited.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1200px; height: 630px; }
+  body {
+    background: #f1eee7;
+    color: #14110d;
+    font-family: 'Archivo', system-ui, sans-serif;
+    padding: 62px 68px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+  }
+  /* Drafting grid, same language as the site. */
+  .grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(20,17,13,.055) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(20,17,13,.055) 1px, transparent 1px);
+    background-size: 46px 46px;
+  }
+  .row { position: relative; display: flex; align-items: center; gap: 18px; }
+  .mono {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 17px; letter-spacing: .18em; text-transform: uppercase;
+    color: #7d7568;
+  }
+  .mono .n { color: #e63f00; font-weight: 600; }
+  .line { flex: 1; height: 1px; background: #c6bfb1; position: relative; }
+  .line::before, .line::after {
+    content: ''; position: absolute; top: -4px; width: 1px; height: 9px; background: #c6bfb1;
+  }
+  .line::before { left: 0; } .line::after { right: 0; }
+
+  /* Sized so the three explicit line breaks are the only breaks — at larger
+     sizes the headline re-wraps and pushes the footer off the 630px canvas. */
+  h1 {
+    position: relative;
+    font-size: 74px; font-weight: 900; line-height: .92;
+    letter-spacing: -.03em; text-transform: uppercase;
+    font-stretch: 105%;
+    white-space: nowrap;
+  }
+  h1 em { font-style: normal; color: #e63f00; }
+  .sub {
+    position: relative;
+    font-size: 23px; color: #4a443c; max-width: 52ch; margin-top: 22px; line-height: 1.4;
+  }
+  .foot { position: relative; display: flex; justify-content: space-between; align-items: flex-end; }
+  .tags { display: flex; gap: 10px; }
+  .tag {
+    border: 1px solid #c6bfb1; padding: 8px 14px;
+    font-family: 'IBM Plex Mono', monospace; font-size: 14px;
+    letter-spacing: .1em; text-transform: uppercase; color: #4a443c;
+  }
+  .url {
+    font-family: 'IBM Plex Mono', monospace; font-size: 19px;
+    letter-spacing: .08em; font-weight: 600;
+    border-bottom: 3px solid #e63f00; padding-bottom: 3px;
+  }
+</style>
+</head>
+<body>
+  <div class="grid"></div>
+
+  <div class="row mono">
+    <span class="n">§00</span>
+    <span>Xenofon Gkioka</span>
+    <span class="line"></span>
+    <span>Toronto → Copenhagen</span>
+  </div>
+
+  <div>
+    <h1>I build software<br />the way I used to<br />build <em>houses</em></h1>
+    <p class="sub">Full-stack developer — C#/.NET, React, TypeScript. Software Engineer Intern at Mercell.</p>
+  </div>
+
+  <div class="foot">
+    <div class="tags">
+      <span class="tag">C → WebAssembly</span>
+      <span class="tag">ASP.NET Core</span>
+      <span class="tag">React</span>
+    </div>
+    <span class="url">xenofongk.github.io</span>
+  </div>
+</body>
+</html>
