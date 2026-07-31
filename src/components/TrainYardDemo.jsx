@@ -1,25 +1,17 @@
 import { useEffect, useRef, useState, useCallback } from 'react'
+import { useI18n } from '../i18n/index.jsx'
 
-const CAR_TYPES = [
-  { value: 0, label: 'Engine' },
-  { value: 1, label: 'Food' },
-  { value: 2, label: 'Wood' },
-  { value: 3, label: 'Oil' },
-]
-
-const RULES = [
-  'Engines must all sit at the front of the train.',
-  'Total weight cannot exceed 20,000.',
-  'Freight weight cannot exceed pull capacity (5,000 per engine).',
-  'Wood and oil cars cannot be adjacent.',
-  'The first freight car cannot be oil.',
-]
-
+/* Type ids match the TYPE_* constants in train_yard.h. */
+const TYPE_KEYS = ['engine', 'food', 'wood', 'oil']
 const MAX_TOTAL_WEIGHT = 20000
+
+const fill = (template, values) =>
+  Object.entries(values).reduce((s, [k, v]) => s.replaceAll(`{${k}}`, v), template)
 
 export default function TrainYardDemo() {
   const api = useRef(null)
   const train = useRef(null)
+  const { t } = useI18n()
   const [ready, setReady] = useState(false)
   const [failed, setFailed] = useState(false)
   const [type, setType] = useState(0)
@@ -30,18 +22,18 @@ export default function TrainYardDemo() {
   // Reads every value back out of the C struct — nothing is tracked in React.
   const sync = useCallback(() => {
     const a = api.current
-    const t = train.current
+    const tr = train.current
     const cars = []
-    for (let i = 0; i < a.carCount(t); i += 1) {
-      cars.push({ type: a.carType(t, i), weight: a.carWeight(t, i) })
+    for (let i = 0; i < a.carCount(tr); i += 1) {
+      cars.push({ type: a.carType(tr, i), weight: a.carWeight(tr, i) })
     }
     setState({
       cars,
-      carCount: a.carCount(t),
-      numEngines: a.numEngines(t),
-      totalWeight: a.totalWeight(t),
-      capacity: a.pullCapacity(t),
-      safe: a.isSafe(t) === 1,
+      carCount: a.carCount(tr),
+      numEngines: a.numEngines(tr),
+      totalWeight: a.totalWeight(tr),
+      capacity: a.pullCapacity(tr),
+      safe: a.isSafe(tr) === 1,
     })
   }, [])
 
@@ -84,47 +76,35 @@ export default function TrainYardDemo() {
     }
   }, [sync])
 
+  const typeLabel = (i) => t(`demo.types.${TYPE_KEYS[i]}`)
+
   const handleAdd = (e) => {
     e.preventDefault()
-    const label = CAR_TYPES.find((c) => c.value === type).label
     const rc = api.current.addCar(train.current, type, Number(weight))
     setMessage(
-      rc === 0
-        ? `${label} car weighing ${weight} added.`
-        : `${label} car weighing ${weight} rejected — it would break one of the rules below.`,
+      fill(t(rc === 0 ? 'demo.added' : 'demo.rejected'), {
+        type: typeLabel(type),
+        weight,
+      }),
     )
     sync()
   }
 
   const handleRemove = (index) => {
     const rc = api.current.removeCar(train.current, index)
-    setMessage(
-      rc === 0
-        ? `Car ${index} removed.`
-        : `Car ${index} cannot be removed — the remaining train would be invalid.`,
-    )
+    setMessage(fill(t(rc === 0 ? 'demo.removed' : 'demo.removeRejected'), { i: index }))
     sync()
   }
 
   const handleReset = () => {
     api.current.destroy(train.current)
     train.current = api.current.create()
-    setMessage('Train reset.')
+    setMessage(t('demo.resetDone'))
     sync()
   }
 
-  if (failed) {
-    return (
-      <p className="demo-note">
-        The interactive demo could not load in this browser. The source and test suite are
-        linked above.
-      </p>
-    )
-  }
-
-  if (!ready || !state) {
-    return <p className="demo-note">Loading the compiled validator…</p>
-  }
+  if (failed) return <p className="demo-note">{t('demo.failed')}</p>
+  if (!ready || !state) return <p className="demo-note">{t('demo.loading')}</p>
 
   const freight = state.cars
     .filter((c) => c.type !== 0)
@@ -134,19 +114,19 @@ export default function TrainYardDemo() {
     <div className="demo">
       <form className="demo-controls" onSubmit={handleAdd}>
         <div className="demo-field">
-          <label htmlFor="car-type">Car type</label>
+          <label htmlFor="car-type">{t('demo.carType')}</label>
           <select
             id="car-type"
             value={type}
             onChange={(e) => setType(Number(e.target.value))}
           >
-            {CAR_TYPES.map((c) => (
-              <option key={c.value} value={c.value}>{c.label}</option>
+            {TYPE_KEYS.map((k, i) => (
+              <option key={k} value={i}>{t(`demo.types.${k}`)}</option>
             ))}
           </select>
         </div>
         <div className="demo-field">
-          <label htmlFor="car-weight">Weight</label>
+          <label htmlFor="car-weight">{t('demo.weight')}</label>
           <input
             id="car-weight"
             type="number"
@@ -156,32 +136,36 @@ export default function TrainYardDemo() {
             onChange={(e) => setWeight(e.target.value)}
           />
         </div>
-        <button className="btn solid" type="submit">Add car</button>
-        <button className="btn" type="button" onClick={handleReset}>Reset</button>
+        <button className="btn solid" type="submit">{t('demo.addCar')}</button>
+        <button className="btn" type="button" onClick={handleReset}>{t('demo.reset')}</button>
       </form>
 
       <p className="demo-status" role="status" aria-live="polite">{message}</p>
 
       <div className="demo-readout">
         <div className="demo-stat">
-          <span className="k">Cars</span>
+          <span className="k">{t('demo.cars')}</span>
           <span className="v">{state.carCount}</span>
         </div>
         <div className="demo-stat">
-          <span className="k">Engines</span>
+          <span className="k">{t('demo.engines')}</span>
           <span className="v">{state.numEngines}</span>
         </div>
         <div className="demo-stat">
-          <span className="k">Total weight</span>
-          <span className="v">{state.totalWeight.toLocaleString()} / {MAX_TOTAL_WEIGHT.toLocaleString()}</span>
+          <span className="k">{t('demo.totalWeight')}</span>
+          <span className="v">
+            {state.totalWeight.toLocaleString()} / {MAX_TOTAL_WEIGHT.toLocaleString()}
+          </span>
         </div>
         <div className="demo-stat">
-          <span className="k">Freight / capacity</span>
-          <span className="v">{freight.toLocaleString()} / {state.capacity.toLocaleString()}</span>
+          <span className="k">{t('demo.freightCapacity')}</span>
+          <span className="v">
+            {freight.toLocaleString()} / {state.capacity.toLocaleString()}
+          </span>
         </div>
         <div className={`demo-stat verdict ${state.safe ? 'is-safe' : 'is-unsafe'}`}>
-          <span className="k">Status</span>
-          <span className="v">{state.safe ? 'SAFE' : 'UNSAFE'}</span>
+          <span className="k">{t('demo.status')}</span>
+          <span className="v">{state.safe ? t('demo.safe') : t('demo.unsafe')}</span>
         </div>
       </div>
 
@@ -190,14 +174,18 @@ export default function TrainYardDemo() {
           {state.cars.map((car, i) => (
             <li key={i} className={car.type === 0 ? 'is-engine' : ''}>
               <span className="idx">{i}</span>
-              <span className="ct">{CAR_TYPES[car.type].label}</span>
+              <span className="ct">{typeLabel(car.type)}</span>
               <span className="cwt">{car.weight.toLocaleString()}</span>
               <button
                 type="button"
                 onClick={() => handleRemove(i)}
-                aria-label={`Remove car ${i}, ${CAR_TYPES[car.type].label}, weight ${car.weight}`}
+                aria-label={fill(t('demo.removeCar'), {
+                  i,
+                  type: typeLabel(car.type),
+                  weight: car.weight,
+                })}
               >
-                Remove
+                {t('demo.remove')}
               </button>
             </li>
           ))}
@@ -205,9 +193,9 @@ export default function TrainYardDemo() {
       )}
 
       <div className="demo-rules">
-        <h3>Rules enforced by the C validator</h3>
+        <h3>{t('demo.rulesTitle')}</h3>
         <ul>
-          {RULES.map((r) => <li key={r}>{r}</li>)}
+          {t('demo.rules').map((r) => <li key={r}>{r}</li>)}
         </ul>
       </div>
     </div>

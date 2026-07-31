@@ -1,21 +1,22 @@
 import { Link } from 'react-router-dom'
+import { useI18n } from '../i18n/index.jsx'
 
 export default function NotFound() {
+  const { t } = useI18n()
+
   return (
     <section className="section">
       <div className="wrap">
         <p className="mono callout">
           <span className="n">404</span>
-          <span>Sheet not found</span>
+          <span>{t('notFound.label')}</span>
           <span className="line" aria-hidden="true"></span>
         </p>
-        <h1 className="display">Not on any drawing</h1>
-        <p className="lede" style={{ marginTop: '20px' }}>
-          That page doesn&rsquo;t exist. It may have been renamed, or the link may be wrong.
-        </p>
+        <h1 className="display">{t('notFound.title')}</h1>
+        <p className="lede" style={{ marginTop: '20px' }}>{t('notFound.body')}</p>
         <div className="cta-row" style={{ marginTop: '28px' }}>
-          <Link className="btn solid" to="/">Back to start</Link>
-          <Link className="btn" to="/projects">See the projects</Link>
+          <Link className="btn solid" to="/">{t('notFound.home')}</Link>
+          <Link className="btn" to="/projects">{t('notFound.projects')}</Link>
         </div>
       </div>
     </section>

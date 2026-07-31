@@ -248,6 +248,172 @@ h4 {
   border-color: var(--signal);
 }
 
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.nav-tools {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border-left: 1px solid var(--rule);
+  padding-left: 12px;
+}
+@media (max-width: 620px) {
+  .nav .wrap {
+    height: auto;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    flex-wrap: wrap;
+  }
+  .nav-right {
+    gap: 8px;
+  }
+  .nav a:not(.mark) {
+    padding: 7px 8px;
+  }
+}
+
+.icon-btn {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  background: none;
+  border: 1px solid transparent;
+  color: var(--ink-2);
+  padding: 7px 10px;
+  cursor: pointer;
+  line-height: 1;
+}
+.icon-btn:hover {
+  color: var(--ink);
+  border-color: var(--rule);
+}
+
+/* ---------- language menu ---------- */
+
+.lang {
+  position: relative;
+}
+.lang-trigger {
+  min-width: 46px;
+}
+.lang-menu {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 8px);
+  z-index: 50;
+  list-style: none;
+  background: var(--paper);
+  border: 1px solid var(--ink);
+  min-width: 208px;
+  box-shadow: 8px 8px 0 rgba(20, 17, 13, 0.14);
+}
+.lang-menu button {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--rule);
+  color: var(--ink);
+  padding: 11px 14px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 14px;
+}
+.lang-menu button:hover {
+  background: var(--paper-2);
+}
+.lang-menu button.is-current {
+  color: var(--signal);
+  font-weight: 600;
+}
+.lang-menu .native {
+  flex: 1;
+}
+.lang-menu .latin {
+  color: var(--ink-3);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.lang-menu .unverified {
+  color: var(--ink-3);
+}
+.lang-note {
+  padding: 10px 14px;
+  color: var(--ink-3);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1.5;
+}
+
+.translation-note {
+  border: 1px solid var(--rule);
+  border-top: none;
+  padding: 14px 18px;
+  color: var(--ink-3);
+  font-size: 13px;
+  line-height: 1.55;
+  max-width: 80ch;
+}
+
+/* ---------- motion ---------- */
+
+/* Route entry: content lifts in once, replayed on navigation. */
+.route {
+  opacity: 0;
+  transform: translateY(8px);
+}
+.route.is-entered {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.42s ease, transform 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Scroll reveal. Scoped to .js — set by an inline script in index.html — so
+   that if the bundle fails to run, nothing is left invisible. */
+.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.55s ease, transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.js [data-reveal].is-revealed {
+  opacity: 1;
+  transform: none;
+}
+
+/* Dimension lines draw themselves out from the left as their callout reveals. */
+.callout .line {
+  transform-origin: left center;
+  transform: scaleX(0);
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.12s;
+}
+[data-reveal].is-revealed .line,
+.callout.is-revealed .line {
+  transform: scaleX(1);
+}
+
+/* Project rows nudge toward the reader on hover. */
+.proj-row {
+  transition: background 0.18s ease, padding-left 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.proj-row:hover {
+  padding-left: 14px;
+}
+.proj-row .go {
+  transition: color 0.18s ease, transform 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.proj-row:hover .go {
+  transform: translateX(5px);
+}
+
 /* ---------- footer: the drawing's title block ---------- */
 
 .title-block {
@@ -296,6 +462,21 @@ h4 {
 
 .hero {
   padding: clamp(52px, 9vw, 104px) 0 clamp(40px, 6vw, 72px);
+  position: relative;
+  isolation: isolate;
+}
+/* The pointer-reactive drafting grid. Sits behind the hero content and never
+   intercepts clicks. */
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+}
+.hero-inner {
+  position: relative;
 }
 .hero .display {
   margin-bottom: 30px;
@@ -380,6 +561,7 @@ h4 {
 .section {
   padding: clamp(52px, 7vw, 90px) 0 0;
 }
+.section > .wrap > h1,
 .section > .wrap > h2 {
   font-size: clamp(30px, 4.6vw, 52px);
   margin-bottom: 22px;
@@ -426,6 +608,7 @@ h4 {
   font-size: 12px;
   font-weight: 600;
 }
+.proj-row h2,
 .proj-row h3 {
   font-size: clamp(22px, 3.1vw, 32px);
   text-transform: uppercase;
@@ -941,5 +1124,19 @@ input:focus-visible {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+
+  /* Motion is decoration here, never the mechanism — everything that animates
+     in must be fully visible and in position without it. */
+  .js [data-reveal],
+  .route {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .callout .line {
+    transform: scaleX(1) !important;
+  }
+  .proj-row:hover {
+    padding-left: 4px;
   }
 }

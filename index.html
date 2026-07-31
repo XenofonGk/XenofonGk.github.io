@@ -11,6 +11,20 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <script>
+    // Marks that scripting is available. Scroll-reveal styles are scoped to
+    // this class so a failed bundle leaves the content visible rather than
+    // stuck at opacity 0.
+    document.documentElement.classList.add('js');
+
+    // Restore the pinned theme before first paint to avoid a flash of the
+    // wrong scheme.
+    (function () {
+      var t = localStorage.getItem('xg-theme');
+      if (t === 'light' || t === 'dark') {
+        document.documentElement.setAttribute('data-theme', t);
+      }
+    })();
+
     // GitHub Pages has no server-side rewrite, so a direct request to /projects
     // 404s. 404.html encodes the requested path into a query string and bounces
     // here; this restores the real URL before React Router mounts.

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import TrainYardDemo from './TrainYardDemo.jsx'
+import { useI18n } from '../i18n/index.jsx'
 
 const FOCUSABLE =
   'a[href], button:not([disabled]), select, input, textarea, [tabindex]:not([tabindex="-1"])'
@@ -8,6 +9,7 @@ const FOCUSABLE =
 export default function ProjectModal({ project, prev, next, onClose }) {
   const panel = useRef(null)
   const returnFocusTo = useRef(null)
+  const { t } = useI18n()
 
   // Remember what had focus so it can be restored on close.
   useEffect(() => {
@@ -61,6 +63,8 @@ export default function ProjectModal({ project, prev, next, onClose }) {
     [onClose],
   )
 
+  const body = t(`projects.items.${project.id}.body`)
+
   return (
     <div className="modal-backdrop" onMouseDown={(e) => e.target === e.currentTarget && onClose()}>
       <div
@@ -73,31 +77,31 @@ export default function ProjectModal({ project, prev, next, onClose }) {
       >
         <div className="modal-bar">
           <span className="mono">
-            <span className="n">{project.year}</span> · {project.role}
+            <span className="n">{project.year}</span> · {t(`projects.items.${project.id}.role`)}
           </span>
           <button type="button" className="modal-close" onClick={onClose} data-autofocus>
-            Close ✕
+            {t('projects.close')} ✕
           </button>
         </div>
 
         <div className="modal-body">
-          <h2 id="modal-title">{project.title}</h2>
-          <p className="lede">{project.summary}</p>
+          <h2 id="modal-title">{t(`projects.items.${project.id}.title`)}</h2>
+          <p className="lede">{t(`projects.items.${project.id}.summary`)}</p>
 
           <div className="spec-table">
             <div className="cell">
-              <span className="k">Stack</span>
+              <span className="k">{t('projects.stack')}</span>
               <span className="v">{project.stack.join(' · ')}</span>
             </div>
             <div className="cell">
-              <span className="k">Role</span>
-              <span className="v">{project.role}</span>
+              <span className="k">{t('projects.role')}</span>
+              <span className="v">{t(`projects.items.${project.id}.role`)}</span>
             </div>
             <div className="cell">
-              <span className="k">Source</span>
+              <span className="k">{t('projects.source')}</span>
               <span className="v">
                 <a href={project.repo} target="_blank" rel="noopener noreferrer">
-                  View repository ↗
+                  {t('projects.repo')} ↗
                 </a>
               </span>
             </div>
@@ -107,7 +111,7 @@ export default function ProjectModal({ project, prev, next, onClose }) {
             <div className="modal-demo">
               <p className="mono callout">
                 <span className="n">§ Live</span>
-                <span>Compiled from C to WebAssembly</span>
+                <span>{t('projects.liveNote')}</span>
                 <span className="line" aria-hidden="true"></span>
               </p>
               <TrainYardDemo />
@@ -115,23 +119,21 @@ export default function ProjectModal({ project, prev, next, onClose }) {
           )}
 
           <div className="prose modal-prose">
-            {project.body.map((para) => (
-              <p key={para.slice(0, 24)}>{para}</p>
-            ))}
+            {body.map((para) => <p key={para.slice(0, 24)}>{para}</p>)}
           </div>
         </div>
 
         <div className="modal-foot">
           {prev ? (
             <Link className="btn" to={`/projects/${prev.slug}`}>
-              ← {prev.title}
+              ← {t(`projects.items.${prev.id}.title`)}
             </Link>
           ) : (
             <span />
           )}
           {next ? (
             <Link className="btn solid" to={`/projects/${next.slug}`}>
-              {next.title} →
+              {t(`projects.items.${next.id}.title`)} →
             </Link>
           ) : (
             <span />

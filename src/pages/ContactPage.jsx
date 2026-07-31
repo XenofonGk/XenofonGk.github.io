@@ -1,30 +1,30 @@
 import { profile } from '../data/profile.js'
-
-const channels = [
-  { k: 'Email', v: profile.email, href: `mailto:${profile.email}` },
-  { k: 'LinkedIn', v: 'linkedin.com/in/xenofongkioka', href: profile.linkedin },
-  { k: 'GitHub', v: 'github.com/XenofonGk', href: profile.github },
-]
+import { useI18n } from '../i18n/index.jsx'
 
 export default function ContactPage() {
+  const { t } = useI18n()
+
+  const channels = [
+    { k: t('contact.email'), v: profile.email, href: `mailto:${profile.email}` },
+    { k: t('contact.linkedin'), v: profile.linkedinLabel, href: profile.linkedin },
+    { k: t('contact.github'), v: profile.githubLabel, href: profile.github },
+  ]
+
   return (
     <section className="section">
       <div className="wrap">
-        <p className="mono callout">
+        <p className="mono callout" data-reveal>
           <span className="n">§04</span>
-          <span>Contact</span>
+          <span>{t('contact.label')}</span>
           <span className="line" aria-hidden="true"></span>
-          <span>Sign-off</span>
+          <span>{t('contact.note')}</span>
         </p>
-        <h2>Building something in Copenhagen or Toronto?</h2>
-        <div className="prose">
-          <p>
-            I&rsquo;m open to graduate and junior engineering roles, and happy to talk about
-            front-end work, .NET, or anything close to the metal.
-          </p>
+        <h1 data-reveal>{t('contact.title')}</h1>
+        <div className="prose" data-reveal>
+          <p>{t('contact.body')}</p>
         </div>
 
-        <div className="contact-links">
+        <div className="contact-links" data-reveal>
           {channels.map((c) => (
             <a
               key={c.k}

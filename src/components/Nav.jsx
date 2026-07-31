@@ -1,30 +1,41 @@
 import { NavLink, Link } from 'react-router-dom'
-
-const links = [
-  { to: '/projects', label: 'Projects' },
-  { to: '/about', label: 'About' },
-  { to: '/contact', label: 'Contact' },
-]
+import { useI18n } from '../i18n/index.jsx'
+import ThemeToggle from './ThemeToggle.jsx'
+import LanguageSwitcher from './LanguageSwitcher.jsx'
 
 export default function Nav() {
+  const { t } = useI18n()
+
+  const links = [
+    { to: '/projects', label: t('nav.projects') },
+    { to: '/about', label: t('nav.about') },
+    { to: '/contact', label: t('nav.contact') },
+  ]
+
   return (
-    <nav className="nav" aria-label="Primary">
+    <nav className="nav" aria-label={t('nav.primary')}>
       <div className="wrap">
         <Link className="mark" to="/">
           XG<span className="dash">—</span>02
         </Link>
-        <ul>
-          {links.map((l) => (
-            <li key={l.to}>
-              <NavLink
-                to={l.to}
-                className={({ isActive }) => (isActive ? 'active' : undefined)}
-              >
-                {l.label}
-              </NavLink>
-            </li>
-          ))}
-        </ul>
+        <div className="nav-right">
+          <ul>
+            {links.map((l) => (
+              <li key={l.to}>
+                <NavLink
+                  to={l.to}
+                  className={({ isActive }) => (isActive ? 'active' : undefined)}
+                >
+                  {l.label}
+                </NavLink>
+              </li>
+            ))}
+          </ul>
+          <div className="nav-tools">
+            <LanguageSwitcher />
+            <ThemeToggle />
+          </div>
+        </div>
       </div>
     </nav>
   )
