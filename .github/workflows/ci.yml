@@ -8,6 +8,12 @@ on:
 
 # Everything verified by hand regresses eventually. These checks are the ones
 # that were previously "I ran it once and it was fine".
+
+# The token only ever needs to read the repository here. Left unset it inherits
+# the repository default, which can include write access this job has no use for.
+permissions:
+  contents: read
+
 jobs:
   verify:
     runs-on: ubuntu-latest
