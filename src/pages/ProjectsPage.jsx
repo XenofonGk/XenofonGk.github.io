@@ -1,4 +1,4 @@
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router'
 import { projects, alsoBuilt, findProject } from '../data/projects.js'
 import { useI18n } from '../i18n/index.jsx'
 import ProjectModal from '../components/ProjectModal.jsx'

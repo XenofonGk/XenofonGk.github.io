@@ -1,4 +1,4 @@
-import { Outlet, useLocation } from 'react-router-dom'
+import { Outlet, useLocation } from 'react-router'
 import { useEffect, useState } from 'react'
 import Nav from './components/Nav.jsx'
 import TitleBlock from './components/TitleBlock.jsx'

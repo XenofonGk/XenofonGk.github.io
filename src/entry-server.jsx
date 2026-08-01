@@ -3,7 +3,7 @@ import { renderToString } from 'react-dom/server'
 // `react-router` itself, and the `react-router-dom/server` subpath from v6 no
 // longer exists.
 import { StaticRouter } from 'react-router'
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route } from 'react-router'
 import App from './App.jsx'
 import Home from './pages/Home.jsx'
 import ProjectsPage from './pages/ProjectsPage.jsx'

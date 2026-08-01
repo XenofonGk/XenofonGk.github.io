@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router'
 import { useI18n } from '../i18n/index.jsx'
 import HeroGrid from '../components/HeroGrid.jsx'
 
