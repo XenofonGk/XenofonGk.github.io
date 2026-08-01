@@ -80,7 +80,7 @@ export default {
         body: [
           'A REST API over a todo model, built to get hands-on with the ASP.NET Core request pipeline and Entity Framework Core rather than to ship a product.',
           'The database schema is code-first: the model is defined in C#, and EF Core generates the migrations that build the PostgreSQL schema. Docker Compose brings the API and the database up together as one stack, so the whole thing runs from a single command on a clean machine.',
-          'Connection strings are supplied through environment variables and .NET user-secrets rather than committed to the repository.',
+          'Requests bind to DTOs rather than to the entity itself. Binding straight to the entity would let a caller post its own id and have EF Core accept it, so a request naming an existing row could overwrite one it was never meant to touch. Connection strings come from environment variables and .NET user-secrets rather than the repository.',
         ],
       },
       'inventory-crud': {

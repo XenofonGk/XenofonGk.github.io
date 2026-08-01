@@ -80,7 +80,7 @@ export default {
         body: [
           "Une API REST construite autour d'un modèle de tâches, réalisée pour me familiariser avec le pipeline de requêtes d'ASP.NET Core et Entity Framework Core, plus que pour livrer un produit.",
           "Le schéma de base de données est code-first : le modèle est défini en C#, et EF Core génère les migrations qui construisent le schéma PostgreSQL. Docker Compose démarre l'API et la base de données ensemble comme une seule stack, si bien que tout se lance avec une seule commande sur une machine vierge.",
-          "Les chaînes de connexion sont fournies via des variables d'environnement et les user-secrets .NET plutôt que d'être versionnées dans le dépôt.",
+          "Les requêtes sont liées à des DTOs plutôt qu'à l'entité elle-même. Un binding direct sur l'entité permettrait à un appelant de fournir son propre id et EF Core l'accepterait, si bien qu'une requête désignant une ligne existante pourrait écraser une entrée qu'elle n'était jamais censée toucher. Les chaînes de connexion sont fournies via des variables d'environnement et les user-secrets .NET plutôt que d'être versionnées dans le dépôt.",
         ],
       },
       'inventory-crud': {

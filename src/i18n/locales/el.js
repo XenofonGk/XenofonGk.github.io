@@ -80,7 +80,7 @@ export default {
         body: [
           'Ένα REST API πάνω σε ένα μοντέλο todo, φτιαγμένο για να αποκτήσω πρακτική εμπειρία με το request pipeline του ASP.NET Core και το Entity Framework Core, παρά για να παραδώσω ένα προϊόν.',
           'Το σχήμα της βάσης δεδομένων είναι code-first: το μοντέλο ορίζεται σε C#, και το EF Core δημιουργεί τα migrations που χτίζουν το σχήμα στην PostgreSQL. Το Docker Compose ανεβάζει το API και τη βάση μαζί ως ένα stack, οπότε όλο το σύστημα τρέχει με μία μόνο εντολή σε ένα καθαρό μηχάνημα.',
-          'Τα connection strings παρέχονται μέσω environment variables και .NET user-secrets, αντί να γίνονται commit στο repository.',
+          'Τα requests δένονται σε DTOs και όχι απευθείας στην ίδια την entity. Αν δένονταν κατευθείαν στην entity, ο caller θα μπορούσε να στείλει δικό του id και το EF Core θα το δεχόταν, οπότε ένα request που αναφέρει μια υπάρχουσα εγγραφή θα μπορούσε να αντικαταστήσει μια άλλη που δεν έπρεπε ποτέ να αγγίξει. Τα connection strings παρέχονται μέσω environment variables και .NET user-secrets, αντί να γίνονται commit στο repository.',
         ],
       },
       'inventory-crud': {

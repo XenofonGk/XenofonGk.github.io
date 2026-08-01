@@ -80,7 +80,7 @@ export default {
         body: [
           '围绕待办事项模型构建的 REST API，目的是亲手实践 ASP.NET Core 的请求管道和 Entity Framework Core，而不是为了交付一个产品。',
           '数据库架构采用 Code First 方式：模型用 C# 定义，再由 EF Core 生成迁移来构建 PostgreSQL 架构。Docker Compose 将 API 和数据库作为同一个技术栈一并启动，因此在一台全新的机器上只需一条命令即可运行整个项目。',
-          '连接字符串通过环境变量和 .NET user-secrets 提供，而不会提交到代码仓库中。',
+          '请求绑定的是 DTO，而不是直接绑定 entity 本身。如果直接绑定 entity，调用方就能提交自己指定的 id，EF Core 会照单接受，导致一个指向已有记录的请求可能覆盖一条本不该被它触及的记录。连接字符串通过环境变量和 .NET user-secrets 提供，而不会提交到代码仓库中。',
         ],
       },
       'inventory-crud': {
