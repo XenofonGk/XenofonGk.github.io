@@ -14,7 +14,7 @@
   /* ink */
   --ink: #14110d;
   --ink-2: #4a443c;
-  --ink-3: #7d7568;
+  --ink-3: #6f675a;
 
   /* structure */
   --rule: #c6bfb1;
@@ -22,7 +22,13 @@
 
   /* signal — used for large type, blocks and rules only, never small body text */
   --signal: #e63f00;
-  --signal-ink: #ffffff;
+  /* Small orange text needs 4.5:1; --signal only reaches 3.57 on paper,
+     which is fine for display type and blocks (3:1) but not for 11px mono. */
+  --signal-text: #bd3200;
+  /* Near-black on the orange fill, not white: white reaches only 4.14:1
+     against #e63f00 and fails small text. Black on safety orange is also
+     the honest construction palette. */
+  --signal-ink: #14110d;
 
   --measure: 1180px;
   --gutter: 32px;
@@ -41,6 +47,11 @@
     --rule: #3a342b;
     --rule-soft: rgba(242, 239, 232, 0.1);
     --signal: #ff5c1f;
+    /* Bright orange on near-black already clears 4.5:1 at small sizes, so the
+       display and small-text tokens are the same value in dark mode. This must
+       be redeclared here — without it small orange text inherits the light
+       theme's darker #bd3200 and becomes unreadable on the dark ground. */
+    --signal-text: #ff5c1f;
     --signal-ink: #14110d;
     color-scheme: dark;
   }
@@ -56,6 +67,7 @@
   --rule: #3a342b;
   --rule-soft: rgba(242, 239, 232, 0.1);
   --signal: #ff5c1f;
+  --signal-text: #ff5c1f;
   --signal-ink: #14110d;
   color-scheme: dark;
 }
@@ -66,11 +78,17 @@
   --paper-3: #dbd5c8;
   --ink: #14110d;
   --ink-2: #4a443c;
-  --ink-3: #7d7568;
+  --ink-3: #6f675a;
   --rule: #c6bfb1;
   --rule-soft: rgba(20, 17, 13, 0.09);
   --signal: #e63f00;
-  --signal-ink: #ffffff;
+  /* Small orange text needs 4.5:1; --signal only reaches 3.57 on paper,
+     which is fine for display type and blocks (3:1) but not for 11px mono. */
+  --signal-text: #bd3200;
+  /* Near-black on the orange fill, not white: white reaches only 4.14:1
+     against #e63f00 and fails small text. Black on safety orange is also
+     the honest construction palette. */
+  --signal-ink: #14110d;
   color-scheme: light;
 }
 
@@ -141,7 +159,7 @@ main {
   margin-bottom: 28px;
 }
 .callout .n {
-  color: var(--signal);
+  color: var(--signal-text);
   font-weight: 600;
 }
 .callout .line {
@@ -244,7 +262,7 @@ h4 {
   border-color: var(--rule);
 }
 .nav a.active {
-  color: var(--signal);
+  color: var(--signal-text);
   border-color: var(--signal);
 }
 
@@ -328,7 +346,7 @@ h4 {
   background: var(--paper-2);
 }
 .lang-menu button.is-current {
-  color: var(--signal);
+  color: var(--signal-text);
   font-weight: 600;
 }
 .lang-menu .native {
@@ -603,7 +621,7 @@ h4 {
   background: var(--paper-2);
 }
 .proj-row .idx {
-  color: var(--signal);
+  color: var(--signal-text);
   font-family: 'IBM Plex Mono', monospace;
   font-size: 12px;
   font-weight: 600;
@@ -643,7 +661,7 @@ h4 {
   }
 }
 .proj-row:hover .go {
-  color: var(--signal);
+  color: var(--signal-text);
 }
 
 .badge {
@@ -708,7 +726,7 @@ h4 {
   margin-bottom: 22px;
 }
 .back-link:hover {
-  color: var(--signal);
+  color: var(--signal-text);
 }
 
 /* ---------- experience ---------- */
@@ -740,7 +758,7 @@ h4 {
   margin-bottom: 4px;
 }
 .job .co {
-  color: var(--signal);
+  color: var(--signal-text);
 }
 .job ul {
   margin-top: 12px;
@@ -913,7 +931,7 @@ h4 {
   color: #0f7a3d;
 }
 .demo-stat.verdict.is-unsafe .v {
-  color: var(--signal);
+  color: var(--signal-text);
 }
 @media (prefers-color-scheme: dark) {
   .demo-stat.verdict.is-safe .v {
@@ -967,7 +985,7 @@ h4 {
 }
 .demo-train button:hover {
   border-color: var(--signal);
-  color: var(--signal);
+  color: var(--signal-text);
 }
 .demo-rules h3 {
   color: var(--ink-3);
@@ -1030,7 +1048,7 @@ h4 {
   color: var(--ink-3);
 }
 .modal-bar .n {
-  color: var(--signal);
+  color: var(--signal-text);
   font-weight: 600;
 }
 .modal-close {

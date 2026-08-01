@@ -1,0 +1,48 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+# Everything verified by hand regresses eventually. These checks are the ones
+# that were previously "I ran it once and it was fine".
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      # All six locales must carry identical keys and array lengths. A missing
+      # key silently falls back to English at runtime, so drift is invisible in
+      # the browser — this is the only place it is loud.
+      - name: Locale parity
+        run: npm run check:locales
+
+      - name: Build
+        run: npm run build
+
+      # Prerendering must actually produce files. If it silently falls back to
+      # the SPA shell, routes 404 for crawlers and share as blank cards.
+      - name: Every route prerendered
+        run: |
+          for p in index projects about contact \
+                   projects/train-yard-manager projects/taskmanager-api \
+                   projects/inventory-crud projects/arenacore projects/portfolio; do
+            f="dist/${p}.html"; [ "$p" = index ] && f="dist/index.html"
+            [ -f "$f" ] || { echo "missing prerendered $f"; exit 1; }
+          done
+          grep -q 'Train Yard Management System' dist/projects/index.html \
+            || { echo 'prerendered /projects has no project copy'; exit 1; }
+          echo "all routes prerendered with content"
+
+      - name: Accessibility (axe-core, zero violations)
+        run: node scripts/check-a11y.mjs
