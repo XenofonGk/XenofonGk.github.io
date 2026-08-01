@@ -21,6 +21,11 @@ jobs:
 
       - run: npm ci
 
+      # npm may skip lifecycle scripts, which leaves puppeteer without a
+      # browser. Install it explicitly rather than relying on postinstall.
+      - name: Install Chrome for Puppeteer
+        run: npx puppeteer browsers install chrome
+
       # All six locales must carry identical keys and array lengths. A missing
       # key silently falls back to English at runtime, so drift is invisible in
       # the browser — this is the only place it is loud.

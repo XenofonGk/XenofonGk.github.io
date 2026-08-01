@@ -4,57 +4,73 @@
  * The bar here is zero violations, not a score. Scores let regressions hide:
  * "97%" reads fine in a summary while a keyboard trap sits behind it.
  *
- * Checks every route, and opens a project modal — dialogs are where this
- * breaks in practice, because focus management and heading order are easy to
- * get wrong and invisible until someone tries to use a keyboard.
+ * Serves dist/ from an in-process static server rather than shelling out to
+ * `vite preview`. That removes a subprocess whose failures are easy to swallow,
+ * and lets path resolution mirror GitHub Pages exactly — /about resolves to
+ * about.html or about/index.html, which is what production actually does.
+ *
+ * Every route is audited in BOTH colour schemes. Three real contrast bugs once
+ * shipped past manual testing because that testing only ever happened in dark
+ * mode, and two of them were clean in the other scheme.
  */
 
-import { spawn } from 'node:child_process'
-import { setTimeout as sleep } from 'node:timers/promises'
+import { createServer } from 'node:http'
+import { readFile } from 'node:fs/promises'
+import { join, extname, normalize } from 'node:path'
 import { createRequire } from 'node:module'
 
 const require = createRequire(import.meta.url)
-const PORT = 4178
-const BASE = `http://127.0.0.1:${PORT}`
+const DIST = new URL('../dist/', import.meta.url).pathname
 
 const ROUTES = ['/', '/projects', '/about', '/contact', '/projects/train-yard-manager']
+const SCHEMES = ['light', 'dark']
 
-const server = spawn(
-  'npx',
-  ['vite', 'preview', '--port', String(PORT), '--strictPort'],
-  { stdio: 'ignore' },
-)
-
-const shutdown = () => {
-  try {
-    server.kill('SIGTERM')
-  } catch {
-    /* already gone */
-  }
+const TYPES = {
+  '.html': 'text/html; charset=utf-8',
+  '.js': 'text/javascript; charset=utf-8',
+  '.css': 'text/css; charset=utf-8',
+  '.json': 'application/json',
+  '.wasm': 'application/wasm',
+  '.svg': 'image/svg+xml',
+  '.png': 'image/png',
+  '.xml': 'application/xml',
+  '.txt': 'text/plain; charset=utf-8',
 }
-process.on('exit', shutdown)
-process.on('SIGINT', () => {
-  shutdown()
-  process.exit(130)
+
+// Mirrors GitHub Pages: exact file, then <path>.html, then <path>/index.html.
+async function resolve(pathname) {
+  const clean = normalize(decodeURIComponent(pathname)).replace(/^(\.\.[/\\])+/, '')
+  const candidates = extname(clean)
+    ? [clean]
+    : [`${clean}.html`, join(clean, 'index.html')]
+
+  for (const candidate of candidates) {
+    try {
+      const body = await readFile(join(DIST, candidate))
+      return { body, type: TYPES[extname(candidate)] || 'application/octet-stream' }
+    } catch {
+      /* try the next shape */
+    }
+  }
+  return null
+}
+
+const server = createServer(async (req, res) => {
+  const hit = await resolve(new URL(req.url, 'http://localhost').pathname)
+  if (!hit) {
+    res.writeHead(404, { 'content-type': 'text/plain' })
+    res.end('not found')
+    return
+  }
+  res.writeHead(200, { 'content-type': hit.type })
+  res.end(hit.body)
 })
 
-async function waitForServer(attempts = 40) {
-  for (let i = 0; i < attempts; i += 1) {
-    try {
-      const res = await fetch(BASE + '/')
-      if (res.ok) return
-    } catch {
-      /* not up yet */
-    }
-    await sleep(500)
-  }
-  throw new Error(`preview server did not start on ${BASE}`)
-}
+await new Promise((ok) => server.listen(0, '127.0.0.1', ok))
+const BASE = `http://127.0.0.1:${server.address().port}`
 
 const puppeteer = (await import('puppeteer')).default
 const axePath = require.resolve('axe-core/axe.min.js')
-
-await waitForServer()
 
 const browser = await puppeteer.launch({
   args: ['--no-sandbox', '--disable-dev-shm-usage'],
@@ -62,50 +78,44 @@ const browser = await puppeteer.launch({
 
 let total = 0
 
-// Both schemes, always. A contrast failure once shipped in light mode while
-// dark mode was clean, because the dark token block had not redeclared the
-// small-text colour — auditing a single scheme would not have caught it.
-const SCHEMES = ['light', 'dark']
-
 try {
   for (const scheme of SCHEMES) {
-  for (const route of ROUTES) {
-    const page = await browser.newPage()
-    await page.setViewport({ width: 1280, height: 900 })
-    await page.emulateMediaFeatures([
-      { name: 'prefers-color-scheme', value: scheme },
-    ])
-    await page.goto(BASE + route, { waitUntil: 'networkidle0' })
+    for (const route of ROUTES) {
+      const page = await browser.newPage()
+      await page.setViewport({ width: 1280, height: 900 })
+      await page.emulateMediaFeatures([{ name: 'prefers-color-scheme', value: scheme }])
+      await page.goto(BASE + route, { waitUntil: 'networkidle0' })
 
-    // The train-yard route renders a modal containing the WebAssembly demo;
-    // give it a moment to instantiate so the audit covers real controls rather
-    // than the loading placeholder.
-    if (route.includes('train-yard')) {
-      await page.waitForSelector('.demo-controls', { timeout: 15000 }).catch(() => {})
-    }
-
-    await page.addScriptTag({ path: axePath })
-    const result = await page.evaluate(async () => window.axe.run(document))
-
-    if (result.violations.length > 0) {
-      total += result.violations.length
-      console.error(`\n✗ ${scheme} ${route}`)
-      for (const v of result.violations) {
-        console.error(`  [${v.impact}] ${v.id} — ${v.help}`)
-        for (const node of v.nodes.slice(0, 4)) {
-          console.error(`      ${node.target.join(' ')}`)
-        }
+      // The train-yard route opens a modal holding the WebAssembly demo; wait
+      // for it so the audit covers real controls, not a loading placeholder.
+      if (route.includes('train-yard')) {
+        await page.waitForSelector('.demo-controls', { timeout: 15000 }).catch(() => {})
       }
-    } else {
-      console.log(`✓ ${scheme.padEnd(5)} ${route} — ${result.passes.length} checks passed`)
-    }
 
-    await page.close()
-  }
+      await page.addScriptTag({ path: axePath })
+      const result = await page.evaluate(async () => window.axe.run(document))
+
+      if (result.violations.length > 0) {
+        total += result.violations.length
+        console.error(`\n✗ ${scheme} ${route}`)
+        for (const v of result.violations) {
+          console.error(`  [${v.impact}] ${v.id} — ${v.help}`)
+          for (const node of v.nodes.slice(0, 4)) {
+            console.error(`      ${node.target.join(' ')}`)
+            const detail = node.any?.[0]?.message
+            if (detail) console.error(`        ${detail}`)
+          }
+        }
+      } else {
+        console.log(`✓ ${scheme.padEnd(5)} ${route} — ${result.passes.length} checks passed`)
+      }
+
+      await page.close()
+    }
   }
 } finally {
   await browser.close()
-  shutdown()
+  server.close()
 }
 
 if (total > 0) {
