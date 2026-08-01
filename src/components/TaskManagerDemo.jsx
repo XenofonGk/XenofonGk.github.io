@@ -58,7 +58,12 @@ export default function TaskManagerDemo() {
   const [lastCall, setLastCall] = useState(null)
   // idle | waking | ready | offline (a configured API failed) | unhosted (no
   // public instance exists, which is a deliberate choice rather than a fault)
-  const [phase, setPhase] = useState('idle')
+  //
+  // Seeded rather than set in an effect: whether an API is configured is known
+  // at module load, and effects do not run during prerendering. Deciding it
+  // here means the endpoint contract is in the served HTML, so crawlers and
+  // link previews see it and there is no flash of the wrong panel on hydration.
+  const [phase, setPhase] = useState(API ? 'idle' : 'unhosted')
   const wakeTimer = useRef(null)
 
   // Marks the request as "waking" only if it is actually slow, so a warm API
@@ -89,10 +94,7 @@ export default function TaskManagerDemo() {
   }, [withWakeHint])
 
   useEffect(() => {
-    if (!API) {
-      setPhase('unhosted')
-      return undefined
-    }
+    if (!API) return undefined
     refresh()
     return () => clearTimeout(wakeTimer.current)
   }, [refresh])
