@@ -436,6 +436,52 @@ h4 {
   transform: translateX(5px);
 }
 
+/* Scenario presets: the rules are only interesting once you see one refuse
+   something, so the demo offers the cases worth trying. */
+.scenarios {
+  border: 1px solid var(--rule);
+  padding: 14px 16px;
+  margin-bottom: 18px;
+}
+.scenarios-title {
+  color: var(--ink-3);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.scenario-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.scenario-row button {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  background: none;
+  border: 1px solid var(--rule);
+  color: var(--ink-2);
+  padding: 8px 12px;
+  cursor: pointer;
+}
+.scenario-row button:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+.scenario-row button.is-active {
+  border-color: var(--signal);
+  color: var(--signal-text);
+}
+/* The rule the validator just cited. Marked with a rule and a weight change,
+   not colour alone. */
+.demo-rules li.is-cited {
+  color: var(--ink);
+  font-weight: 600;
+  box-shadow: inset 3px 0 0 var(--signal);
+  padding-left: 10px;
+}
+
 /* ---------- arena demo ---------- */
 
 .arena {

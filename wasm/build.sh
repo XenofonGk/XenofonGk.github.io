@@ -36,7 +36,7 @@ emcc \
   -s ENVIRONMENT=web \
   -s ALLOW_MEMORY_GROWTH=1 \
   -s EXPORTED_RUNTIME_METHODS='["cwrap"]' \
-  -s EXPORTED_FUNCTIONS='["_ty_create","_ty_destroy","_ty_add_car","_ty_remove_car","_ty_is_safe","_ty_pull_capacity","_ty_car_count","_ty_num_engines","_ty_total_weight","_ty_car_type","_ty_car_weight","_ty_max_cars","_malloc","_free"]'
+  -s EXPORTED_FUNCTIONS='["_ty_create","_ty_destroy","_ty_add_car","_ty_remove_car","_ty_is_safe","_ty_pull_capacity","_ty_car_count","_ty_num_engines","_ty_total_weight","_ty_car_type","_ty_car_weight","_ty_max_cars","_ty_last_reject_reason","_malloc","_free"]'
 
 # --- ArenaCore ------------------------------------------------------------
 #

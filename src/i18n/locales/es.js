@@ -226,6 +226,47 @@ export default {
   },
 
   demo: {
+    intro: "Un tren solo puede salir del patio si cumple todas las reglas de acoplamiento y carga. Añada vagones y observe qué reglas los rechazan — y tenga en cuenta que quitar un vagón también se rechaza cuando el tren que quedaría no es seguro.",
+    tryThis: 'Pruebe uno de estos',
+    sentenceEnd: '.',
+    rejectedBecause: 'Vagón de tipo {type} con peso {weight} rechazado — {reason}',
+    removeRejectedBecause: 'El vagón {i} no se puede quitar — {reason}',
+    reasons: {
+      none: 'aceptado',
+      nullTrain: 'no hay tren',
+      trainFull: 'el tren ya está en su límite de 50 vagones',
+      badType: 'ese no es un tipo de vagón válido',
+      badWeight: 'un vagón debe pesar más que nada',
+      totalWeight: 'el tren superaría su límite de peso total de 20.000',
+      engineOrder: 'todas las locomotoras deben ir al frente, y ya hay carga acoplada',
+      oilFirstFreight: 'el primer vagón de carga detrás de las locomotoras no puede ser de petróleo',
+      woodOilAdjacent: 'pondría un vagón de madera junto a uno de petróleo',
+      pullCapacity: 'la carga pesaría más de lo que las locomotoras pueden remolcar',
+      badIndex: 'no hay ningún vagón en esa posición',
+      lastEngine: 'un tren debe conservar al menos una locomotora',
+    },
+    scenarios: {
+      oilFirst: {
+        label: 'Petróleo primero',
+        rejected: "Rechazado: {reason} Ponga primero un vagón de alimentos o de madera detrás de la locomotora; entonces el petróleo será admitido.",
+        accepted: 'Aceptado.',
+      },
+      buffer: {
+        label: 'Quitar el separador',
+        rejected: 'Este es el caso interesante. El tren es Locomotora, Madera, Alimentos, Petróleo — el vagón de alimentos mantiene separados a la madera y el petróleo. Quitarlo se rechaza: {reason} Las reglas son simétricas, así que lo que no se puede construir tampoco se puede desmontar.',
+        accepted: 'Aceptado.',
+      },
+      capacity: {
+        label: 'Sobrecargar locomotoras',
+        rejected: 'Rechazado: {reason} El peso total y la capacidad de tracción son límites separados — este tren está muy por debajo de 20.000, pero una locomotora solo puede remolcar 5.000.',
+        accepted: 'Aceptado.',
+      },
+      engineOrder: {
+        label: 'Locomotora al final',
+        rejected: 'Rechazado: {reason} Las locomotoras solo se pueden añadir mientras todo vagón por delante de ellas sea también una locomotora.',
+        accepted: 'Aceptado.',
+      },
+    },
     carType: 'Tipo de vagón',
     weight: 'Peso',
     addCar: 'Añadir vagón',

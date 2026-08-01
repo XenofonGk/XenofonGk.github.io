@@ -226,6 +226,47 @@ export default {
   },
 
   demo: {
+    intro: '只有满足每一条挂钩和装载规则,列车才能驶出编组场。添加车厢,看看哪些规则会拒绝它们——注意,如果移除某节车厢会让剩下的列车变得不安全,这个移除操作同样会被拒绝。',
+    tryThis: '试试这些',
+    sentenceEnd: '。',
+    rejectedBecause: '重 {weight} 的 {type} 车厢被拒绝——{reason}',
+    removeRejectedBecause: '无法移除第 {i} 节车厢——{reason}',
+    reasons: {
+      none: '已接受',
+      nullTrain: '没有列车',
+      trainFull: '列车已达到 50 节车厢的上限',
+      badType: '这不是有效的车厢类型',
+      badWeight: '车厢的重量必须大于零',
+      totalWeight: '列车将超过 20,000 的总重量上限',
+      engineOrder: '机车必须都在最前面,而货运车厢已经挂接',
+      oilFirstFreight: '机车之后的第一节货运车厢不能是油罐车厢',
+      woodOilAdjacent: '这会让木材车厢紧邻油罐车厢',
+      pullCapacity: '货运车厢的重量将超过机车的牵引能力',
+      badIndex: '该位置没有车厢',
+      lastEngine: '列车必须至少保留一节机车',
+    },
+    scenarios: {
+      oilFirst: {
+        label: '先挂油罐',
+        rejected: '已拒绝：{reason} 先在机车后面挂一节食品或木材车厢,油罐车厢才能被接受。',
+        accepted: '已接受。',
+      },
+      buffer: {
+        label: '移除隔离车厢',
+        rejected: '这是有趣的一例。列车编组为机车、木材、食品、油罐——食品车厢将木材和油罐隔开。移除它会被拒绝：{reason} 规则是对称的,不能搭建的组合也不能被拆解出来。',
+        accepted: '已接受。',
+      },
+      capacity: {
+        label: '让机车超载',
+        rejected: '已拒绝：{reason} 总重量和牵引能力是两个独立的限制——这列列车远低于 20,000 的总重量上限,但一节机车只能牵引 5,000。',
+        accepted: '已接受。',
+      },
+      engineOrder: {
+        label: '机车放在最后',
+        rejected: '已拒绝：{reason} 只有当机车前面的所有车厢也都是机车时,才能追加机车。',
+        accepted: '已接受。',
+      },
+    },
     carType: '车厢类型',
     weight: '重量',
     addCar: '添加车厢',

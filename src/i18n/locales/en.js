@@ -226,6 +226,47 @@ export default {
   },
 
   demo: {
+    intro: 'A train may only leave the yard if it satisfies every coupling and load rule. Add cars and watch which rules refuse them — and note that removing a car is refused too when the train it would leave behind is unsafe.',
+    tryThis: 'Try one of these',
+    sentenceEnd: '.',
+    rejectedBecause: '{type} car weighing {weight} rejected — {reason}',
+    removeRejectedBecause: 'Car {i} cannot be removed — {reason}',
+    reasons: {
+      none: 'accepted',
+      nullTrain: 'no train',
+      trainFull: 'the train is already at its 50-car limit',
+      badType: 'that is not a valid car type',
+      badWeight: 'a car must weigh more than nothing',
+      totalWeight: 'the train would exceed its 20,000 total weight limit',
+      engineOrder: 'engines must all sit at the front, and freight is already coupled',
+      oilFirstFreight: 'the first freight car behind the engines may not be oil',
+      woodOilAdjacent: 'it would put a wood car next to an oil car',
+      pullCapacity: 'the freight would weigh more than the engines can pull',
+      badIndex: 'there is no car at that position',
+      lastEngine: 'a train must keep at least one engine',
+    },
+    scenarios: {
+      oilFirst: {
+        label: 'Oil first',
+        rejected: 'Refused: {reason} Put a food or wood car behind the engine first, then the oil is allowed.',
+        accepted: 'Accepted.',
+      },
+      buffer: {
+        label: 'Remove the buffer',
+        rejected: 'This is the interesting one. The train is Engine, Wood, Food, Oil — the food car keeps the wood and oil apart. Removing it is refused: {reason} The rules are symmetric, so what cannot be built cannot be uncovered either.',
+        accepted: 'Accepted.',
+      },
+      capacity: {
+        label: 'Overload the engines',
+        rejected: 'Refused: {reason} Total weight and pull capacity are separate limits — this train is far under 20,000 but one engine can only pull 5,000.',
+        accepted: 'Accepted.',
+      },
+      engineOrder: {
+        label: 'Engine at the back',
+        rejected: 'Refused: {reason} Engines can only be appended while every car ahead of them is also an engine.',
+        accepted: 'Accepted.',
+      },
+    },
     carType: 'Car type',
     weight: 'Weight',
     addCar: 'Add car',

@@ -1,9 +1,52 @@
-import { useEffect, useRef, useState, useCallback } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useI18n } from '../i18n/index.jsx'
 
-/* Type ids match the TYPE_* constants in train_yard.h. */
+/*
+ * The train yard validator, compiled from C.
+ *
+ * Built around scenarios rather than a bare form. The rules are a small
+ * constraint system and the interesting part is not that a car can be added —
+ * it is that removing a car is refused when the train it would leave behind is
+ * unsafe. An add-only form never shows that.
+ *
+ * Every verdict, and the reason for it, comes from the C. Nothing here decides
+ * whether a car is allowed.
+ */
+
 const TYPE_KEYS = ['engine', 'food', 'wood', 'oil']
 const MAX_TOTAL_WEIGHT = 20000
+
+/* Matches enum RejectReason in train_yard.h. */
+const REASON_KEYS = [
+  'none', 'nullTrain', 'trainFull', 'badType', 'badWeight', 'totalWeight',
+  'engineOrder', 'oilFirstFreight', 'woodOilAdjacent', 'pullCapacity',
+  'badIndex', 'lastEngine',
+]
+
+/* Each scenario builds a state, then names the move to try and what the rules
+   should say about it. The cars are added through the C like any other. */
+const SCENARIOS = [
+  {
+    id: 'oilFirst',
+    setup: [[0, 5000]],
+    try: { kind: 'add', type: 3, weight: 500 },
+  },
+  {
+    id: 'buffer',
+    setup: [[0, 5000], [2, 400], [1, 300], [3, 400]],
+    try: { kind: 'remove', index: 2 },
+  },
+  {
+    id: 'capacity',
+    setup: [[0, 5000], [1, 4000]],
+    try: { kind: 'add', type: 1, weight: 2000 },
+  },
+  {
+    id: 'engineOrder',
+    setup: [[0, 5000], [1, 500]],
+    try: { kind: 'add', type: 0, weight: 5000 },
+  },
+]
 
 const fill = (template, values) =>
   Object.entries(values).reduce((s, [k, v]) => s.replaceAll(`{${k}}`, v), template)
@@ -18,6 +61,8 @@ export default function TrainYardDemo() {
   const [weight, setWeight] = useState(5000)
   const [state, setState] = useState(null)
   const [message, setMessage] = useState('')
+  const [reason, setReason] = useState(null)
+  const [activeScenario, setActiveScenario] = useState(null)
 
   // Reads every value back out of the C struct — nothing is tracked in React.
   const sync = useCallback(() => {
@@ -41,14 +86,6 @@ export default function TrainYardDemo() {
     let cancelled = false
     let destroy = null
 
-    // The glue is emitted by wasm/build.sh into public/, so it is a static asset
-    // served as-is rather than part of the module graph.
-    //
-    // The URL goes through a variable and the import is wrapped in a Function so
-    // the bundler cannot see a specifier to resolve at all. `/* @vite-ignore */`
-    // alone was enough for Vite 5's Rollup, but Vite 8 builds with Rolldown,
-    // which still analyses the template literal and fails the build on an
-    // unresolved import.
     const wasmUrl = `${import.meta.env.BASE_URL}wasm/train_yard.js`
     const importAtRuntime = new Function('url', 'return import(url)')
 
@@ -69,6 +106,7 @@ export default function TrainYardDemo() {
           totalWeight: w('ty_total_weight', 'number', ['number']),
           carType: w('ty_car_type', 'number', ['number', 'number']),
           carWeight: w('ty_car_weight', 'number', ['number', 'number']),
+          lastReason: w('ty_last_reject_reason', 'number', []),
         }
         train.current = api.current.create()
         destroy = () => api.current.destroy(train.current)
@@ -86,29 +124,77 @@ export default function TrainYardDemo() {
   }, [sync])
 
   const typeLabel = (i) => t(`demo.types.${TYPE_KEYS[i]}`)
+  // The reason is a fragment substituted into a sentence, so it needs the
+  // terminator its language uses — a full stop is wrong in Chinese and Hindi.
+  const reasonLabel = (code) =>
+    `${t(`demo.reasons.${REASON_KEYS[code] ?? 'none'}`)}${t('demo.sentenceEnd')}`
+
+  const fresh = () => {
+    api.current.destroy(train.current)
+    train.current = api.current.create()
+  }
 
   const handleAdd = (e) => {
     e.preventDefault()
+    setActiveScenario(null)
     const rc = api.current.addCar(train.current, type, Number(weight))
+    const code = rc === 0 ? 0 : api.current.lastReason()
+    setReason(rc === 0 ? null : code)
     setMessage(
-      fill(t(rc === 0 ? 'demo.added' : 'demo.rejected'), {
+      fill(t(rc === 0 ? 'demo.added' : 'demo.rejectedBecause'), {
         type: typeLabel(type),
         weight,
+        reason: reasonLabel(code),
       }),
     )
     sync()
   }
 
   const handleRemove = (index) => {
+    setActiveScenario(null)
     const rc = api.current.removeCar(train.current, index)
-    setMessage(fill(t(rc === 0 ? 'demo.removed' : 'demo.removeRejected'), { i: index }))
+    const code = rc === 0 ? 0 : api.current.lastReason()
+    setReason(rc === 0 ? null : code)
+    setMessage(
+      fill(t(rc === 0 ? 'demo.removed' : 'demo.removeRejectedBecause'), {
+        i: index,
+        reason: reasonLabel(code),
+      }),
+    )
     sync()
   }
 
   const handleReset = () => {
-    api.current.destroy(train.current)
-    train.current = api.current.create()
+    fresh()
+    setActiveScenario(null)
+    setReason(null)
     setMessage(t('demo.resetDone'))
+    sync()
+  }
+
+  /* Builds the scenario's starting train, then performs the move it is meant to
+     demonstrate — through the C, so the verdict is the real one. */
+  const runScenario = (scenario) => {
+    fresh()
+    scenario.setup.forEach(([carType, carWeight]) =>
+      api.current.addCar(train.current, carType, carWeight),
+    )
+
+    let rc
+    if (scenario.try.kind === 'add') {
+      rc = api.current.addCar(train.current, scenario.try.type, scenario.try.weight)
+    } else {
+      rc = api.current.removeCar(train.current, scenario.try.index)
+    }
+
+    const code = rc === 0 ? 0 : api.current.lastReason()
+    setActiveScenario(scenario.id)
+    setReason(rc === 0 ? null : code)
+    setMessage(
+      rc === 0
+        ? t(`demo.scenarios.${scenario.id}.accepted`)
+        : fill(t(`demo.scenarios.${scenario.id}.rejected`), { reason: reasonLabel(code) }),
+    )
     sync()
   }
 
@@ -121,14 +207,28 @@ export default function TrainYardDemo() {
 
   return (
     <div className="demo">
+      <p className="demo-hint">{t('demo.intro')}</p>
+
+      <div className="scenarios">
+        <h3 className="mono scenarios-title">{t('demo.tryThis')}</h3>
+        <div className="scenario-row">
+          {SCENARIOS.map((s) => (
+            <button
+              key={s.id}
+              type="button"
+              className={activeScenario === s.id ? 'is-active' : undefined}
+              onClick={() => runScenario(s)}
+            >
+              {t(`demo.scenarios.${s.id}.label`)}
+            </button>
+          ))}
+        </div>
+      </div>
+
       <form className="demo-controls" onSubmit={handleAdd}>
         <div className="demo-field">
           <label htmlFor="car-type">{t('demo.carType')}</label>
-          <select
-            id="car-type"
-            value={type}
-            onChange={(e) => setType(Number(e.target.value))}
-          >
+          <select id="car-type" value={type} onChange={(e) => setType(Number(e.target.value))}>
             {TYPE_KEYS.map((k, i) => (
               <option key={k} value={i}>{t(`demo.types.${k}`)}</option>
             ))}
@@ -204,9 +304,24 @@ export default function TrainYardDemo() {
       <div className="demo-rules">
         <h3>{t('demo.rulesTitle')}</h3>
         <ul>
-          {t('demo.rules').map((r) => <li key={r}>{r}</li>)}
+          {t('demo.rules').map((r, i) => (
+            // The rule the C just cited is marked, so a rejection points at the
+            // line that caused it instead of leaving it to be guessed.
+            <li key={r} className={reason !== null && RULE_FOR_REASON[reason] === i ? 'is-cited' : undefined}>
+              {r}
+            </li>
+          ))}
         </ul>
       </div>
     </div>
   )
+}
+
+/* Maps a reject reason onto the rule it corresponds to in the displayed list. */
+const RULE_FOR_REASON = {
+  6: 0,  // engine order
+  5: 1,  // total weight
+  9: 2,  // pull capacity
+  8: 3,  // wood/oil adjacency
+  7: 4,  // oil as first freight
 }

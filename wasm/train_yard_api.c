@@ -92,3 +92,10 @@ int ty_max_cars(void)
 {
     return MAX_CARS;
 }
+
+/* Which rule refused the last add or remove. Without this the interface can
+   only say "rejected", and would have to reimplement the rules in JavaScript to
+   explain why — duplicating logic that must never drift from the C. */
+int ty_last_reject_reason(void) {
+    return getLastRejectReason();
+}

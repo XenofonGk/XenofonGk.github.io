@@ -226,6 +226,47 @@ export default {
   },
 
   demo: {
+    intro: "Un train ne peut quitter le triage que s'il respecte toutes les règles d'attelage et de chargement. Ajoutez des wagons et observez lesquelles les refusent — et notez que retirer un wagon est aussi refusé lorsque le train qui en résulterait ne serait pas sûr.",
+    tryThis: 'Essayez l’un de ceux-ci',
+    sentenceEnd: '.',
+    rejectedBecause: 'Wagon de type {type} pesant {weight} refusé — {reason}',
+    removeRejectedBecause: 'Le wagon {i} ne peut pas être retiré — {reason}',
+    reasons: {
+      none: 'accepté',
+      nullTrain: 'aucun train',
+      trainFull: 'le train a déjà atteint sa limite de 50 wagons',
+      badType: "ce n'est pas un type de wagon valide",
+      badWeight: 'un wagon doit peser plus que rien',
+      totalWeight: 'le train dépasserait sa limite de poids total de 20 000',
+      engineOrder: "les locomotives doivent toutes être en tête, or du fret est déjà attelé",
+      oilFirstFreight: 'le premier wagon de fret derrière les locomotives ne peut pas être un wagon-citerne',
+      woodOilAdjacent: 'cela placerait un wagon de bois à côté d’un wagon-citerne',
+      pullCapacity: 'le fret pèserait plus que ce que les locomotives peuvent tracter',
+      badIndex: "il n'y a aucun wagon à cette position",
+      lastEngine: 'un train doit conserver au moins une locomotive',
+    },
+    scenarios: {
+      oilFirst: {
+        label: 'Citerne en premier',
+        rejected: "Refusé : {reason} Placez d'abord un wagon de vivres ou de bois derrière la locomotive, alors le wagon-citerne sera autorisé.",
+        accepted: 'Accepté.',
+      },
+      buffer: {
+        label: 'Retirer le tampon',
+        rejected: "C'est le cas intéressant. Le train est Locomotive, Bois, Vivres, Citerne — le wagon de vivres sépare le bois et la citerne. Le retirer est refusé : {reason} Les règles sont symétriques, donc ce qui ne peut pas être construit ne peut pas non plus être défait.",
+        accepted: 'Accepté.',
+      },
+      capacity: {
+        label: 'Surcharger les locomotives',
+        rejected: 'Refusé : {reason} Le poids total et la capacité de traction sont des limites distinctes — ce train est bien en dessous de 20 000, mais une locomotive ne peut tracter que 5 000.',
+        accepted: 'Accepté.',
+      },
+      engineOrder: {
+        label: 'Locomotive à l’arrière',
+        rejected: 'Refusé : {reason} Les locomotives ne peuvent être ajoutées que si tous les wagons devant elles sont aussi des locomotives.',
+        accepted: 'Accepté.',
+      },
+    },
     carType: 'Type de wagon',
     weight: 'Poids',
     addCar: 'Ajouter un wagon',
