@@ -260,6 +260,31 @@ export default {
     },
   },
 
+  taskDemo: {
+    title: 'Titre de la tâche',
+    placeholder: 'p. ex. Relire la pull request',
+    add: 'Ajouter la tâche',
+    complete: 'Terminer',
+    reopen: 'Rouvrir',
+    delete: 'Supprimer',
+    created: "Tâche créée — l'API a renvoyé 201 avec son location.",
+    rejected: "Rejetée avec 400 — une tâche a besoin d'un titre.",
+    deleted: "Supprimée — l'API a renvoyé 204.",
+    waking: "La base de données se réveille… elle s'endort quand elle est inactive sur le palier gratuit, donc la première requête prend un instant.",
+    offline: "L'API en direct n'est pas joignable pour le moment, donc une session enregistrée est affichée à la place. Le code source et le journal complet des requêtes sont liés ci-dessus.",
+    transcriptCaption: "Requêtes enregistrées vers l'API et le statut renvoyé par chacune",
+    method: 'Méthode',
+    endpoint: 'Endpoint',
+    status: 'Statut',
+    notesTitle: 'Ce que cela démontre',
+    notes: [
+      "Chaque requête atteint un vrai service ASP.NET Core adossé à PostgreSQL, pas un mock.",
+      "Les requêtes se lient à des DTOs, donc l'appelant ne peut pas fixer l'id ni l'heure de création — c'est le serveur qui les gère.",
+      "Les codes de statut sont ceux attendus pour chaque verbe : 201 avec location à la création, 400 pour un corps invalide, 404 pour un id inconnu, 204 pour la mise à jour et la suppression.",
+      "La base de données redescend à zéro instance quand elle est inactive, donc la première requête après une pause doit la réveiller.",
+    ],
+  },
+
   footer: {
     drawnBy: 'Dessiné par',
     location: 'Lieu',

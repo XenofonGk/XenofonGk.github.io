@@ -260,6 +260,31 @@ export default {
     },
   },
 
+  taskDemo: {
+    title: '任务标题',
+    placeholder: '例如：审查 pull request',
+    add: '添加任务',
+    complete: '完成',
+    reopen: '重新打开',
+    delete: '删除',
+    created: '任务已创建 — API 返回了 201，并带有其 location。',
+    rejected: '被拒绝，返回 400 — 任务需要标题。',
+    deleted: '已删除 — API 返回了 204。',
+    waking: '数据库正在唤醒……在免费套餐上空闲时会进入休眠，所以第一次请求需要一点时间。',
+    offline: '目前无法访问在线 API，因此这里展示的是一段录制的会话。源代码和完整的请求日志见上方链接。',
+    transcriptCaption: '针对 API 的已记录请求及每次返回的状态',
+    method: '方法',
+    endpoint: 'Endpoint',
+    status: '状态',
+    notesTitle: '这展示了什么',
+    notes: [
+      '每个请求都会到达一个由 PostgreSQL 支持的真实 ASP.NET Core 服务，而不是模拟数据。',
+      '请求会绑定到 DTO，因此调用方无法设置 id 或创建时间 — 这些都由服务器掌控。',
+      '状态码是每个动词应返回的标准状态：创建时返回 201 并带有 location，请求体无效时返回 400，id 未知时返回 404，更新和删除时返回 204。',
+      '数据库在空闲时会缩容至零，因此暂停后的第一次请求需要将其唤醒。',
+    ],
+  },
+
   footer: {
     drawnBy: '绘制者',
     location: '位置',

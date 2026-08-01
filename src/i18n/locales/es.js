@@ -260,6 +260,31 @@ export default {
     },
   },
 
+  taskDemo: {
+    title: 'Título de la tarea',
+    placeholder: 'p. ej. Revisar el pull request',
+    add: 'Añadir tarea',
+    complete: 'Completar',
+    reopen: 'Reabrir',
+    delete: 'Eliminar',
+    created: 'Tarea creada — la API devolvió 201 con su location.',
+    rejected: 'Rechazada con 400 — una tarea necesita un título.',
+    deleted: 'Eliminada — la API devolvió 204.',
+    waking: "La base de datos se está despertando… se duerme cuando está inactiva en el plan gratuito, así que la primera petición tarda un momento.",
+    offline: 'La API en vivo no está disponible en este momento, así que aquí se muestra una sesión grabada. El código fuente y el registro completo de peticiones están enlazados arriba.',
+    transcriptCaption: 'Peticiones registradas contra la API y el estado que devolvió cada una',
+    method: 'Método',
+    endpoint: 'Endpoint',
+    status: 'Estado',
+    notesTitle: 'Qué demuestra esto',
+    notes: [
+      'Cada petición llega a un servicio real de ASP.NET Core respaldado por PostgreSQL, no a un mock.',
+      "Las peticiones se vinculan a DTOs, así que quien llama no puede fijar el id ni la hora de creación — eso lo controla el servidor.",
+      'Los códigos de estado son los que se espera que devuelva cada verbo: 201 con location al crear, 400 ante un cuerpo inválido, 404 para un id desconocido, 204 al actualizar y eliminar.',
+      'La base de datos se escala a cero cuando está inactiva, así que la primera petición tras una pausa tiene que despertarla.',
+    ],
+  },
+
   footer: {
     drawnBy: 'Dibujado por',
     location: 'Ubicación',

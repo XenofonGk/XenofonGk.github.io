@@ -260,6 +260,32 @@ export default {
     },
   },
 
+  /* Live CRUD demo against the deployed ASP.NET Core API. */
+  taskDemo: {
+    title: 'Task title',
+    placeholder: 'e.g. Review the pull request',
+    add: 'Add task',
+    complete: 'Complete',
+    reopen: 'Reopen',
+    delete: 'Delete',
+    created: 'Task created — the API returned 201 with its location.',
+    rejected: 'Rejected with 400 — a task needs a title.',
+    deleted: 'Deleted — the API returned 204.',
+    waking: 'Waking the database… it sleeps when idle on the free tier, so the first request takes a moment.',
+    offline: 'The live API is not reachable right now, so this shows a recorded session instead. The source and the full request log are linked above.',
+    transcriptCaption: 'Recorded requests against the API and the status each returned',
+    method: 'Method',
+    endpoint: 'Endpoint',
+    status: 'Status',
+    notesTitle: 'What this demonstrates',
+    notes: [
+      'Every request hits a real ASP.NET Core service backed by PostgreSQL, not a mock.',
+      'Requests bind to DTOs, so a caller cannot set the id or creation time — the server owns both.',
+      'Status codes are the ones each verb is supposed to return: 201 with a location on create, 400 on an invalid body, 404 for an unknown id, 204 on update and delete.',
+      'The database scales to zero when idle, so the first request after a pause has to wake it.',
+    ],
+  },
+
   footer: {
     drawnBy: 'Drawn by',
     location: 'Location',
