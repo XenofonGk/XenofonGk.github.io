@@ -43,13 +43,15 @@ emcc \
 # vendor/arena/* is copied verbatim from:
 #   https://github.com/XenofonGk/Cpp   path ArenaCore/{include,src}
 #
-# Only the I/O-free classes are compiled. main.cpp and src/input.cpp are left
+# Only the I/O-free classes are compiled, Arena included. main.cpp and
+# src/input.cpp are left
 # out because they read stdin, which does not exist here — that separation is
 # what makes the model reusable at all. arena_api.cpp adds accessors only.
 emcc \
   vendor/arena/Character.cpp \
   vendor/arena/Warrior.cpp \
   vendor/arena/Mage.cpp \
+  vendor/arena/Arena.cpp \
   arena_api.cpp \
   -I vendor/arena \
   -O2 -std=c++17 \
@@ -60,7 +62,7 @@ emcc \
   -s ENVIRONMENT=web \
   -s ALLOW_MEMORY_GROWTH=1 \
   -s EXPORTED_RUNTIME_METHODS='["cwrap","setValue","UTF8ToString"]' \
-  -s EXPORTED_FUNCTIONS='["_ac_start","_ac_destroy","_ac_step","_ac_turn","_ac_last_damage","_ac_health","_ac_level","_ac_is_alive","_ac_damage","_ac_name","_ac_level_up","_ac_add_power","_malloc","_free"]'
+  -s EXPORTED_FUNCTIONS='["_ac_reset","_ac_destroy","_ac_roster_size","_ac_set_fighters","_ac_fight_round","_ac_last_log","_ac_health","_ac_max_health","_ac_level","_ac_damage","_ac_defence","_ac_is_alive","_ac_name","_ac_kind","_ac_level_up","_ac_add_power","_malloc","_free"]'
 
 echo "built:"
 ls -la "$OUT"

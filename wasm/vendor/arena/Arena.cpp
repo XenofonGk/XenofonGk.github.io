@@ -80,17 +80,28 @@ namespace GameArena {
             std::string name;
             std::string field;
 
-            if (!std::getline(row, type, ',')) continue;
-            if (!std::getline(row, name, ',')) continue;
+            int health = 0, level = 0, count = 0;
 
-            if (!std::getline(row, field, ',')) continue;
-            int health = std::stoi(field);
+            // stoi throws on anything non-numeric. Without this the comment
+            // above was a lie: a single malformed digit anywhere in the file
+            // propagated out of load() and took the whole roster with it.
+            try {
+                if (!std::getline(row, type, ',')) continue;
+                if (!std::getline(row, name, ',')) continue;
 
-            if (!std::getline(row, field, ',')) continue;
-            int level = std::stoi(field);
+                if (!std::getline(row, field, ',')) continue;
+                health = std::stoi(field);
 
-            if (!std::getline(row, field, ',')) continue;
-            int count = std::stoi(field);
+                if (!std::getline(row, field, ',')) continue;
+                level = std::stoi(field);
+
+                if (!std::getline(row, field, ',')) continue;
+                count = std::stoi(field);
+            } catch (const std::exception&) {
+                std::cerr << "Skipping unparseable line: " << line << "\n";
+                continue;
+            }
+
             if (count < 0) continue;
 
             int* skills = new int[count];
@@ -100,7 +111,12 @@ namespace GameArena {
                     complete = false;
                     break;
                 }
-                skills[i] = std::stoi(field);
+                try {
+                    skills[i] = std::stoi(field);
+                } catch (const std::exception&) {
+                    complete = false;
+                    break;
+                }
             }
 
             if (!complete) {
@@ -150,6 +166,44 @@ namespace GameArena {
             os << "[" << i << "] ";
             m_roster[i]->display(os);
         }
+    }
+
+    int Arena::fight(int indexA, int indexB, std::ostream& os) {
+        Character* a = getCharacter(indexA);
+        Character* b = getCharacter(indexB);
+
+        if (a == nullptr || b == nullptr || a == b) {
+            os << "Need two different combatants.\n";
+            return -1;
+        }
+        if (!a->isAlive() || !b->isAlive()) {
+            os << "Both combatants must be standing.\n";
+            return -1;
+        }
+
+        // Higher level strikes first; ties go to the first named.
+        Character* first  = a->getLevel() >= b->getLevel() ? a : b;
+        Character* second = first == a ? b : a;
+
+        const int dealt = first->strike(*second);
+        os << first->getName() << " hits " << second->getName()
+           << " for " << dealt << " (" << second->getHealth() << " left)\n";
+
+        if (!second->isAlive()) {
+            os << second->getName() << " is down.\n";
+            return first == a ? indexA : indexB;
+        }
+
+        const int returned = second->strike(*first);
+        os << second->getName() << " hits " << first->getName()
+           << " for " << returned << " (" << first->getHealth() << " left)\n";
+
+        if (!first->isAlive()) {
+            os << first->getName() << " is down.\n";
+            return second == a ? indexA : indexB;
+        }
+
+        return -1;
     }
 
     std::ostream& operator<<(std::ostream& os, const Character& c) {

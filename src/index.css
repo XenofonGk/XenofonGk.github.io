@@ -526,6 +526,27 @@ h4 {
   color: var(--signal-text);
 }
 
+.demo-hint {
+  color: var(--ink-2);
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 16px;
+  max-width: 62ch;
+}
+/* The winner is marked with a rule and a label, not colour alone. */
+.fighter.is-winner {
+  box-shadow: inset 3px 0 0 var(--ok);
+}
+.arena-log li {
+  display: block;
+  padding: 7px 12px;
+}
+.arena-log .ct {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11.5px;
+  color: var(--ink-2);
+}
+
 /* ---------- live API demo ---------- */
 
 /* Echoes the last request so the HTTP contract is visible, not just its

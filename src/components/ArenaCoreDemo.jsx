@@ -2,76 +2,62 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { useI18n } from '../i18n/index.jsx'
 
 /*
- * Turn-based fight running the compiled C++ classes.
+ * A playable fight running the compiled C++ engine.
  *
- * Nothing about the combat is reimplemented here. Damage comes from
- * calculateDamage() on the actual Warrior and Mage objects, dispatched through
- * the Character base, and health changes through the class's own operator+=.
- * This component only draws the result and asks for the next turn.
+ * Nothing about the game is reimplemented here. Damage, the ±20% roll, defence
+ * subtraction and turn order all happen inside Arena::fight, and the log shown
+ * is the engine's own output captured from the ostream it writes to — not a
+ * retelling assembled in JavaScript.
  *
- * The starting stats are the ones in the repository's data/roster.txt, so the
- * numbers on screen match what the native binary produces for the same fight.
+ * The decisions offered are the ones that actually change an outcome: which
+ * opponent to face, and whether to spend a level-up (which raises damage,
+ * raises defence, and can flip who strikes first) or add raw power.
  */
 
-/* From data/roster.txt in the ArenaCore repository. */
-const WARRIOR = { name: 'Aragorn', health: 120, level: 5, powers: [10, 20, 15] }
-const MAGE = { name: 'Gandalf', health: 80, level: 8, powers: [40, 35, 50] }
+const SEED = 0 // 0 lets each fight vary; a fixed value replays identically
 
 export default function ArenaCoreDemo() {
   const { t } = useI18n()
   const api = useRef(null)
   const [ready, setReady] = useState(false)
   const [failed, setFailed] = useState(false)
-  const [state, setState] = useState(null)
+  const [roster, setRoster] = useState([])
+  const [left, setLeft] = useState(0)
+  const [right, setRight] = useState(2)
+  const [winner, setWinner] = useState(-1)
   const [log, setLog] = useState([])
 
   const read = useCallback(() => {
     const a = api.current
-    setState({
-      turn: a.turn(),
-      sides: [0, 1].map((i) => ({
+    const size = a.rosterSize()
+    setRoster(
+      Array.from({ length: size }, (_, i) => ({
+        index: i,
         name: a.name(i),
+        kind: a.kind(i),
         health: a.health(i),
+        maxHealth: a.maxHealth(i),
         level: a.level(i),
         damage: a.damage(i),
+        defence: a.defence(i),
         alive: a.isAlive(i) === 1,
       })),
-    })
-  }, [])
-
-  // Copies a JS array into the WASM heap and returns a pointer the C ABI can
-  // take. The caller frees it — nothing on the C++ side keeps the pointer,
-  // since both constructors copy the values into their own storage.
-  const withIntArray = useCallback((M, values, fn) => {
-    const bytes = values.length * 4
-    const ptr = M._malloc(bytes)
-    values.forEach((v, i) => M.setValue(ptr + i * 4, v, 'i32'))
-    try {
-      return fn(ptr)
-    } finally {
-      M._free(ptr)
-    }
-  }, [])
-
-  const start = useCallback(() => {
-    const { M, wrapped } = api.current
-    withIntArray(M, WARRIOR.powers, (wPtr) =>
-      withIntArray(M, MAGE.powers, (mPtr) =>
-        wrapped.start(
-          WARRIOR.name, WARRIOR.health, WARRIOR.level, wPtr, WARRIOR.powers.length,
-          MAGE.name, MAGE.health, MAGE.level, mPtr, MAGE.powers.length,
-        ),
-      ),
     )
-    setLog([])
-    read()
-  }, [read, withIntArray])
+  }, [])
+
+  const reset = useCallback(
+    (l = left, r = right) => {
+      api.current.reset(SEED)
+      api.current.setFighters(l, r)
+      setWinner(-1)
+      setLog([])
+      read()
+    },
+    [left, right, read],
+  )
 
   useEffect(() => {
     let cancelled = false
-
-    // Same indirection as the train yard demo: the glue is a static asset in
-    // public/, and Rolldown would otherwise try to resolve the specifier.
     const url = `${import.meta.env.BASE_URL}wasm/arena.js`
     const importAtRuntime = new Function('u', 'return import(u)')
 
@@ -80,21 +66,21 @@ export default function ArenaCoreDemo() {
       .then((M) => {
         if (cancelled) return
         const w = (n, ret, args) => M.cwrap(n, ret, args)
-        const wrapped = {
-          start: w('ac_start', null, ['string','number','number','number','number','string','number','number','number','number']),
-          destroy: w('ac_destroy', null, []),
-          step: w('ac_step', 'number', []),
-        }
         api.current = {
-          M,
-          wrapped,
-          turn: w('ac_turn', 'number', []),
-          lastDamage: w('ac_last_damage', 'number', []),
+          reset: w('ac_reset', null, ['number']),
+          destroy: w('ac_destroy', null, []),
+          rosterSize: w('ac_roster_size', 'number', []),
+          setFighters: w('ac_set_fighters', null, ['number', 'number']),
+          fightRound: w('ac_fight_round', 'number', []),
+          lastLog: w('ac_last_log', 'string', []),
           health: w('ac_health', 'number', ['number']),
+          maxHealth: w('ac_max_health', 'number', ['number']),
           level: w('ac_level', 'number', ['number']),
-          isAlive: w('ac_is_alive', 'number', ['number']),
           damage: w('ac_damage', 'number', ['number']),
+          defence: w('ac_defence', 'number', ['number']),
+          isAlive: w('ac_is_alive', 'number', ['number']),
           name: w('ac_name', 'string', ['number']),
+          kind: w('ac_kind', 'number', ['number']),
           levelUp: w('ac_level_up', null, ['number']),
           addPower: w('ac_add_power', null, ['number', 'number']),
         }
@@ -106,70 +92,79 @@ export default function ArenaCoreDemo() {
 
     return () => {
       cancelled = true
-      if (api.current?.wrapped) api.current.wrapped.destroy()
+      if (api.current) api.current.destroy()
     }
   }, [])
 
   useEffect(() => {
-    if (ready) start()
-  }, [ready, start])
+    if (ready) reset(0, 2)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ready])
 
   if (failed) return <p className="demo-note">{t('arenaDemo.failed')}</p>
-  if (!ready || !state) return <p className="demo-note">{t('arenaDemo.loading')}</p>
+  if (!ready || roster.length === 0) return <p className="demo-note">{t('arenaDemo.loading')}</p>
 
-  const over = state.sides.some((s) => !s.alive)
+  const fighters = [roster[left], roster[right]].filter(Boolean)
+  const over = winner >= 0
 
-  const takeTurn = () => {
-    const attackerIndex = state.turn
-    const attacker = state.sides[attackerIndex]
-    const defender = state.sides[1 - attackerIndex]
-    const dealt = api.current.wrapped.step()
-    if (dealt < 0) return
-    setLog((prev) => [
-      ...prev,
-      { attacker: attacker.name, defender: defender.name, damage: dealt },
-    ])
+  const round = () => {
+    const w = api.current.fightRound()
+    const text = api.current.lastLog()
+    setLog((prev) => [...prev, ...text.split('\n').filter(Boolean)])
+    if (w >= 0) setWinner(w)
     read()
   }
 
-  const boost = (i) => {
-    api.current.addPower(i, 10)
-    read()
+  const chooseOpponent = (index) => {
+    setRight(index)
+    reset(left, index)
   }
 
-  const levelUp = (i) => {
-    api.current.levelUp(i)
+  const act = (fn, index) => {
+    fn(index)
     read()
   }
 
   return (
     <div className="demo">
+      <p className="demo-hint">{t('arenaDemo.hint')}</p>
+
       <div className="arena">
-        {state.sides.map((side, i) => (
-          <div key={side.name} className={`fighter ${side.alive ? '' : 'is-down'} ${state.turn === i && !over ? 'is-active' : ''}`}>
+        {fighters.map((side) => (
+          <div
+            key={side.index}
+            className={`fighter ${side.alive ? '' : 'is-down'} ${
+              over && winner === side.index ? 'is-winner' : ''
+            }`}
+          >
             <div className="fighter-head">
               <h3>{side.name}</h3>
-              <span className="mono role">{i === 0 ? t('arenaDemo.warrior') : t('arenaDemo.mage')}</span>
+              <span className="mono role">
+                {side.kind === 0 ? t('arenaDemo.warrior') : t('arenaDemo.mage')}
+              </span>
             </div>
 
-            {/* A native progress element rather than a styled div, so the value
-                is announced without extra ARIA. */}
-            <progress
-              className="hp"
-              max={i === 0 ? WARRIOR.health : MAGE.health}
-              value={Math.max(0, side.health)}
-            />
+            <progress className="hp" max={side.maxHealth} value={Math.max(0, side.health)} />
             <p className="mono hp-text">
-              {t('arenaDemo.health')} {side.health} · {t('arenaDemo.level')} {side.level} ·{' '}
-              {t('arenaDemo.damage')} {side.damage}
+              {t('arenaDemo.health')} {side.health}/{side.maxHealth} · {t('arenaDemo.level')}{' '}
+              {side.level} · {t('arenaDemo.damage')} {side.damage} · {t('arenaDemo.defence')}{' '}
+              {side.defence}
             </p>
 
             <div className="fighter-actions">
-              <button type="button" onClick={() => boost(i)} disabled={over}>
-                {t('arenaDemo.addPower')}
-              </button>
-              <button type="button" onClick={() => levelUp(i)} disabled={over}>
+              <button
+                type="button"
+                disabled={over}
+                onClick={() => act(api.current.levelUp, side.index)}
+              >
                 {t('arenaDemo.levelUp')}
+              </button>
+              <button
+                type="button"
+                disabled={over}
+                onClick={() => act((i) => api.current.addPower(i, 3), side.index)}
+              >
+                {t('arenaDemo.addPower')}
               </button>
             </div>
           </div>
@@ -177,29 +172,42 @@ export default function ArenaCoreDemo() {
       </div>
 
       <div className="demo-controls">
-        <button className="btn solid" type="button" onClick={takeTurn} disabled={over}>
+        <button className="btn solid" type="button" onClick={round} disabled={over}>
           {over ? t('arenaDemo.finished') : t('arenaDemo.takeTurn')}
         </button>
-        <button className="btn" type="button" onClick={start}>
+        <button className="btn" type="button" onClick={() => reset()}>
           {t('arenaDemo.reset')}
         </button>
+
+        <div className="demo-field">
+          <label htmlFor="arena-opponent">{t('arenaDemo.opponent')}</label>
+          <select
+            id="arena-opponent"
+            value={right}
+            onChange={(e) => chooseOpponent(Number(e.target.value))}
+          >
+            {roster
+              .filter((r) => r.index !== left)
+              .map((r) => (
+                <option key={r.index} value={r.index}>
+                  {r.name}
+                </option>
+              ))}
+          </select>
+        </div>
       </div>
 
       <p className="demo-status" role="status" aria-live="polite">
         {over
-          ? `${state.sides.find((s) => s.alive)?.name ?? '—'} ${t('arenaDemo.wins')}`
-          : `${state.sides[state.turn].name} ${t('arenaDemo.toAct')}`}
+          ? `${roster[winner]?.name ?? '—'} ${t('arenaDemo.wins')}`
+          : t('arenaDemo.ready')}
       </p>
 
       {log.length > 0 && (
         <ol className="demo-train arena-log">
-          {log.map((entry, i) => (
-            <li key={i}>
-              <span className="idx">{i + 1}</span>
-              <span className="ct">
-                {entry.attacker} → {entry.defender}
-              </span>
-              <span className="cwt">−{entry.damage}</span>
+          {log.slice(-8).map((line, i) => (
+            <li key={`${i}-${line}`}>
+              <span className="ct">{line}</span>
             </li>
           ))}
         </ol>
