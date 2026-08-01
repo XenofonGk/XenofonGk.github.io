@@ -24,6 +24,7 @@ export const projects = [
     year: '2026',
     stack: ['ASP.NET Core', 'EF Core', 'PostgreSQL', 'Docker'],
     repo: 'https://github.com/XenofonGk/DotNet/tree/main/WebAPI/TaskManagerAPI',
+    demo: 'task-manager',
   },
   {
     id: 'inventory-crud',

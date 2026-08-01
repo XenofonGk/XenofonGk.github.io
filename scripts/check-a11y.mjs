@@ -22,7 +22,16 @@ import { createRequire } from 'node:module'
 const require = createRequire(import.meta.url)
 const DIST = new URL('../dist/', import.meta.url).pathname
 
-const ROUTES = ['/', '/projects', '/about', '/contact', '/projects/train-yard-manager']
+const ROUTES = [
+  '/',
+  '/projects',
+  '/about',
+  '/contact',
+  // Both demo routes: interactive controls and data tables are where this
+  // breaks, so a project gaining a demo must be added here.
+  '/projects/train-yard-manager',
+  '/projects/taskmanager-api',
+]
 const SCHEMES = ['light', 'dark']
 
 const TYPES = {

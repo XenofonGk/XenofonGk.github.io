@@ -59,6 +59,7 @@ export default {
     source: 'Código fuente',
     close: 'Cerrar',
     liveNote: 'Compilado de C a WebAssembly',
+    apiNote: 'ASP.NET Core y PostgreSQL, verificado en cada push',
 
     items: {
       'train-yard-manager': {
@@ -272,6 +273,7 @@ export default {
     deleted: 'Eliminada — la API devolvió 204.',
     waking: "La base de datos se está despertando… se duerme cuando está inactiva en el plan gratuito, así que la primera petición tarda un momento.",
     offline: 'La API en vivo no está disponible en este momento, así que aquí se muestra una sesión grabada. El código fuente y el registro completo de peticiones están enlazados arriba.',
+    unhosted: "Esta API no está desplegada en un host público. Se ejecuta con un solo comando mediante Docker Compose, y cada endpoint de abajo se vuelve a verificar contra una PostgreSQL real en cada push: el badge del repositorio muestra el último resultado.",
     transcriptCaption: 'Peticiones registradas contra la API y el estado que devolvió cada una',
     method: 'Método',
     endpoint: 'Endpoint',

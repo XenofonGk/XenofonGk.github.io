@@ -1,7 +1,15 @@
 import { useEffect, useRef, useCallback } from 'react'
 import { Link } from 'react-router'
 import TrainYardDemo from './TrainYardDemo.jsx'
+import TaskManagerDemo from './TaskManagerDemo.jsx'
 import { useI18n } from '../i18n/index.jsx'
+
+/* Which component backs each project's `demo` key. A lookup rather than a
+   chain of conditionals, so adding a demo is a data change. */
+const DEMOS = {
+  'train-yard': { note: 'projects.liveNote', render: () => <TrainYardDemo /> },
+  'task-manager': { note: 'projects.apiNote', render: () => <TaskManagerDemo /> },
+}
 
 const FOCUSABLE =
   'a[href], button:not([disabled]), select, input, textarea, [tabindex]:not([tabindex="-1"])'
@@ -107,14 +115,14 @@ export default function ProjectModal({ project, prev, next, onClose }) {
             </div>
           </div>
 
-          {project.demo === 'train-yard' && (
+          {DEMOS[project.demo] && (
             <div className="modal-demo">
               <p className="mono callout">
                 <span className="n">§ Live</span>
-                <span>{t('projects.liveNote')}</span>
+                <span>{t(DEMOS[project.demo].note)}</span>
                 <span className="line" aria-hidden="true"></span>
               </p>
-              <TrainYardDemo />
+              {DEMOS[project.demo].render()}
             </div>
           )}
 

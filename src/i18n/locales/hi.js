@@ -59,6 +59,7 @@ export default {
     source: 'सोर्स',
     close: 'बंद करें',
     liveNote: 'C से WebAssembly में कंपाइल किया गया',
+    apiNote: 'ASP.NET Core और PostgreSQL, हर push पर सत्यापित',
 
     items: {
       'train-yard-manager': {
@@ -272,6 +273,7 @@ export default {
     deleted: 'हटाया गया — API ने 204 लौटाया।',
     waking: 'डेटाबेस जाग रहा है… फ्री टियर पर निष्क्रिय रहने पर यह सो जाता है, इसलिए पहली रिक्वेस्ट में थोड़ा समय लगता है।',
     offline: 'अभी लाइव API उपलब्ध नहीं है, इसलिए यहां एक रिकॉर्ड किया गया सेशन दिखाया गया है। सोर्स कोड और पूरा रिक्वेस्ट लॉग ऊपर लिंक किया गया है।',
+    unhosted: 'यह API किसी सार्वजनिक host पर deploy नहीं है। यह Docker Compose से एक ही command में चलता है, और नीचे दिया हर endpoint हर push पर असली PostgreSQL के विरुद्ध दोबारा सत्यापित होता है — repository का badge नवीनतम परिणाम दिखाता है।',
     transcriptCaption: 'API के विरुद्ध रिकॉर्ड की गई रिक्वेस्ट और हर एक से मिला स्टेटस',
     method: 'मेथड',
     endpoint: 'Endpoint',

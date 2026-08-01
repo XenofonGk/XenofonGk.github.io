@@ -56,7 +56,9 @@ export default function TaskManagerDemo() {
   const [title, setTitle] = useState('')
   const [status, setStatus] = useState('')
   const [lastCall, setLastCall] = useState(null)
-  const [phase, setPhase] = useState('idle') // idle | waking | ready | offline
+  // idle | waking | ready | offline (a configured API failed) | unhosted (no
+  // public instance exists, which is a deliberate choice rather than a fault)
+  const [phase, setPhase] = useState('idle')
   const wakeTimer = useRef(null)
 
   // Marks the request as "waking" only if it is actually slow, so a warm API
@@ -88,7 +90,7 @@ export default function TaskManagerDemo() {
 
   useEffect(() => {
     if (!API) {
-      setPhase('offline')
+      setPhase('unhosted')
       return undefined
     }
     refresh()
@@ -129,10 +131,12 @@ export default function TaskManagerDemo() {
     refresh()
   }
 
-  if (phase === 'offline') {
+  if (phase === 'offline' || phase === 'unhosted') {
     return (
       <div className="demo">
-        <p className="demo-note">{t('taskDemo.offline')}</p>
+        <p className="demo-note">
+          {phase === 'unhosted' ? t('taskDemo.unhosted') : t('taskDemo.offline')}
+        </p>
         <table className="demo-transcript">
           <caption className="sr-only">{t('taskDemo.transcriptCaption')}</caption>
           <thead>

@@ -59,6 +59,7 @@ export default {
     source: '源码',
     close: '关闭',
     liveNote: '由 C 编译为 WebAssembly',
+    apiNote: 'ASP.NET Core 与 PostgreSQL，每次 push 都会验证',
 
     items: {
       'train-yard-manager': {
@@ -272,6 +273,7 @@ export default {
     deleted: '已删除 — API 返回了 204。',
     waking: '数据库正在唤醒……在免费套餐上空闲时会进入休眠，所以第一次请求需要一点时间。',
     offline: '目前无法访问在线 API，因此这里展示的是一段录制的会话。源代码和完整的请求日志见上方链接。',
+    unhosted: '该 API 未部署到公开主机。它通过 Docker Compose 一条命令即可运行，下面的每个 endpoint 都会在每次 push 时针对真实的 PostgreSQL 重新验证 —— 仓库中的 badge 显示最新结果。',
     transcriptCaption: '针对 API 的已记录请求及每次返回的状态',
     method: '方法',
     endpoint: 'Endpoint',

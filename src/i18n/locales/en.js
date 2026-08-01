@@ -59,6 +59,7 @@ export default {
     source: 'Source',
     close: 'Close',
     liveNote: 'Compiled from C to WebAssembly',
+    apiNote: 'ASP.NET Core and PostgreSQL, verified on every push',
 
     items: {
       'train-yard-manager': {
@@ -273,6 +274,7 @@ export default {
     deleted: 'Deleted — the API returned 204.',
     waking: 'Waking the database… it sleeps when idle on the free tier, so the first request takes a moment.',
     offline: 'The live API is not reachable right now, so this shows a recorded session instead. The source and the full request log are linked above.',
+    unhosted: 'This API is not deployed to a public host. It runs from one command with Docker Compose, and every endpoint below is re-verified against a real PostgreSQL on each push — the badge in the repository shows the latest result.',
     transcriptCaption: 'Recorded requests against the API and the status each returned',
     method: 'Method',
     endpoint: 'Endpoint',
