@@ -31,6 +31,7 @@ const ROUTES = [
   // breaks, so a project gaining a demo must be added here.
   '/projects/train-yard-manager',
   '/projects/taskmanager-api',
+  '/projects/arenacore',
 ]
 const SCHEMES = ['light', 'dark']
 

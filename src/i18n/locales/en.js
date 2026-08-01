@@ -60,6 +60,7 @@ export default {
     close: 'Close',
     liveNote: 'Compiled from C to WebAssembly',
     apiNote: 'ASP.NET Core and PostgreSQL, verified on every push',
+    arenaNote: 'Compiled from C++ to WebAssembly',
 
     items: {
       'train-yard-manager': {
@@ -285,6 +286,31 @@ export default {
       'Requests bind to DTOs, so a caller cannot set the id or creation time — the server owns both.',
       'Status codes are the ones each verb is supposed to return: 201 with a location on create, 400 on an invalid body, 404 for an unknown id, 204 on update and delete.',
       'The database scales to zero when idle, so the first request after a pause has to wake it.',
+    ],
+  },
+
+  /* Turn-based fight running the compiled C++ classes. */
+  arenaDemo: {
+    loading: 'Loading the compiled arena…',
+    failed: 'The interactive demo could not load in this browser. The source is linked above.',
+    warrior: 'Warrior',
+    mage: 'Mage',
+    health: 'HP',
+    level: 'Lv',
+    damage: 'DMG',
+    takeTurn: 'Take turn',
+    reset: 'Reset',
+    finished: 'Fight over',
+    addPower: '+10 power',
+    levelUp: 'Level up',
+    toAct: 'to act.',
+    wins: 'wins.',
+    notesTitle: 'What this demonstrates',
+    notes: [
+      'Warrior and Mage are compiled from the repository C++ and run here as WebAssembly — the combat is not reimplemented in JavaScript.',
+      'Damage is dispatched through the abstract Character base, so which subclass is acting decides whether skills or spell power are summed.',
+      'Health changes through the class\'s own operator+=, and adding power uses operator+= on the concrete type.',
+      'The starting values come from the repository\'s roster file, so a fight here produces the same numbers as the native binary.',
     ],
   },
 

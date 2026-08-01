@@ -2,6 +2,7 @@ import { useEffect, useRef, useCallback } from 'react'
 import { Link } from 'react-router'
 import TrainYardDemo from './TrainYardDemo.jsx'
 import TaskManagerDemo from './TaskManagerDemo.jsx'
+import ArenaCoreDemo from './ArenaCoreDemo.jsx'
 import { useI18n } from '../i18n/index.jsx'
 
 /* Which component backs each project's `demo` key. A lookup rather than a
@@ -9,6 +10,7 @@ import { useI18n } from '../i18n/index.jsx'
 const DEMOS = {
   'train-yard': { note: 'projects.liveNote', render: () => <TrainYardDemo /> },
   'task-manager': { note: 'projects.apiNote', render: () => <TaskManagerDemo /> },
+  arenacore: { note: 'projects.arenaNote', render: () => <ArenaCoreDemo /> },
 }
 
 const FOCUSABLE =

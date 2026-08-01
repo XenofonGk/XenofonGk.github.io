@@ -60,6 +60,7 @@ export default {
     close: 'Cerrar',
     liveNote: 'Compilado de C a WebAssembly',
     apiNote: 'ASP.NET Core y PostgreSQL, verificado en cada push',
+    arenaNote: 'Compilado de C++ a WebAssembly',
 
     items: {
       'train-yard-manager': {
@@ -284,6 +285,30 @@ export default {
       "Las peticiones se vinculan a DTOs, así que quien llama no puede fijar el id ni la hora de creación — eso lo controla el servidor.",
       'Los códigos de estado son los que se espera que devuelva cada verbo: 201 con location al crear, 400 ante un cuerpo inválido, 404 para un id desconocido, 204 al actualizar y eliminar.',
       'La base de datos se escala a cero cuando está inactiva, así que la primera petición tras una pausa tiene que despertarla.',
+    ],
+  },
+
+  arenaDemo: {
+    loading: 'Cargando la arena compilada…',
+    failed: 'La demo interactiva no se pudo cargar en este navegador. El código fuente está enlazado arriba.',
+    warrior: 'Guerrero',
+    mage: 'Mago',
+    health: 'HP',
+    level: 'Niv.',
+    damage: 'DAÑ',
+    takeTurn: 'Jugar turno',
+    reset: 'Reiniciar',
+    finished: 'Combate terminado',
+    addPower: '+10 poder',
+    levelUp: 'Subir de nivel',
+    toAct: 'actúa.',
+    wins: 'gana.',
+    notesTitle: 'Qué demuestra esto',
+    notes: [
+      "Guerrero y Mago se compilan a partir del C++ del repositorio y se ejecutan aquí como WebAssembly — el combate no está reimplementado en JavaScript.",
+      'El daño se despacha a través de la clase base abstracta Character, así que la subclase que actúa decide si se suman habilidades o poder mágico.',
+      "Los cambios de salud pasan por el operator+= propio de la clase, y añadir poder usa operator+= en el tipo concreto.",
+      'Los valores iniciales provienen del archivo de plantilla del repositorio, así que un combate aquí produce los mismos números que el binario nativo.',
     ],
   },
 

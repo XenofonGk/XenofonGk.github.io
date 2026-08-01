@@ -60,6 +60,7 @@ export default {
     close: '关闭',
     liveNote: '由 C 编译为 WebAssembly',
     apiNote: 'ASP.NET Core 与 PostgreSQL，每次 push 都会验证',
+    arenaNote: '从 C++ 编译为 WebAssembly',
 
     items: {
       'train-yard-manager': {
@@ -284,6 +285,30 @@ export default {
       '请求会绑定到 DTO，因此调用方无法设置 id 或创建时间 — 这些都由服务器掌控。',
       '状态码是每个动词应返回的标准状态：创建时返回 201 并带有 location，请求体无效时返回 400，id 未知时返回 404，更新和删除时返回 204。',
       '数据库在空闲时会缩容至零，因此暂停后的第一次请求需要将其唤醒。',
+    ],
+  },
+
+  arenaDemo: {
+    loading: '正在加载编译后的竞技场…',
+    failed: '此浏览器无法加载交互式演示。源代码链接在上方。',
+    warrior: '战士',
+    mage: '法师',
+    health: 'HP',
+    level: 'Lv',
+    damage: '伤害',
+    takeTurn: '进行回合',
+    reset: '重置',
+    finished: '战斗结束',
+    addPower: '+10 力量',
+    levelUp: '升级',
+    toAct: '行动。',
+    wins: '获胜。',
+    notesTitle: '这展示了什么',
+    notes: [
+      '战士和法师由仓库中的 C++ 代码编译而成，并在此以 WebAssembly 形式运行——战斗逻辑并未用 JavaScript 重新实现。',
+      '伤害通过抽象基类 Character 分派，因此由哪个子类在行动决定了是叠加技能还是法术强度。',
+      '生命值的变化通过该类自身的 operator+= 完成，增加力量则在具体类型上使用 operator+=。',
+      '初始数值来自仓库中的花名册文件，因此这里的一场战斗会得出与原生二进制程序相同的数字。',
     ],
   },
 

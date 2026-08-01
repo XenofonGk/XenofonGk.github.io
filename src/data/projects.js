@@ -39,6 +39,7 @@ export const projects = [
     year: '2026',
     stack: ['C++17', 'CMake'],
     repo: 'https://github.com/XenofonGk/Cpp/tree/main/ArenaCore',
+    demo: 'arenacore',
   },
   {
     id: 'portfolio',

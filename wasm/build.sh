@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Compiles the train yard validator to WebAssembly for the site demo.
+# Compiles the C and C++ demos to WebAssembly for the site.
 #
 # vendor/train_yard.{c,h} are copied verbatim from:
 #   https://github.com/XenofonGk/train-yard-manager
@@ -37,6 +37,30 @@ emcc \
   -s ALLOW_MEMORY_GROWTH=1 \
   -s EXPORTED_RUNTIME_METHODS='["cwrap"]' \
   -s EXPORTED_FUNCTIONS='["_ty_create","_ty_destroy","_ty_add_car","_ty_remove_car","_ty_is_safe","_ty_pull_capacity","_ty_car_count","_ty_num_engines","_ty_total_weight","_ty_car_type","_ty_car_weight","_ty_max_cars","_malloc","_free"]'
+
+# --- ArenaCore ------------------------------------------------------------
+#
+# vendor/arena/* is copied verbatim from:
+#   https://github.com/XenofonGk/Cpp   path ArenaCore/{include,src}
+#
+# Only the I/O-free classes are compiled. main.cpp and src/input.cpp are left
+# out because they read stdin, which does not exist here — that separation is
+# what makes the model reusable at all. arena_api.cpp adds accessors only.
+emcc \
+  vendor/arena/Character.cpp \
+  vendor/arena/Warrior.cpp \
+  vendor/arena/Mage.cpp \
+  arena_api.cpp \
+  -I vendor/arena \
+  -O2 -std=c++17 \
+  -o "$OUT/arena.js" \
+  -s MODULARIZE=1 \
+  -s EXPORT_ES6=1 \
+  -s EXPORT_NAME=createArena \
+  -s ENVIRONMENT=web \
+  -s ALLOW_MEMORY_GROWTH=1 \
+  -s EXPORTED_RUNTIME_METHODS='["cwrap","setValue","UTF8ToString"]' \
+  -s EXPORTED_FUNCTIONS='["_ac_start","_ac_destroy","_ac_step","_ac_turn","_ac_last_damage","_ac_health","_ac_level","_ac_is_alive","_ac_damage","_ac_name","_ac_level_up","_ac_add_power","_malloc","_free"]'
 
 echo "built:"
 ls -la "$OUT"

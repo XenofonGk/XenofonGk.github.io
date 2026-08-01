@@ -60,6 +60,7 @@ export default {
     close: 'Fermer',
     liveNote: 'Compilé du C vers WebAssembly',
     apiNote: 'ASP.NET Core et PostgreSQL, vérifié à chaque push',
+    arenaNote: 'Compilé de C++ vers WebAssembly',
 
     items: {
       'train-yard-manager': {
@@ -284,6 +285,30 @@ export default {
       "Les requêtes se lient à des DTOs, donc l'appelant ne peut pas fixer l'id ni l'heure de création — c'est le serveur qui les gère.",
       "Les codes de statut sont ceux attendus pour chaque verbe : 201 avec location à la création, 400 pour un corps invalide, 404 pour un id inconnu, 204 pour la mise à jour et la suppression.",
       "La base de données redescend à zéro instance quand elle est inactive, donc la première requête après une pause doit la réveiller.",
+    ],
+  },
+
+  arenaDemo: {
+    loading: "Chargement de l'arène compilée…",
+    failed: "La démo interactive n'a pas pu se charger dans ce navigateur. Le code source est lié ci-dessus.",
+    warrior: 'Guerrier',
+    mage: 'Mage',
+    health: 'PV',
+    level: 'Niv.',
+    damage: 'DGT',
+    takeTurn: 'Jouer le tour',
+    reset: 'Réinitialiser',
+    finished: 'Combat terminé',
+    addPower: '+10 puissance',
+    levelUp: 'Monter de niveau',
+    toAct: 'joue.',
+    wins: 'gagne.',
+    notesTitle: 'Ce que cela démontre',
+    notes: [
+      "Guerrier et Mage sont compilés à partir du C++ du dépôt et s'exécutent ici en WebAssembly — le combat n'est pas réimplémenté en JavaScript.",
+      "Les dégâts sont transmis via la classe de base abstraite Character, donc la sous-classe qui agit détermine si des compétences ou de la puissance magique sont additionnées.",
+      "Les changements de santé passent par l'operator+= propre à la classe, et l'ajout de puissance utilise operator+= sur le type concret.",
+      "Les valeurs de départ proviennent du fichier de roster du dépôt, donc un combat ici produit les mêmes chiffres que le binaire natif.",
     ],
   },
 
