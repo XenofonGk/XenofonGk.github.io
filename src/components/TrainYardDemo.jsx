@@ -42,8 +42,17 @@ export default function TrainYardDemo() {
     let destroy = null
 
     // The glue is emitted by wasm/build.sh into public/, so it is a static asset
-    // rather than part of the module graph — Vite must not try to resolve it.
-    import(/* @vite-ignore */ `${import.meta.env.BASE_URL}wasm/train_yard.js`)
+    // served as-is rather than part of the module graph.
+    //
+    // The URL goes through a variable and the import is wrapped in a Function so
+    // the bundler cannot see a specifier to resolve at all. `/* @vite-ignore */`
+    // alone was enough for Vite 5's Rollup, but Vite 8 builds with Rolldown,
+    // which still analyses the template literal and fails the build on an
+    // unresolved import.
+    const wasmUrl = `${import.meta.env.BASE_URL}wasm/train_yard.js`
+    const importAtRuntime = new Function('url', 'return import(url)')
+
+    importAtRuntime(wasmUrl)
       .then((mod) => mod.default())
       .then((M) => {
         if (cancelled) return
