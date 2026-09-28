@@ -7,6 +7,7 @@ import { Routes, Route } from 'react-router'
 import App from './App.jsx'
 import Home from './pages/Home.jsx'
 import ProjectsPage from './pages/ProjectsPage.jsx'
+import WorkPage from './pages/WorkPage.jsx'
 import AboutPage from './pages/AboutPage.jsx'
 import ContactPage from './pages/ContactPage.jsx'
 import NotFound from './pages/NotFound.jsx'
@@ -34,6 +35,7 @@ export function render(url) {
               <Route path="/" element={<Home />} />
               <Route path="/projects" element={<ProjectsPage />} />
               <Route path="/projects/:slug" element={<ProjectsPage />} />
+              <Route path="/work" element={<WorkPage />} />
               <Route path="/about" element={<AboutPage />} />
               <Route path="/contact" element={<ContactPage />} />
               <Route path="*" element={<NotFound />} />

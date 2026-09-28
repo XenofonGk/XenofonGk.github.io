@@ -38,6 +38,7 @@ const routes = [
     title: `Projects — ${SITE_NAME}`,
     desc: en.projects.intro,
   },
+  { path: '/work', title: `Client work — ${SITE_NAME}`, desc: en.work.intro },
   { path: '/about', title: `About — ${SITE_NAME}`, desc: en.about.paragraphs[0].slice(0, 180) },
   { path: '/contact', title: `Contact — ${SITE_NAME}`, desc: en.contact.body },
   ...projects.map((p) => ({

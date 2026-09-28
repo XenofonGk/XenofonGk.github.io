@@ -45,14 +45,18 @@ jobs:
       # the SPA shell, routes 404 for crawlers and share as blank cards.
       - name: Every route prerendered
         run: |
-          for p in index projects about contact \
-                   projects/train-yard-manager projects/taskmanager-api \
-                   projects/inventory-crud projects/arenacore projects/portfolio; do
+          for p in index work projects about contact \
+                   projects/taskmanager-api projects/resume-classifier \
+                   projects/aoda-scan projects/agentmesh projects/home-server \
+                   projects/train-yard-manager projects/inventory-crud \
+                   projects/arenacore projects/portfolio; do
             f="dist/${p}.html"; [ "$p" = index ] && f="dist/index.html"
             [ -f "$f" ] || { echo "missing prerendered $f"; exit 1; }
           done
           grep -q 'Train Yard Management System' dist/projects/index.html \
             || { echo 'prerendered /projects has no project copy'; exit 1; }
+          grep -q 'AZ Clean' dist/work.html \
+            || { echo 'prerendered /work has no case study copy'; exit 1; }
           echo "all routes prerendered with content"
 
       - name: Accessibility (axe-core, zero violations)

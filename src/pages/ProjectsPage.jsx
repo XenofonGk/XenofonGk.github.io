@@ -34,6 +34,7 @@ export default function ProjectsPage() {
                       and skipping a level breaks the document outline. */}
                   <h2>
                     {t(`projects.items.${p.id}.title`)}
+                    {p.live && <span className="badge live">{t('projects.liveBadge')}</span>}
                     {p.demo && <span className="badge">{t('projects.liveDemo')}</span>}
                   </h2>
                   <p>{t(`projects.items.${p.id}.summary`)}</p>
