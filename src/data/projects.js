@@ -34,7 +34,6 @@ export const projects = [
     year: '2026',
     stack: ['Node.js', 'Playwright', 'axe-core'],
     repo: 'https://github.com/XenofonGk/aoda-scan',
-    live: 'https://www.npmjs.com/package/aoda-scan',
   },
   {
     id: 'agentmesh',
