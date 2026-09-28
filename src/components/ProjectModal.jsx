@@ -107,6 +107,16 @@ export default function ProjectModal({ project, prev, next, onClose }) {
               <span className="k">{t('projects.role')}</span>
               <span className="v">{t(`projects.items.${project.id}.role`)}</span>
             </div>
+            {project.live && (
+              <div className="cell">
+                <span className="k">{t('projects.liveBadge')}</span>
+                <span className="v">
+                  <a href={project.live} target="_blank" rel="noopener noreferrer">
+                    {t('projects.openLive')} ↗
+                  </a>
+                </span>
+              </div>
+            )}
             <div className="cell">
               <span className="k">{t('projects.source')}</span>
               <span className="v">

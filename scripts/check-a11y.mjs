@@ -25,6 +25,7 @@ const DIST = new URL('../dist/', import.meta.url).pathname
 const ROUTES = [
   '/',
   '/projects',
+  '/work',
   '/about',
   '/contact',
   // Both demo routes: interactive controls and data tables are where this
@@ -32,6 +33,8 @@ const ROUTES = [
   '/projects/train-yard-manager',
   '/projects/taskmanager-api',
   '/projects/arenacore',
+  '/projects/resume-classifier',
+  '/projects/home-server',
 ]
 const SCHEMES = ['light', 'dark']
 
@@ -101,6 +104,11 @@ try {
       if (route.includes('train-yard')) {
         await page.waitForSelector('.demo-controls', { timeout: 15000 }).catch(() => {})
       }
+
+      // Let the route-entry and scroll-reveal transitions finish; auditing
+      // mid-fade measures text at partial opacity and reports false contrast
+      // failures.
+      await new Promise((ok) => setTimeout(ok, 900))
 
       await page.addScriptTag({ path: axePath })
       const result = await page.evaluate(async () => window.axe.run(document))

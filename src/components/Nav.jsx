@@ -7,6 +7,7 @@ export default function Nav() {
   const { t } = useI18n();
 
   const links = [
+    { to: "/work", label: t("nav.work") },
     { to: "/projects", label: t("nav.projects") },
     { to: "/about", label: t("nav.about") },
     { to: "/contact", label: t("nav.contact") },
