@@ -139,7 +139,7 @@ export default {
       "aoda-scan": {
         "title": "aoda-scan",
         "role": "Open source",
-        "summary": "Outil en ligne de commande qui parcourt tout un site et l'évalue selon WCAG 2.1 AA et l'AODA de l'Ontario. Publié sur npm.",
+        "summary": "Outil en ligne de commande qui parcourt tout un site et l'évalue selon WCAG 2.1 AA et l'AODA de l'Ontario.",
         "body": [
           "La plupart des outils d'accessibilité testent une page à la fois, mais un site échoue dans son ensemble : le même composant défaillant échoue sur chaque page qui l'utilise. aoda-scan parcourt le site, teste chaque page avec axe-core dans un vrai navigateur et résume les résultats en une note, un taux de conformité et une liste de priorités.",
           "Il se lance avec npx aoda-scan et une URL. Il affiche un résumé dans le terminal et écrit un rapport HTML à côté."
