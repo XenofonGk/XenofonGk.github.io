@@ -624,5 +624,41 @@ export default {
     "empty": "No hay coincidencias",
     "hint": "↑ ↓ para moverte · Enter para abrir · Esc para cerrar",
     "close": "Cerrar"
+  },
+  "privacy": {
+    "label": "Privacidad",
+    "title": "Privacidad",
+    "updated": "Última actualización: 29 de septiembre de 2026",
+    "short": "En resumen: sin cookies, sin analítica, sin anuncios, sin seguimiento. No me llega nada de tu visita.",
+    "sections": [
+      {
+        "h": "Quién gestiona este sitio",
+        "p": "Xenofon Gkioka, Toronto, Canadá. Para cualquier cuestión sobre tus datos: ksenofwn58@gmail.com."
+      },
+      {
+        "h": "Lo que guarda tu navegador",
+        "p": "Si eliges un idioma o cambias entre modo claro y oscuro, tu navegador recuerda esa elección en su almacenamiento local. Nunca sale de tu dispositivo y puedes borrarla cuando quieras desde los ajustes. No hay cookies."
+      },
+      {
+        "h": "Lo que ven los proveedores de alojamiento",
+        "p": "Como cualquier web, los servidores que la entregan tratan tu dirección IP para enviarte las páginas y protegerse de abusos. Este sitio está alojado en GitHub Pages (consulta la declaración de privacidad de GitHub). Las demos en vivo y el estado del servidor vienen de mi propio servidor a través de Cloudflare, que puede fijar una cookie de seguridad estrictamente necesaria (__cf_bm) en esas direcciones para filtrar bots (consulta la política de privacidad de Cloudflare). Mi servidor no guarda direcciones IP de visitantes."
+      },
+      {
+        "h": "Las demos en vivo",
+        "p": "El texto que pegas en el Resume Classifier se clasifica en memoria y nunca se guarda ni se registra. Aun así, no pegues datos personales reales. La API de TaskManager solo permite a los visitantes leer datos de ejemplo."
+      },
+      {
+        "h": "Tipografías",
+        "p": "Todas las tipografías se sirven desde este sitio. Tu navegador no hace ninguna petición a Google ni a otro servicio de fuentes."
+      },
+      {
+        "h": "Si me escribes",
+        "p": "Uso tu email solo para responderte. Pídemelo y lo borro."
+      },
+      {
+        "h": "Tus derechos",
+        "p": "Según el RGPD y la ley de privacidad canadiense puedes preguntar qué datos tengo sobre ti y pedir que se corrijan o borren. Como este sitio no recoge nada, la respuesta suele ser solo tus emails. Escríbeme a la dirección de arriba."
+      }
+    ]
   }
 }

@@ -1,3 +1,4 @@
+import { Link } from 'react-router'
 import { profile } from '../data/profile.js'
 import { useI18n } from '../i18n/index.jsx'
 import Icon from './Icon.jsx'
@@ -34,6 +35,12 @@ export default function TitleBlock() {
             <span className="v">{t('home.permit.no')}</span>
           </div>
         </div>
+
+        <p className="footer-legal">
+          <span>© 2026 {profile.name}</span>
+          <Link to="/privacy">{t('privacy.label')}</Link>
+          <Link to="/contact">{t('nav.contact')}</Link>
+        </p>
 
         {/* Shown only when a machine-assisted locale is active. Stating this is
             the honest alternative to letting an unverified translation of

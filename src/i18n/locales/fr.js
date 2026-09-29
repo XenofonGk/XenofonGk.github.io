@@ -624,5 +624,41 @@ export default {
     "empty": "Aucun résultat",
     "hint": "↑ ↓ pour naviguer · Entrée pour ouvrir · Échap pour fermer",
     "close": "Fermer"
+  },
+  "privacy": {
+    "label": "Confidentialité",
+    "title": "Confidentialité",
+    "updated": "Dernière mise à jour : 29 septembre 2026",
+    "short": "En bref : aucun cookie, aucune mesure d’audience, aucune publicité, aucun pistage. Rien de votre visite ne m’est envoyé.",
+    "sections": [
+      {
+        "h": "Qui gère ce site",
+        "p": "Xenofon Gkioka, Toronto, Canada. Pour toute question sur vos données : ksenofwn58@gmail.com."
+      },
+      {
+        "h": "Ce que garde votre navigateur",
+        "p": "Si vous choisissez une langue ou passez du mode clair au mode sombre, votre navigateur retient ce choix dans son stockage local. Il ne quitte jamais votre appareil et vous pouvez l’effacer à tout moment dans les réglages. Il n’y a aucun cookie."
+      },
+      {
+        "h": "Ce que voient les hébergeurs",
+        "p": "Comme tout site web, les serveurs qui le diffusent traitent votre adresse IP pour vous envoyer les pages et se protéger des abus. Ce site est hébergé par GitHub Pages (voir la déclaration de confidentialité de GitHub). Les démos en direct et l’état du serveur viennent de mon propre serveur via Cloudflare, qui peut poser un cookie de sécurité strictement nécessaire (__cf_bm) sur ces adresses pour filtrer les robots (voir la politique de confidentialité de Cloudflare). Mon serveur ne conserve pas les adresses IP des visiteurs."
+      },
+      {
+        "h": "Les démos en direct",
+        "p": "Le texte collé dans le Resume Classifier est classé en mémoire et n’est jamais enregistré ni journalisé. Évitez tout de même d’y coller de vraies données personnelles. L’API TaskManager ne permet aux visiteurs que de lire des données d’exemple."
+      },
+      {
+        "h": "Polices",
+        "p": "Toutes les polices sont servies par ce site. Votre navigateur n’envoie aucune requête à Google ni à un autre service de polices."
+      },
+      {
+        "h": "Si vous m’écrivez",
+        "p": "J’utilise votre e-mail uniquement pour vous répondre. Demandez-le et je le supprime."
+      },
+      {
+        "h": "Vos droits",
+        "p": "En vertu du RGPD et du droit canadien, vous pouvez demander quelles données je détiens sur vous, et les faire corriger ou supprimer. Ce site ne collectant rien, la réponse se limite en général à vos e-mails. Écrivez à l’adresse ci-dessus."
+      }
+    ]
   }
 }

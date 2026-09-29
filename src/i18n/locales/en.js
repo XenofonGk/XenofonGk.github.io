@@ -632,5 +632,41 @@ export default {
     "empty": "Nothing matches",
     "hint": "↑ ↓ to move · Enter to open · Esc to close",
     "close": "Close"
+  },
+  "privacy": {
+    "label": "Privacy",
+    "title": "Privacy",
+    "updated": "Last updated 29 September 2026",
+    "short": "The short version: no cookies, no analytics, no ads, no tracking. Nothing about your visit is sent to me.",
+    "sections": [
+      {
+        "h": "Who runs this site",
+        "p": "Xenofon Gkioka, Toronto, Canada. For anything about your data, email ksenofwn58@gmail.com."
+      },
+      {
+        "h": "What your browser keeps",
+        "p": "If you pick a language or switch between light and dark, your browser remembers that choice in its own local storage. It never leaves your device, and you can clear it at any time in your browser settings. There are no cookies."
+      },
+      {
+        "h": "What the hosts see",
+        "p": "Like any website, the servers that deliver it process your IP address to send you the pages and to protect against abuse. This site is hosted by GitHub Pages (see the GitHub privacy statement). The live demos and the server status come from my own server through Cloudflare, which may set a strictly necessary security cookie (__cf_bm) on those addresses to filter out bots (see the Cloudflare privacy policy). My server does not keep visitor IP addresses."
+      },
+      {
+        "h": "The live demos",
+        "p": "Text you paste into the Resume Classifier is classified in memory and is never stored or logged. Please do not paste real personal information anyway. The TaskManager API only lets visitors read sample data."
+      },
+      {
+        "h": "Fonts",
+        "p": "All fonts are served from this site. Your browser makes no requests to Google or any other font service."
+      },
+      {
+        "h": "If you email me",
+        "p": "I use your email only to reply to you. Ask me and I will delete it."
+      },
+      {
+        "h": "Your rights",
+        "p": "Under the GDPR and Canadian privacy law you can ask what data I hold about you, and have it corrected or deleted. Since this site collects nothing, the answer is usually just your emails. Write to the address above."
+      }
+    ]
   }
 }

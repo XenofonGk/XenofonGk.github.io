@@ -2,6 +2,7 @@ import { Link, useNavigate, useParams } from 'react-router'
 import { projects, alsoBuilt, findProject } from '../data/projects.js'
 import { useI18n } from '../i18n/index.jsx'
 import ProjectModal from '../components/ProjectModal.jsx'
+import Icon from '../components/Icon.jsx'
 
 export default function ProjectsPage() {
   const { slug } = useParams()
@@ -40,7 +41,7 @@ export default function ProjectsPage() {
                   <p>{t(`projects.items.${p.id}.summary`)}</p>
                   <span className="tags">{p.stack.join(' · ')}</span>
                 </span>
-                <span className="go">{t('projects.open')} →</span>
+                <span className="go">{t('projects.open')} <Icon name="arrow" /></span>
               </Link>
             ))}
           </div>
@@ -70,7 +71,7 @@ export default function ProjectsPage() {
                   <h3>{t(`projects.also.${p.id}.title`)}</h3>
                   <p>{t(`projects.also.${p.id}.note`)}</p>
                 </span>
-                <span className="go">{t('projects.repo')} ↗</span>
+                <span className="go">{t('projects.repo')} <Icon name="external" /></span>
               </a>
             ))}
           </div>

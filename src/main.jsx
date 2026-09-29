@@ -7,6 +7,9 @@ import ProjectsPage from './pages/ProjectsPage.jsx'
 import WorkPage from './pages/WorkPage.jsx'
 import AboutPage from './pages/AboutPage.jsx'
 import ContactPage from './pages/ContactPage.jsx'
+import EnginePage from './pages/EnginePage.jsx'
+import CvPage from './pages/CvPage.jsx'
+import PrivacyPage from './pages/PrivacyPage.jsx'
 import NotFound from './pages/NotFound.jsx'
 import { I18nProvider } from './i18n/index.jsx'
 import { ThemeProvider } from './theme.jsx'
@@ -27,6 +30,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
               <Route path="/work" element={<WorkPage />} />
               <Route path="/about" element={<AboutPage />} />
               <Route path="/contact" element={<ContactPage />} />
+              <Route path="/engine-room" element={<EnginePage />} />
+              <Route path="/cv" element={<CvPage />} />
+              <Route path="/privacy" element={<PrivacyPage />} />
               <Route path="*" element={<NotFound />} />
             </Route>
           </Routes>

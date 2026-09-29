@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { useLocation } from 'react-router'
 import { clientWork } from '../data/projects.js'
 import { useI18n } from '../i18n/index.jsx'
+import Icon from '../components/Icon.jsx'
 
 export default function WorkPage() {
   const { t } = useI18n()
@@ -21,28 +22,24 @@ export default function WorkPage() {
     <>
       <section className="section page-head">
         <div className="wrap">
-          <p className="eyebrow" data-reveal>{t('work.label')}</p>
-          <h1 data-reveal>{t('work.title')}</h1>
+          <p className="page-kicker mono" data-reveal>{t('work.label')}</p>
+          <h1 className="stencil" data-reveal>{t('work.title')}</h1>
           <p className="section-intro" data-reveal>{t('work.intro')}</p>
         </div>
       </section>
 
-      {clientWork.map((w) => {
+      {clientWork.map((w, i) => {
         const base = `work.items.${w.id}`
         const body = t(`${base}.body`)
         return (
           <section className="section case" id={w.id} key={w.id} aria-labelledby={`${w.id}-title`}>
             <div className="wrap case-grid">
               <div className="case-main">
-                <div className="browser" data-reveal aria-hidden="true">
-                  <div className="browser-bar">
-                    <span></span><span></span><span></span>
-                    <span className="browser-url mono">{w.domain}</span>
-                  </div>
-                  <div className={`browser-body browser-${w.id}`}>
-                    <span className="browser-title">{t(`${base}.title`)}</span>
-                    <span className="browser-tag">{t(`${base}.tagline`)}</span>
-                  </div>
+                {/* The client's site as a posted placard: address, name and line. */}
+                <div className={`elevation elevation-${w.id}`} data-reveal aria-hidden="true">
+                  <span className="elevation-no">{`A-11${i + 1}`}</span>
+                  <span className="data elevation-url">{w.domain}</span>
+                  <span className="elevation-title">{t(`${base}.tagline`)}</span>
                 </div>
                 <h2 id={`${w.id}-title`} data-reveal>{t(`${base}.title`)}</h2>
                 <p className="lede" data-reveal>{t(`${base}.summary`)}</p>
@@ -71,7 +68,7 @@ export default function WorkPage() {
                   </div>
                 </dl>
                 <a className="btn solid block" href={w.url} target="_blank" rel="noopener noreferrer">
-                  {t('work.visit')} ↗
+                  {t('work.visit')} <Icon name="external" />
                 </a>
               </aside>
             </div>
