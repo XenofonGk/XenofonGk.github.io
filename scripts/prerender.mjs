@@ -22,7 +22,7 @@ const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 const DIST = join(root, 'dist')
 
 // Override when the custom domain lands: SITE_URL=https://example.me npm run build
-const SITE = (process.env.SITE_URL || 'https://xenofongk.github.io').replace(/\/$/, '')
+const SITE = (process.env.SITE_URL || 'https://xgbuilds.dev').replace(/\/$/, '')
 
 const { render } = await import(join(DIST, '..', 'dist-ssr', 'entry-server.js'))
 const { projects } = await import(join(root, 'src', 'data', 'projects.js'))
@@ -32,7 +32,7 @@ const SITE_NAME = 'Xenofon Gkioka'
 const BASE_DESC = en.home.lede
 
 const routes = [
-  { path: '/', title: `${SITE_NAME} — Software Engineer`, desc: BASE_DESC },
+  { path: '/', title: `${SITE_NAME} — Full-stack developer`, desc: en.home.permitLede },
   {
     path: '/projects',
     title: `Projects — ${SITE_NAME}`,
@@ -41,6 +41,9 @@ const routes = [
   { path: '/work', title: `Client work — ${SITE_NAME}`, desc: en.work.intro },
   { path: '/about', title: `About — ${SITE_NAME}`, desc: en.about.paragraphs[0].slice(0, 180) },
   { path: '/contact', title: `Contact — ${SITE_NAME}`, desc: en.contact.body },
+  { path: '/engine-room', title: `Engine room — ${SITE_NAME}`, desc: en.engine.intro },
+  { path: '/cv', title: `CV — ${SITE_NAME}`, desc: en.cv.intro },
+  { path: '/privacy', title: `Privacy — ${SITE_NAME}`, desc: en.privacy.short },
   ...projects.map((p) => ({
     path: `/projects/${p.slug}`,
     title: `${en.projects.items[p.id].title} — ${SITE_NAME}`,

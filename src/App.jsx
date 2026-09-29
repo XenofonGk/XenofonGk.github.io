@@ -4,6 +4,8 @@ import Nav from './components/Nav.jsx'
 import TitleBlock from './components/TitleBlock.jsx'
 import { useI18n } from './i18n/index.jsx'
 import { useReveal } from './hooks/useReveal.js'
+import { StatusProvider } from './status.jsx'
+import { PaletteProvider } from './components/CommandPalette.jsx'
 
 export default function App() {
   const { pathname } = useLocation()
@@ -30,6 +32,8 @@ export default function App() {
   useReveal([routeKey, lang])
 
   return (
+    <StatusProvider>
+    <PaletteProvider>
     <div className="frame">
       <a className="skip-link" href="#main">{t('nav.skip')}</a>
       <Nav />
@@ -38,5 +42,7 @@ export default function App() {
       </main>
       <TitleBlock />
     </div>
+    </PaletteProvider>
+    </StatusProvider>
   )
 }

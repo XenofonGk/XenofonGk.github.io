@@ -28,6 +28,10 @@ const ROUTES = [
   '/work',
   '/about',
   '/contact',
+  '/engine-room',
+  '/cv',
+  '/privacy',
+  '/projects/ai-eng',
   // Both demo routes: interactive controls and data tables are where this
   // breaks, so a project gaining a demo must be added here.
   '/projects/train-yard-manager',
@@ -96,7 +100,13 @@ try {
     for (const route of ROUTES) {
       const page = await browser.newPage()
       await page.setViewport({ width: 1280, height: 900 })
-      await page.emulateMediaFeatures([{ name: 'prefers-color-scheme', value: scheme }])
+      // Reduced motion shows every element at full opacity at once, so contrast
+      // is measured on finished text rather than mid-fade (slow CI runners
+      // otherwise catch the entrance animations halfway and report ghosts).
+      await page.emulateMediaFeatures([
+        { name: 'prefers-color-scheme', value: scheme },
+        { name: 'prefers-reduced-motion', value: 'reduce' },
+      ])
       await page.goto(BASE + route, { waitUntil: 'networkidle0' })
 
       // The train-yard route opens a modal holding the WebAssembly demo; wait
@@ -109,6 +119,11 @@ try {
       // mid-fade measures text at partial opacity and reports false contrast
       // failures.
       await new Promise((ok) => setTimeout(ok, 900))
+      await page.waitForFunction(
+        () => [...document.querySelectorAll('[data-reveal]')].every((n) => n.classList.contains('is-revealed'))
+          && document.querySelector('.route')?.classList.contains('is-entered'),
+        { timeout: 10000 },
+      ).catch(() => {})
 
       await page.addScriptTag({ path: axePath })
       const result = await page.evaluate(async () => window.axe.run(document))

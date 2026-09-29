@@ -29,6 +29,13 @@ export const projects = [
     live: 'https://resume-classifier.xgbuilds.dev',
   },
   {
+    id: 'ai-eng',
+    slug: 'ai-eng',
+    year: '2026',
+    stack: ['JavaScript', 'Node.js', 'Mutation testing'],
+    repo: 'https://github.com/XenofonGk/ai-eng',
+  },
+  {
     id: 'aoda-scan',
     slug: 'aoda-scan',
     year: '2026',
@@ -46,8 +53,10 @@ export const projects = [
     id: 'home-server',
     slug: 'home-server',
     year: '2026',
-    stack: ['Ubuntu', 'Docker Compose', 'Cloudflare Tunnel', 'Bash', 'Ansible'],
-    repo: 'https://github.com/XenofonGk/home-server',
+    stack: ['Ubuntu', 'Docker Compose', 'Cloudflare Tunnel', 'OpenTofu', 'restic'],
+    // The repository is private for now, so there is no source link to show.
+    repo: null,
+    live: 'https://xgbuilds.dev/engine-room',
   },
   {
     id: 'train-yard-manager',
@@ -123,4 +132,16 @@ export const liveNow = [
   { id: 'way', kind: 'client', url: 'https://www.wayempowerment.com', domain: 'wayempowerment.com', to: '/work#way' },
   { id: 'tasks', kind: 'server', url: 'https://tasks.xgbuilds.dev/swagger', domain: 'tasks.xgbuilds.dev', to: '/projects/taskmanager-api' },
   { id: 'classifier', kind: 'server', url: 'https://resume-classifier.xgbuilds.dev', domain: 'resume-classifier.xgbuilds.dev', to: '/projects/resume-classifier' },
+]
+
+/* The six projects on the home page, each with a permit file (the case study
+   under projects.items.<id>.file). `stamp` is what the inspection stamp says
+   when there is no live reading for it. */
+export const activeSites = [
+  { id: 'taskmanager-api', trade: 'C# · .NET', service: 'tasks', stamp: 'live' },
+  { id: 'home-server', trade: 'Ops', service: 'host', stamp: 'live' },
+  { id: 'resume-classifier', trade: 'Python · ML', service: 'resume-classifier', stamp: 'live' },
+  { id: 'ai-eng', trade: 'Testing · AI', stamp: 'result' },
+  { id: 'aoda-scan', trade: 'Accessibility', stamp: 'open' },
+  { id: 'agentmesh', trade: 'TypeScript · AI', stamp: 'progress' },
 ]

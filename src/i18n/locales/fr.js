@@ -9,7 +9,13 @@ export default {
     "theme": "Changer de thème",
     "skip": "Aller au contenu principal",
     "primary": "Principal",
-    "work": "Réalisations"
+    "work": "Réalisations",
+    "sites": "Chantiers",
+    "clients": "Clients",
+    "engineRoom": "Salle des machines",
+    "cv": "CV",
+    "palette": "Aller à…",
+    "paletteLabel": "Ouvrir la palette de commandes"
   },
   "home": {
     "eyebrow": "Développeur full-stack · Toronto · disponible",
@@ -59,7 +65,92 @@ export default {
     "featuredLabel": "À la une",
     "featuredTitle": "Un programme en C, exécuté ici",
     "featuredBody": "Le validateur de gare de triage est écrit en C et testé avec MSTest. Comme toutes ses entrées-sorties console sont isolées dans main.c, la couche logique se compile proprement vers WebAssembly — si bien que le même code exercé par la suite de tests s'exécute directement dans cette page. Rien n'est réimplémenté en JavaScript.",
-    "featuredCta": "Ouvrir la démo"
+    "featuredCta": "Ouvrir la démo",
+    "notice": "Avis de travaux en cours · Toronto",
+    "permitTitle": "Logiciel en construction.",
+    "permitLede": "Quatre ans à superviser des chantiers de maisons à Toronto. Aujourd'hui je construis du logiciel de la même façon : selon le cahier des charges, dans les délais, fait pour durer. Full-stack en React, TypeScript et C#/.NET, et ce que je construis tourne sur mon propre serveur.",
+    "ctaSites": "Visiter les chantiers",
+    "ctaCv": "Imprimer mon CV",
+    "permit": {
+      "title": "Permis de construire",
+      "no": "N° XG-2026-05",
+      "contractor": "Entrepreneur",
+      "status": "Statut",
+      "statusValue": "Disponible",
+      "trade": "Métier",
+      "tradeValue": "Full-stack · DevOps",
+      "licensed": "Autorisé à travailler",
+      "licensedValue": "Canada (RP) · UE",
+      "log": "Journal des inspections · en direct de mon serveur",
+      "last": "Dernière inspection",
+      "offline": "Aucun relevé pour le moment : le serveur est peut-être en veille.",
+      "passed": "Conforme",
+      "failed": "Échec",
+      "deploy": "Déploiement signé vérifié",
+      "backup": "Sauvegarde vérifiée",
+      "checks": "Contrôles de santé réussis",
+      "post": "À afficher de façon visible"
+    },
+    "sitesTitle": "Chantiers actifs",
+    "sitesHint": "Choisissez un chantier pour ouvrir son dossier",
+    "site": "Chantier",
+    "stamps": {
+      "live": "En ligne",
+      "down": "Hors ligne",
+      "result": "0 → 27/59",
+      "open": "Open source",
+      "progress": "En cours"
+    },
+    "file": {
+      "label": "Dossier de permis",
+      "problem": "Problème",
+      "approach": "Approche",
+      "hard": "La partie difficile",
+      "result": "Résultat",
+      "open": "Ouvrir le dossier complet",
+      "source": "Code",
+      "live": "Voir en ligne"
+    },
+    "clientsTitle": "Sites pour des clients",
+    "clientsIntro": "Des sites que j’ai construits pour une entreprise à Athènes et une ONG au Kenya, en ligne sur leurs propres domaines.",
+    "clientsCta": "Voir le travail pour les clients",
+    "engineTitle": "La salle des machines",
+    "engineIntro": "Tout ce qui précède tourne sur un vieux portable configuré comme en production. Voyez comment il est construit et ce qu’il fait en ce moment.",
+    "engineCta": "Visiter la salle des machines",
+    "contactTitle": "Vous recrutez ? Parlons-en.",
+    "contactBody": "Postes full-stack au Canada ou dans l’UE. Je réponds sous un jour.",
+    "contactCta": "M’écrire",
+    "diagram": {
+      "title": "Comment une requête atteint mon serveur",
+      "alt": "Schéma : un visiteur atteint le réseau Cloudflare, qui transmet par un tunnel sortant à Caddy sur le serveur maison, puis aux conteneurs. Séparément, GitHub Actions construit et signe une image que le serveur récupère et vérifie avant de la déployer. Les sauvegardes nocturnes et les alertes sur téléphone tournent sur le serveur.",
+      "visitor": "Visiteur",
+      "edge": "Réseau Cloudflare",
+      "tunnel": "Tunnel sortant",
+      "proxy": "Caddy",
+      "apps": "Conteneurs",
+      "ci": "GitHub Actions",
+      "registry": "Image signée",
+      "deploy": "Récupération + vérif.",
+      "backup": "Sauvegarde nocturne",
+      "alerts": "Alertes sur téléphone",
+      "router": "Box internet : aucun port ouvert",
+      "host": "Serveur maison"
+    },
+    "inspect": {
+      "title": "Visite de chantier",
+      "live": "Relevé en direct",
+      "loading": "Relevé en cours…",
+      "unavailable": "Aucun relevé pour le moment. Le serveur est peut-être en veille ou redémarre ; les liens du tableau ci-dessus indiquent si chaque service répond.",
+      "taken": "Relevé effectué",
+      "services": "Services qui répondent",
+      "deploy": "Dernier déploiement",
+      "verified": "signature vérifiée",
+      "backup": "Dernière sauvegarde",
+      "checks": "Contrôles de santé réussis",
+      "uptime": "En marche depuis",
+      "days": "{n} j",
+      "hours": "{n} h"
+    }
   },
   "projects": {
     "label": "Projets",
@@ -97,7 +188,13 @@ export default {
           "Une API REST autour d'un modèle de tâches, conçue pour pratiquer le pipeline de requêtes d'ASP.NET Core et Entity Framework Core. Elle est en ligne sur mon serveur domestique, avec une documentation Swagger interactive sur tasks.xgbuilds.dev.",
           "Le schéma est code-first : EF Core génère les migrations qui créent le schéma PostgreSQL. Les requêtes sont liées à des DTO et non à l'entité, pour qu'un appelant ne puisse pas fixer son propre id et écraser une ligne qui ne le concerne pas.",
           "Les lectures sont publiques ; les écritures exigent une clé API, comparée en temps constant. Chaque push sur main lance le test de contrat contre un vrai PostgreSQL, puis compile, analyse et signe l’image que le serveur déploie."
-        ]
+        ],
+        "file": {
+          "problem": "Construire une API REST comme on construit celles de production, pas une liste de tâches de tutoriel.",
+          "approach": "Migrations code-first avec EF Core, DTO pour que personne ne fixe son propre id, lectures publiques et écritures protégées par clé, dans Docker.",
+          "hard": "La rendre sûre à laisser sur internet : la clé d’API est comparée en temps constant, et chaque push lance le test de contrat contre une vraie PostgreSQL avant de signer l’image.",
+          "result": "En ligne sur tasks.xgbuilds.dev avec la documentation Swagger, déployée automatiquement dès qu’une nouvelle image signée apparaît."
+        }
       },
       "inventory-crud": {
         "title": "Inventory CRUD",
@@ -134,7 +231,13 @@ export default {
           "Un pipeline scikit-learn (nettoyage, caractéristiques TF-IDF, régression logistique) servi avec FastAPI. Il est entraîné sur un corpus généré, car de vrais CV sont des données personnelles.",
           "Le premier générateur donnait à chaque métier son propre vocabulaire et le modèle obtenait un 1,00 parfait, qui mesurait le jeu de données et non le modèle. Le corpus partage désormais des formules et des outils entre métiers, et 45 % des CV empruntent une ligne à un autre domaine. La précision sur du texte généré est d'environ 0,98 : la preuve que le pipeline fonctionne de bout en bout, rien de plus.",
           "Chaque étiquette est accompagnée d'un indice de confiance. Un texte sans rapport obtient environ 22 %, à peine au-dessus des 20 % du hasard : c'est le modèle qui dit qu'il ne sait pas."
-        ]
+        ],
+        "file": {
+          "problem": "Classer des CV par famille de métiers sans entraîner sur les données personnelles de quiconque.",
+          "approach": "Un corpus généré, des caractéristiques TF-IDF et une régression logistique, servis avec FastAPI dans un conteneur signé.",
+          "hard": "Le premier modèle a obtenu un 1.00 parfait. Cela mesurait le jeu de données, pas le modèle : chaque métier avait ses propres mots. J’ai refait le corpus avec du vocabulaire et des outils partagés jusqu’à ce que le score veuille dire quelque chose.",
+          "result": "En ligne et honnête : chaque étiquette a un niveau de confiance, et un texte sans rapport obtient environ 22 %, près des 20 % du hasard."
+        }
       },
       "aoda-scan": {
         "title": "aoda-scan",
@@ -143,7 +246,13 @@ export default {
         "body": [
           "La plupart des outils d'accessibilité testent une page à la fois, mais un site échoue dans son ensemble : le même composant défaillant échoue sur chaque page qui l'utilise. aoda-scan parcourt le site, teste chaque page avec axe-core dans un vrai navigateur et résume les résultats en une note, un taux de conformité et une liste de priorités.",
           "Il se lance avec npx aoda-scan et une URL. Il affiche un résumé dans le terminal et écrit un rapport HTML à côté."
-        ]
+        ],
+        "file": {
+          "problem": "Les outils d’accessibilité vérifient une page à la fois, mais les vrais sites échouent de la même façon sur cinquante.",
+          "approach": "Parcourir tout le site, lancer axe-core sur chaque page avec Playwright, et tout résumer en une note et une liste de corrections par priorité.",
+          "hard": "Transformer le bruit en travail : un défaut dans un en-tête partagé apparaît sur chaque page, donc le rapport le regroupe en une correction au lieu de cinquante constats.",
+          "result": "Open source, testé sur Node 20, 22 et 24, avec une GitHub Action qui vérifie un site à chaque push."
+        }
       },
       "agentmesh": {
         "title": "AgentMesh",
@@ -152,7 +261,13 @@ export default {
         "body": [
           "AgentMesh est un logiciel que vous faites tourner, pas un service auquel on s'inscrit. Une application Next.js et une API Fastify pilotent des agents chez cinq fournisseurs (Claude, Gemini, DeepSeek, Grok et Ollama), avec une transcription en direct et un écran de revue de chaque modification.",
           "La sécurité est au cœur de la conception. Les clés des fournisseurs sont dans un coffre chiffré, les agents tournent dans des conteneurs isolés qui ne voient jamais de clé, et leurs requêtes passent par un proxy interne qui ajoute la clé, retire les secrets des journaux et limite le débit. C'est aussi pourquoi il n'y a pas de démo publique."
-        ]
+        ],
+        "file": {
+          "problem": "Faire tourner des agents de code IA chez plusieurs fournisseurs sans leur confier vos clés d’API.",
+          "approach": "Un coffre d’identifiants et un proxy, cinq adaptateurs de fournisseurs, un exécuteur isolé et un écran de relecture de ce que l’agent a modifié.",
+          "hard": "La frontière de sécurité : les clés ne vivent que dans le coffre, le proxy les injecte à chaque requête, et l’exécuteur n’a accès à aucun des deux.",
+          "result": "Phases 0 à 5 construites et testées ; la publication en open source est en cours."
+        }
       },
       "home-server": {
         "title": "Serveur domestique",
@@ -161,7 +276,29 @@ export default {
         "body": [
           "Les projets en ligne de ce site tournent sur un vieux portable Asus avec 5,7 Go de RAM. Cette limite a guidé chaque décision : chaque conteneur a un plafond de mémoire, rien ne touche aux réglages réseau et aucun port n'est ouvert sur internet. Le trafic arrive par un tunnel Cloudflare sortant.",
           "Les déploiements se font en pull : la CI publie une image signée et le serveur vérifie la signature par rapport au workflow exact qui l'a construite avant de la lancer. Les décisions sont consignées dans des architecture decision records, et chaque panne a son postmortem sans recherche de coupable."
-        ]
+        ],
+        "file": {
+          "problem": "Héberger mes projets depuis un portable à la maison, en Wi-Fi, sans ouvrir un seul port sur la box.",
+          "approach": "Cloudflare Tunnel devant, Caddy dedans, la périphérie écrite en code avec OpenTofu, et des images signées vérifiées avant chaque déploiement.",
+          "hard": "Des sauvegardes qui avaient seulement l’air bonnes : un cron sautait des nuits en silence quand le portable était éteint. Je l’ai remplacé par un minuteur systemd qui rattrape, plus un interrupteur d’homme mort qui m’écrit quand une nuit manque.",
+          "result": "Deux API publiques en ligne, 49 contrôles automatiques réussis, des alertes sur mon téléphone et des restaurations prouvées, pas supposées."
+        }
+      },
+      "ai-eng": {
+        "title": "ai-eng",
+        "role": "Projet personnel",
+        "summary": "Applique le mutation testing à un diff écrit par une IA pour voir si vos tests attraperaient un vrai bug. Sur 59 vrais bugs de zod, il en a signalé 27 ; les tests existants n’en ont attrapé aucun.",
+        "body": [
+          "Une suite de tests au vert dit que les tests ont tourné. Elle ne dit pas s’ils remarqueraient que le code est faux, et plus l’IA écrit de code, plus cet écart compte.",
+          "ai-eng prend un diff, ne mute que les lignes modifiées (conditions inversées, bornes décalées, signes échangés) et lance la suite existante contre chaque mutant. Un mutant qui survit signale du code qu’aucun test ne vérifie vraiment.",
+          "Pour le mesurer honnêtement, j’ai réintroduit 60 vrais bugs de la bibliothèque zod en annulant leurs correctifs, et j’ai gardé le test de chaque correctif comme corrigé."
+        ],
+        "file": {
+          "problem": "Une suite au vert dit que les tests ont tourné, pas qu’ils attraperaient un bug dans du code qu’une IA vient d’écrire.",
+          "approach": "Mutation testing du diff : inverser une condition, une borne ou un signe dans les lignes modifiées, et voir si un test le remarque.",
+          "hard": "Le prouver sur de vrais bugs plutôt que sur des jouets. J’ai annulé 60 vrais correctifs de la bibliothèque zod et gardé le test de chaque correctif comme corrigé.",
+          "result": "Les tests existants ont attrapé 0 des 59 bugs réintroduits. ai-eng a signalé les lignes fautives dans 27 cas (45,8 %)."
+        }
       }
     },
     "also": {
@@ -187,7 +324,8 @@ export default {
       }
     },
     "liveBadge": "En ligne",
-    "openLive": "Ouvrir en ligne"
+    "openLive": "Ouvrir en ligne",
+    "fileTitle": "Dossier de permis"
   },
   "about": {
     "label": "À propos",
@@ -448,5 +586,79 @@ export default {
         ]
       }
     }
+  },
+  "engine": {
+    "label": "Salle des machines",
+    "title": "Le serveur maison, tel que construit",
+    "intro": "Un vieux portable derrière un Cloudflare Tunnel, configuré comme en production. Aucun port ouvert sur ma box, chaque image signée, et chaque nuit une sauvegarde vérifiée.",
+    "statusTitle": "En ce moment",
+    "stepsTitle": "Comment un changement arrive en production",
+    "steps": [
+      "Je pousse sur main. GitHub Actions lance les tests, construit l’image, l’analyse et la signe.",
+      "L’image part dans le registre GitHub avec sa signature et une nomenclature (SBOM).",
+      "Toutes les quelques minutes, le serveur cherche une nouvelle image et vérifie la signature avant de lancer quoi que ce soit.",
+      "Seule une image vérifiée remplace celle en place, et si un contrôle de santé échoue, je reçois une alerte Telegram."
+    ],
+    "backupTitle": "Des sauvegardes que j’ai vraiment restaurées",
+    "backupBody": "Chaque nuit, restic fait une sauvegarde chiffrée sur un disque USB et sur Backblaze B2, puis la vérifie. Un interrupteur d’homme mort m’écrit si une nuit manque, et la restauration est testée, pas supposée.",
+    "privateNote": "Le code du serveur est dans un dépôt privé le temps que je vérifie qu’il ne contient aucun secret."
+  },
+  "cv": {
+    "label": "CV",
+    "title": "Curriculum vitae",
+    "intro": "Une page, identique au PDF. Imprimez-le ou téléchargez-le.",
+    "print": "Imprimer",
+    "pdfLetter": "PDF · Letter (Canada)",
+    "pdfA4": "PDF · A4 (UE)",
+    "englishOnly": "Le CV lui-même est rédigé en anglais."
+  },
+  "palette": {
+    "placeholder": "Aller à un chantier, une page ou une action…",
+    "pages": "Pages",
+    "sites": "Chantiers",
+    "actions": "Actions",
+    "copyEmail": "Copier l’adresse e-mail",
+    "copied": "E-mail copié",
+    "theme": "Changer d’équipe jour / nuit",
+    "language": "Langue",
+    "empty": "Aucun résultat",
+    "hint": "↑ ↓ pour naviguer · Entrée pour ouvrir · Échap pour fermer",
+    "close": "Fermer"
+  },
+  "privacy": {
+    "label": "Confidentialité",
+    "title": "Confidentialité",
+    "updated": "Dernière mise à jour : 29 septembre 2026",
+    "short": "En bref : aucun cookie, aucune mesure d’audience, aucune publicité, aucun pistage. Rien de votre visite ne m’est envoyé.",
+    "sections": [
+      {
+        "h": "Qui gère ce site",
+        "p": "Xenofon Gkioka, Toronto, Canada. Pour toute question sur vos données : ksenofwn58@gmail.com."
+      },
+      {
+        "h": "Ce que garde votre navigateur",
+        "p": "Si vous choisissez une langue ou passez du mode clair au mode sombre, votre navigateur retient ce choix dans son stockage local. Il ne quitte jamais votre appareil et vous pouvez l’effacer à tout moment dans les réglages. Il n’y a aucun cookie."
+      },
+      {
+        "h": "Ce que voient les hébergeurs",
+        "p": "Comme tout site web, les serveurs qui le diffusent traitent votre adresse IP pour vous envoyer les pages et se protéger des abus. Ce site est hébergé par GitHub Pages (voir la déclaration de confidentialité de GitHub). Les démos en direct et l’état du serveur viennent de mon propre serveur via Cloudflare, qui peut poser un cookie de sécurité strictement nécessaire (__cf_bm) sur ces adresses pour filtrer les robots (voir la politique de confidentialité de Cloudflare). Mon serveur ne conserve pas les adresses IP des visiteurs."
+      },
+      {
+        "h": "Les démos en direct",
+        "p": "Le texte collé dans le Resume Classifier est classé en mémoire et n’est jamais enregistré ni journalisé. Évitez tout de même d’y coller de vraies données personnelles. L’API TaskManager ne permet aux visiteurs que de lire des données d’exemple."
+      },
+      {
+        "h": "Polices",
+        "p": "Toutes les polices sont servies par ce site. Votre navigateur n’envoie aucune requête à Google ni à un autre service de polices."
+      },
+      {
+        "h": "Si vous m’écrivez",
+        "p": "J’utilise votre e-mail uniquement pour vous répondre. Demandez-le et je le supprime."
+      },
+      {
+        "h": "Vos droits",
+        "p": "En vertu du RGPD et du droit canadien, vous pouvez demander quelles données je détiens sur vous, et les faire corriger ou supprimer. Ce site ne collectant rien, la réponse se limite en général à vos e-mails. Écrivez à l’adresse ci-dessus."
+      }
+    ]
   }
 }

@@ -4,6 +4,7 @@ import TrainYardDemo from './TrainYardDemo.jsx'
 import TaskManagerDemo from './TaskManagerDemo.jsx'
 import ArenaCoreDemo from './ArenaCoreDemo.jsx'
 import { useI18n } from '../i18n/index.jsx'
+import Icon from './Icon.jsx'
 
 /* Which component backs each project's `demo` key. A lookup rather than a
    chain of conditionals, so adding a demo is a data change. */
@@ -74,6 +75,7 @@ export default function ProjectModal({ project, prev, next, onClose }) {
   )
 
   const body = t(`projects.items.${project.id}.body`)
+  const file = t(`projects.items.${project.id}.file`)
 
   return (
     <div className="modal-backdrop" onMouseDown={(e) => e.target === e.currentTarget && onClose()}>
@@ -90,7 +92,7 @@ export default function ProjectModal({ project, prev, next, onClose }) {
             <span className="n">{project.year}</span> · {t(`projects.items.${project.id}.role`)}
           </span>
           <button type="button" className="modal-close" onClick={onClose} data-autofocus>
-            {t('projects.close')} ✕
+            {t('projects.close')} <Icon name="close" size={12} />
           </button>
         </div>
 
@@ -112,20 +114,33 @@ export default function ProjectModal({ project, prev, next, onClose }) {
                 <span className="k">{t('projects.liveBadge')}</span>
                 <span className="v">
                   <a href={project.live} target="_blank" rel="noopener noreferrer">
-                    {t('projects.openLive')} ↗
+                    {t('projects.openLive')} <Icon name="external" />
                   </a>
                 </span>
               </div>
             )}
-            <div className="cell">
-              <span className="k">{t('projects.source')}</span>
-              <span className="v">
-                <a href={project.repo} target="_blank" rel="noopener noreferrer">
-                  {t('projects.repo')} ↗
-                </a>
-              </span>
-            </div>
+            {project.repo && (
+              <div className="cell">
+                <span className="k">{t('projects.source')}</span>
+                <span className="v">
+                  <a href={project.repo} target="_blank" rel="noopener noreferrer">
+                    {t('projects.repo')} <Icon name="external" />
+                  </a>
+                </span>
+              </div>
+            )}
           </div>
+
+          {file && typeof file === 'object' && (
+            <dl className="file-boxes in-modal">
+              {['problem', 'approach', 'hard', 'result'].map((key, n) => (
+                <div key={key} className={`box box-${key}`}>
+                  <dt>{n + 1} · {t(`home.file.${key}`)}</dt>
+                  <dd>{file[key]}</dd>
+                </div>
+              ))}
+            </dl>
+          )}
 
           {DEMOS[project.demo] && (
             <div className="modal-demo">
@@ -146,14 +161,14 @@ export default function ProjectModal({ project, prev, next, onClose }) {
         <div className="modal-foot">
           {prev ? (
             <Link className="btn" to={`/projects/${prev.slug}`}>
-              ← {t(`projects.items.${prev.id}.title`)}
+              <Icon name="back" /> {t(`projects.items.${prev.id}.title`)}
             </Link>
           ) : (
             <span />
           )}
           {next ? (
             <Link className="btn solid" to={`/projects/${next.slug}`}>
-              {t(`projects.items.${next.id}.title`)} →
+              {t(`projects.items.${next.id}.title`)} <Icon name="arrow" />
             </Link>
           ) : (
             <span />
