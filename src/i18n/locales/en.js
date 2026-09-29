@@ -17,7 +17,13 @@ export default {
     "theme": "Switch theme",
     "skip": "Skip to main content",
     "primary": "Primary",
-    "work": "Work"
+    "work": "Work",
+    "sites": "Sites",
+    "clients": "Clients",
+    "engineRoom": "Engine room",
+    "cv": "CV",
+    "palette": "Jump to…",
+    "paletteLabel": "Open the command palette"
   },
   "home": {
     "eyebrow": "Full-stack developer · Toronto · open to work",
@@ -67,7 +73,92 @@ export default {
     "featuredLabel": "Featured",
     "featuredTitle": "A C program, running here",
     "featuredBody": "The train yard validator is written in C and tested with MSTest. Because all of its console I/O is isolated in main.c, the logic layer compiles cleanly to WebAssembly — so the same code the test suite exercises runs directly in this page. Nothing is reimplemented in JavaScript.",
-    "featuredCta": "Open the demo"
+    "featuredCta": "Open the demo",
+    "notice": "Notice of work in progress · Toronto",
+    "permitTitle": "Software under construction.",
+    "permitLede": "Four years supervising house builds in Toronto. Now I build software the same way: to spec, on time, made to last. Full-stack in React, TypeScript and C#/.NET, and I run what I build on my own server.",
+    "ctaSites": "Tour the sites",
+    "ctaCv": "Print my CV",
+    "permit": {
+      "title": "Building permit",
+      "no": "No. XG-2026-05",
+      "contractor": "Contractor",
+      "status": "Status",
+      "statusValue": "Open to work",
+      "trade": "Trade",
+      "tradeValue": "Full-stack · DevOps",
+      "licensed": "Licensed in",
+      "licensedValue": "Canada (PR) · EU",
+      "log": "Inspection log · live from my server",
+      "last": "Last inspection",
+      "offline": "No reading right now: the server may be asleep.",
+      "passed": "Passed",
+      "failed": "Failed",
+      "deploy": "Signed deploy verified",
+      "backup": "Backup checked",
+      "checks": "Health checks passing",
+      "post": "Post in a conspicuous place"
+    },
+    "sitesTitle": "Active sites",
+    "sitesHint": "Pick a site to open its permit file",
+    "site": "Site",
+    "stamps": {
+      "live": "Live",
+      "down": "Down",
+      "result": "0 → 27/59",
+      "open": "Open source",
+      "progress": "In progress"
+    },
+    "file": {
+      "label": "Permit file",
+      "problem": "Problem",
+      "approach": "Approach",
+      "hard": "The hard part",
+      "result": "Result",
+      "open": "Open the full file",
+      "source": "Source",
+      "live": "Open it live"
+    },
+    "clientsTitle": "Client sites",
+    "clientsIntro": "Websites I built for a business in Athens and an NGO in Kenya, live on their own domains.",
+    "clientsCta": "See the client work",
+    "engineTitle": "The engine room",
+    "engineIntro": "Everything above runs on an old laptop I set up like production. See how it is built and what it is doing right now.",
+    "engineCta": "Tour the engine room",
+    "contactTitle": "Hiring? Let's talk.",
+    "contactBody": "Full-stack roles in Canada or the EU. I reply within a day.",
+    "contactCta": "Email me",
+    "diagram": {
+      "title": "How a request reaches my server",
+      "alt": "Diagram: a visitor reaches the Cloudflare edge, which forwards through an outbound tunnel to Caddy on the home server and on to the containers. Separately, GitHub Actions builds and signs an image that the server pulls and verifies before deploying. Nightly backups and phone alerts run on the server.",
+      "visitor": "Visitor",
+      "edge": "Cloudflare edge",
+      "tunnel": "Outbound tunnel",
+      "proxy": "Caddy",
+      "apps": "Containers",
+      "ci": "GitHub Actions",
+      "registry": "Signed image",
+      "deploy": "Pull + verify",
+      "backup": "Nightly backup",
+      "alerts": "Alerts to phone",
+      "router": "Home router: no open ports",
+      "host": "Home server"
+    },
+    "inspect": {
+      "title": "Site inspection",
+      "live": "Live reading",
+      "loading": "Taking a reading…",
+      "unavailable": "No reading right now. The server may be asleep or restarting; the links in the schedule above show whether each service answers.",
+      "taken": "Reading taken",
+      "services": "Services answering",
+      "deploy": "Last deploy",
+      "verified": "signature verified",
+      "backup": "Last backup",
+      "checks": "Health checks passing",
+      "uptime": "Host up for",
+      "days": "{n} d",
+      "hours": "{n} h"
+    }
   },
   "projects": {
     "label": "Projects",
@@ -105,7 +196,13 @@ export default {
           "A REST API over a todo model, built to get hands-on with the ASP.NET Core request pipeline and Entity Framework Core. It is live on my home server, with interactive Swagger docs at tasks.xgbuilds.dev.",
           "The database schema is code-first: EF Core generates the migrations that build the PostgreSQL schema. Requests bind to DTOs rather than to the entity, so a caller cannot set its own id and overwrite a row it was never meant to touch.",
           "Reads are public; writes need an API key, compared in constant time. Every push to main runs the endpoint contract test against a real PostgreSQL, then builds, scans and signs the image that the server deploys."
-        ]
+        ],
+        "file": {
+          "problem": "Build a REST API the way production ones are built, not a tutorial to-do list.",
+          "approach": "Code-first EF Core migrations, DTOs so callers cannot set their own ids, public reads and key-protected writes, in Docker.",
+          "hard": "Making it safe to leave on the internet: the API key is compared in constant time, and every push runs the contract test against a real PostgreSQL before an image is signed.",
+          "result": "Live at tasks.xgbuilds.dev with Swagger docs, deployed automatically when a new signed image appears."
+        }
       },
       "inventory-crud": {
         "title": "Inventory CRUD",
@@ -142,7 +239,13 @@ export default {
           "A scikit-learn pipeline (cleaning, TF-IDF features, logistic regression) served with FastAPI. It trains on a generated corpus, because real resumes are personal data.",
           "The first generator gave each role its own words and the model scored a perfect 1.00, which measured the dataset rather than the model. The corpus now shares filler and tools across fields, and 45% of resumes borrow a line from another field. Accuracy on generated text is about 0.98: proof the pipeline works end to end, and nothing more.",
           "Every label comes with a confidence. Unrelated text scores about 22%, barely above the 20% chance baseline, which is the model saying it has no idea."
-        ]
+        ],
+        "file": {
+          "problem": "Sort resumes by job family without training on anyone's personal data.",
+          "approach": "A generated corpus, TF-IDF features and logistic regression, served with FastAPI in a signed container.",
+          "hard": "The first model scored a perfect 1.00. That measured the dataset, not the model: every role had its own words. I rebuilt the corpus with shared filler and tools across fields until the score meant something.",
+          "result": "Live and honest: every label comes with a confidence, and unrelated text scores about 22%, near the 20% chance line."
+        }
       },
       "aoda-scan": {
         "title": "aoda-scan",
@@ -151,7 +254,13 @@ export default {
         "body": [
           "Most accessibility tools check one page at a time, but a site fails as a whole: the same broken component fails on every page that uses it. aoda-scan crawls the site, tests every page with axe-core in a real browser, and rolls the results into a grade, a conformance percentage and a ranked list of what to fix first.",
           "Run it with npx aoda-scan and a URL. It prints a summary in the terminal and writes an HTML report next to it."
-        ]
+        ],
+        "file": {
+          "problem": "Accessibility tools check one page at a time, but real sites fail the same way on fifty.",
+          "approach": "Crawl the whole site, run axe-core on every page with Playwright, and roll the results into one grade and a ranked fix list.",
+          "hard": "Turning noise into work: a fault in a shared header shows up on every page, so the report groups it as one fix instead of fifty findings.",
+          "result": "Open source, tested on Node 20, 22 and 24, with a GitHub Action that checks a site on every push."
+        }
       },
       "agentmesh": {
         "title": "AgentMesh",
@@ -160,7 +269,13 @@ export default {
         "body": [
           "AgentMesh is software you run, not a service you sign up for. A Next.js web app and a Fastify API drive agent runs across five providers (Claude, Gemini, DeepSeek, Grok and Ollama), with a live transcript and a screen for reviewing each change.",
           "Security is the point of the design. Provider keys sit in an encrypted vault, agents run in sandboxed containers that never see a key, and their requests pass through an internal proxy that adds the key, removes secrets from logs and limits the request rate. That is also why there is no public demo."
-        ]
+        ],
+        "file": {
+          "problem": "Run AI coding agents across several providers without handing your API keys to the agents.",
+          "approach": "A credential vault and proxy, five provider adapters, a sandboxed runner, and a diff review screen for what the agent changed.",
+          "hard": "The security boundary: keys live only in the vault, the proxy injects them per request, and the runner has no route to either.",
+          "result": "Phases 0 to 5 built and tested; the open-source release is in progress."
+        }
       },
       "home-server": {
         "title": "Home Server",
@@ -169,7 +284,29 @@ export default {
         "body": [
           "The live projects on this site run on an old Asus laptop with 5.7 GB of RAM. That limit shaped every decision: each container has a memory cap, nothing touches the network settings, and no ports are open to the internet. Traffic arrives through an outbound Cloudflare Tunnel.",
           "Deploys are pull-based: CI publishes a signed image, and the server checks the signature against the exact workflow that built it before running it. Decisions are written down as architecture decision records, and outages get blameless postmortems."
-        ]
+        ],
+        "file": {
+          "problem": "Host my own projects from a laptop at home, on Wi-Fi, without opening a single port on the router.",
+          "approach": "Cloudflare Tunnel in front, Caddy inside, the edge written as code in OpenTofu, and signed images pulled and verified before each deploy.",
+          "hard": "Backups that only looked fine: a cron job silently skipped nights when the laptop was off. I moved it to a systemd timer that catches up and added a dead-man switch that emails me when a night is missed.",
+          "result": "Two public APIs live, 49 automated health checks passing, alerts on my phone, and restores proven, not assumed."
+        }
+      },
+      "ai-eng": {
+        "title": "ai-eng",
+        "role": "Self-directed",
+        "summary": "Mutation-tests an AI-written diff to see whether your tests would catch a real bug. On 59 real bugs from zod, it flagged 27; the existing tests caught none.",
+        "body": [
+          "A passing test suite tells you the tests ran. It does not tell you they would notice if the code were wrong, and with AI writing more of the code, that gap matters more.",
+          "ai-eng takes a diff, mutates only the changed lines (flipped conditions, shifted boundaries, swapped signs) and runs the existing suite against each mutant. A mutant that survives marks code no test really checks.",
+          "To measure it honestly I reintroduced 60 real bugs from the zod library by reverting their fixes, and held each fix's own regression test back as the answer key."
+        ],
+        "file": {
+          "problem": "A green test suite says the tests ran, not that they would catch a bug in code an AI just wrote.",
+          "approach": "Mutation-test the diff: flip a condition, a boundary or a sign in the changed lines, and see whether any test notices.",
+          "hard": "Proving it on real bugs rather than toy ones. I reverted 60 real fixes from the zod library and held each fix's own test back as the answer key.",
+          "result": "The existing tests caught 0 of 59 reintroduced bugs. ai-eng flagged the buggy lines in 27 of them (45.8%)."
+        }
       }
     },
     "also": {
@@ -195,7 +332,8 @@ export default {
       }
     },
     "liveBadge": "Live",
-    "openLive": "Open live"
+    "openLive": "Open live",
+    "fileTitle": "Permit file"
   },
   "about": {
     "label": "About",
@@ -456,5 +594,43 @@ export default {
         ]
       }
     }
+  },
+  "engine": {
+    "label": "Engine room",
+    "title": "The home server, as built",
+    "intro": "An old laptop behind a Cloudflare Tunnel, set up the way production is set up. No port is open on my router, every image is signed, and every night is backed up and checked.",
+    "statusTitle": "Right now",
+    "stepsTitle": "How a change reaches production",
+    "steps": [
+      "I push to main. GitHub Actions runs the tests, builds the image, scans it and signs it.",
+      "The image goes to the GitHub registry with its signature and a bill of materials.",
+      "Every few minutes the server looks for a new image and checks the signature before anything runs.",
+      "Only a verified image replaces the running one, and if a health check fails, I get a Telegram alert."
+    ],
+    "backupTitle": "Backups I have actually restored",
+    "backupBody": "Every night restic takes an encrypted backup to a USB drive and to Backblaze B2, then checks it. A dead-man switch emails me if a night is missed, and the restore has been tested, not assumed.",
+    "privateNote": "The server's code is in a private repository while I audit it for secrets."
+  },
+  "cv": {
+    "label": "CV",
+    "title": "Curriculum vitae",
+    "intro": "One page, the same as the PDF. Print it or download it.",
+    "print": "Print",
+    "pdfLetter": "PDF · Letter (Canada)",
+    "pdfA4": "PDF · A4 (EU)",
+    "englishOnly": "The CV itself is written in English."
+  },
+  "palette": {
+    "placeholder": "Jump to a site, page or action…",
+    "pages": "Pages",
+    "sites": "Sites",
+    "actions": "Actions",
+    "copyEmail": "Copy email address",
+    "copied": "Email copied",
+    "theme": "Switch day / night shift",
+    "language": "Language",
+    "empty": "Nothing matches",
+    "hint": "↑ ↓ to move · Enter to open · Esc to close",
+    "close": "Close"
   }
 }

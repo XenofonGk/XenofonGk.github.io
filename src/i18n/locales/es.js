@@ -9,7 +9,13 @@ export default {
     "theme": "Cambiar tema",
     "skip": "Saltar al contenido principal",
     "primary": "Principal",
-    "work": "Trabajos"
+    "work": "Trabajos",
+    "sites": "Obras",
+    "clients": "Clientes",
+    "engineRoom": "Sala de máquinas",
+    "cv": "CV",
+    "palette": "Ir a…",
+    "paletteLabel": "Abrir la paleta de comandos"
   },
   "home": {
     "eyebrow": "Desarrollador full-stack · Toronto · disponible",
@@ -59,7 +65,92 @@ export default {
     "featuredLabel": "Destacado",
     "featuredTitle": "Un programa en C, ejecutándose aquí",
     "featuredBody": "El validador de patio de trenes está escrito en C y probado con MSTest. Como toda su entrada y salida por consola está aislada en main.c, la capa de lógica compila sin problemas a WebAssembly, así que el mismo código que ejercita la suite de pruebas se ejecuta directamente en esta página. Nada está reimplementado en JavaScript.",
-    "featuredCta": "Abrir la demo"
+    "featuredCta": "Abrir la demo",
+    "notice": "Aviso de obra en curso · Toronto",
+    "permitTitle": "Software en construcción.",
+    "permitLede": "Cuatro años supervisando obras de viviendas en Toronto. Ahora construyo software igual: según el plano, a tiempo y hecho para durar. Full-stack con React, TypeScript y C#/.NET, y lo que construyo lo ejecuto en mi propio servidor.",
+    "ctaSites": "Recorrer las obras",
+    "ctaCv": "Imprimir mi CV",
+    "permit": {
+      "title": "Licencia de obra",
+      "no": "N.º XG-2026-05",
+      "contractor": "Contratista",
+      "status": "Estado",
+      "statusValue": "Disponible",
+      "trade": "Oficio",
+      "tradeValue": "Full-stack · DevOps",
+      "licensed": "Permiso de trabajo",
+      "licensedValue": "Canadá (PR) · UE",
+      "log": "Registro de inspecciones · en vivo desde mi servidor",
+      "last": "Última inspección",
+      "offline": "Ahora no hay lectura: el servidor puede estar en reposo.",
+      "passed": "Aprobado",
+      "failed": "Fallido",
+      "deploy": "Despliegue firmado verificado",
+      "backup": "Copia de seguridad comprobada",
+      "checks": "Comprobaciones superadas",
+      "post": "Colóquese en lugar visible"
+    },
+    "sitesTitle": "Obras activas",
+    "sitesHint": "Elige una obra para abrir su expediente",
+    "site": "Obra",
+    "stamps": {
+      "live": "En vivo",
+      "down": "Caído",
+      "result": "0 → 27/59",
+      "open": "Código abierto",
+      "progress": "En curso"
+    },
+    "file": {
+      "label": "Expediente",
+      "problem": "Problema",
+      "approach": "Enfoque",
+      "hard": "La parte difícil",
+      "result": "Resultado",
+      "open": "Abrir el expediente completo",
+      "source": "Código",
+      "live": "Verlo en vivo"
+    },
+    "clientsTitle": "Webs para clientes",
+    "clientsIntro": "Sitios que construí para un negocio en Atenas y una ONG en Kenia, en vivo en sus propios dominios.",
+    "clientsCta": "Ver el trabajo para clientes",
+    "engineTitle": "La sala de máquinas",
+    "engineIntro": "Todo lo anterior corre en un portátil viejo que configuré como producción. Mira cómo está construido y qué está haciendo ahora mismo.",
+    "engineCta": "Recorrer la sala de máquinas",
+    "contactTitle": "¿Contratando? Hablemos.",
+    "contactBody": "Puestos full-stack en Canadá o la UE. Respondo en menos de un día.",
+    "contactCta": "Escríbeme",
+    "diagram": {
+      "title": "Cómo llega una petición a mi servidor",
+      "alt": "Diagrama: un visitante llega a la red de Cloudflare, que reenvía por un túnel saliente a Caddy en el servidor doméstico y de ahí a los contenedores. Aparte, GitHub Actions construye y firma una imagen que el servidor descarga y verifica antes de desplegarla. Las copias de seguridad nocturnas y las alertas al móvil se ejecutan en el servidor.",
+      "visitor": "Visitante",
+      "edge": "Red de Cloudflare",
+      "tunnel": "Túnel saliente",
+      "proxy": "Caddy",
+      "apps": "Contenedores",
+      "ci": "GitHub Actions",
+      "registry": "Imagen firmada",
+      "deploy": "Descarga + verificación",
+      "backup": "Copia nocturna",
+      "alerts": "Alertas al móvil",
+      "router": "Router de casa: sin puertos abiertos",
+      "host": "Servidor doméstico"
+    },
+    "inspect": {
+      "title": "Inspección de obra",
+      "live": "Lectura en vivo",
+      "loading": "Tomando una lectura…",
+      "unavailable": "No hay lectura ahora mismo. El servidor puede estar suspendido o reiniciándose; los enlaces del cuadro de arriba muestran si cada servicio responde.",
+      "taken": "Lectura tomada",
+      "services": "Servicios que responden",
+      "deploy": "Último despliegue",
+      "verified": "firma verificada",
+      "backup": "Última copia",
+      "checks": "Comprobaciones superadas",
+      "uptime": "Encendido desde hace",
+      "days": "{n} d",
+      "hours": "{n} h"
+    }
   },
   "projects": {
     "label": "Proyectos",
@@ -97,7 +188,13 @@ export default {
           "Una API REST sobre un modelo de tareas, hecha para practicar con el pipeline de peticiones de ASP.NET Core y Entity Framework Core. Está en línea en mi servidor doméstico, con documentación Swagger interactiva en tasks.xgbuilds.dev.",
           "El esquema es code-first: EF Core genera las migraciones que crean el esquema de PostgreSQL. Las peticiones se enlazan a DTOs y no a la entidad, así que nadie puede fijar su propio id y sobrescribir una fila que no le corresponde.",
           "Las lecturas son públicas; las escrituras requieren una clave de API, comparada en tiempo constante. Cada push a main ejecuta la prueba de contrato contra un PostgreSQL real y luego compila, analiza y firma la imagen que despliega el servidor."
-        ]
+        ],
+        "file": {
+          "problem": "Construir una API REST como se construyen las de producción, no una lista de tareas de tutorial.",
+          "approach": "Migraciones code-first con EF Core, DTOs para que nadie fije su propio id, lecturas públicas y escrituras con clave, en Docker.",
+          "hard": "Que sea seguro dejarla abierta en internet: la clave de API se compara en tiempo constante y cada push ejecuta el test de contrato contra una PostgreSQL real antes de firmar la imagen.",
+          "result": "En vivo en tasks.xgbuilds.dev con documentación Swagger, desplegada automáticamente cuando aparece una nueva imagen firmada."
+        }
       },
       "inventory-crud": {
         "title": "CRUD de Inventario",
@@ -134,7 +231,13 @@ export default {
           "Un pipeline de scikit-learn (limpieza, características TF-IDF y regresión logística) servido con FastAPI. Se entrena con un corpus generado, porque los currículums reales son datos personales.",
           "El primer generador daba a cada puesto sus propias palabras y el modelo obtenía un 1,00 perfecto, que medía el conjunto de datos y no el modelo. Ahora el corpus comparte frases y herramientas entre campos, y el 45 % de los currículums toma una línea de otro campo. La precisión en texto generado ronda el 0,98: prueba de que el pipeline funciona de principio a fin, y nada más.",
           "Cada etiqueta incluye una confianza. Un texto sin relación obtiene cerca del 22 %, apenas por encima del 20 % del azar: es el modelo diciendo que no lo sabe."
-        ]
+        ],
+        "file": {
+          "problem": "Clasificar currículums por familia de puestos sin entrenar con datos personales de nadie.",
+          "approach": "Un corpus generado, características TF-IDF y regresión logística, servido con FastAPI en un contenedor firmado.",
+          "hard": "El primer modelo sacó un 1.00 perfecto. Eso medía el dataset, no el modelo: cada rol tenía sus propias palabras. Rehíce el corpus con relleno y herramientas compartidas entre áreas hasta que la puntuación significara algo.",
+          "result": "En vivo y honesto: cada etiqueta lleva una confianza, y un texto sin relación saca un 22%, cerca del 20% del azar."
+        }
       },
       "aoda-scan": {
         "title": "aoda-scan",
@@ -143,7 +246,13 @@ export default {
         "body": [
           "La mayoría de herramientas de accesibilidad revisan una página cada vez, pero un sitio falla en conjunto: el mismo componente roto falla en cada página que lo usa. aoda-scan recorre el sitio, prueba cada página con axe-core en un navegador real y resume los resultados en una nota, un porcentaje de conformidad y una lista ordenada de qué corregir primero.",
           "Se ejecuta con npx aoda-scan y una URL. Muestra un resumen en la terminal y genera un informe HTML al lado."
-        ]
+        ],
+        "file": {
+          "problem": "Las herramientas de accesibilidad revisan una página cada vez, pero los sitios reales fallan igual en cincuenta.",
+          "approach": "Recorre todo el sitio, ejecuta axe-core en cada página con Playwright y lo resume en una nota y una lista de arreglos por prioridad.",
+          "hard": "Convertir el ruido en trabajo: un fallo en una cabecera compartida aparece en todas las páginas, así que el informe lo agrupa como un arreglo en vez de cincuenta hallazgos.",
+          "result": "Código abierto, probado en Node 20, 22 y 24, con una GitHub Action que revisa un sitio en cada push."
+        }
       },
       "agentmesh": {
         "title": "AgentMesh",
@@ -152,7 +261,13 @@ export default {
         "body": [
           "AgentMesh es software que ejecutas tú, no un servicio en el que te registras. Una aplicación Next.js y una API en Fastify lanzan agentes en cinco proveedores (Claude, Gemini, DeepSeek, Grok y Ollama), con transcripción en vivo y una pantalla para revisar cada cambio.",
           "La seguridad es el centro del diseño. Las claves de los proveedores están en una bóveda cifrada, los agentes corren en contenedores aislados que nunca ven una clave y sus peticiones pasan por un proxy interno que añade la clave, elimina secretos de los registros y limita la frecuencia. Por eso no hay demo pública."
-        ]
+        ],
+        "file": {
+          "problem": "Ejecutar agentes de programación con IA en varios proveedores sin entregar tus claves de API a los agentes.",
+          "approach": "Una bóveda de credenciales y un proxy, cinco adaptadores de proveedores, un runner aislado y una pantalla para revisar lo que cambió el agente.",
+          "hard": "El límite de seguridad: las claves viven solo en la bóveda, el proxy las inyecta por petición y el runner no tiene ruta a ninguno de los dos.",
+          "result": "Fases 0 a 5 construidas y probadas; la publicación como código abierto está en curso."
+        }
       },
       "home-server": {
         "title": "Servidor doméstico",
@@ -161,7 +276,29 @@ export default {
         "body": [
           "Los proyectos en línea de este sitio funcionan en un portátil Asus antiguo con 5,7 GB de RAM. Ese límite marcó cada decisión: cada contenedor tiene un tope de memoria, nada toca la configuración de red y ningún puerto está abierto a internet. El tráfico llega por un túnel saliente de Cloudflare.",
           "Los despliegues son por pull: la CI publica una imagen firmada y el servidor comprueba la firma contra el workflow exacto que la construyó antes de ejecutarla. Las decisiones quedan escritas como registros de decisiones de arquitectura y las caídas tienen su postmortem sin culpables."
-        ]
+        ],
+        "file": {
+          "problem": "Alojar mis proyectos desde un portátil en casa, por Wi-Fi, sin abrir ni un puerto en el router.",
+          "approach": "Cloudflare Tunnel delante, Caddy dentro, el edge escrito como código en OpenTofu e imágenes firmadas que se verifican antes de cada despliegue.",
+          "hard": "Copias que solo parecían estar bien: un cron se saltaba noches en silencio cuando el portátil estaba apagado. Lo pasé a un temporizador de systemd que recupera y añadí un aviso de hombre muerto que me escribe si falta una noche.",
+          "result": "Dos APIs públicas en vivo, 49 comprobaciones automáticas superadas, alertas en el móvil y restauraciones probadas, no supuestas."
+        }
+      },
+      "ai-eng": {
+        "title": "ai-eng",
+        "role": "Proyecto propio",
+        "summary": "Aplica mutation testing a un diff escrito por IA para ver si tus tests detectarían un error real. En 59 errores reales de zod marcó 27; los tests existentes no detectaron ninguno.",
+        "body": [
+          "Una suite de tests en verde dice que los tests se ejecutaron. No dice si notarían que el código está mal, y cuanto más código escribe la IA, más importa esa diferencia.",
+          "ai-eng toma un diff, muta solo las líneas cambiadas (condiciones invertidas, límites desplazados, signos cambiados) y ejecuta la suite existente contra cada mutante. Un mutante que sobrevive señala código que ningún test comprueba de verdad.",
+          "Para medirlo con honestidad reintroduje 60 errores reales de la librería zod revirtiendo sus correcciones, y guardé el test de cada corrección como clave de respuestas."
+        ],
+        "file": {
+          "problem": "Una suite en verde dice que los tests se ejecutaron, no que detectarían un error en código que una IA acaba de escribir.",
+          "approach": "Mutation testing del diff: invertir una condición, un límite o un signo en las líneas cambiadas y ver si algún test lo nota.",
+          "hard": "Demostrarlo con errores reales y no de juguete. Revertí 60 correcciones reales de la librería zod y guardé el test de cada corrección como clave de respuestas.",
+          "result": "Los tests existentes detectaron 0 de 59 errores reintroducidos. ai-eng marcó las líneas erróneas en 27 (45,8%)."
+        }
       }
     },
     "also": {
@@ -187,7 +324,8 @@ export default {
       }
     },
     "liveBadge": "En línea",
-    "openLive": "Abrir en línea"
+    "openLive": "Abrir en línea",
+    "fileTitle": "Expediente"
   },
   "about": {
     "label": "Sobre mí",
@@ -448,5 +586,43 @@ export default {
         ]
       }
     }
+  },
+  "engine": {
+    "label": "Sala de máquinas",
+    "title": "El servidor doméstico, tal como se construyó",
+    "intro": "Un portátil viejo detrás de un Cloudflare Tunnel, configurado como producción. Ningún puerto abierto en mi router, cada imagen firmada y cada noche una copia de seguridad comprobada.",
+    "statusTitle": "Ahora mismo",
+    "stepsTitle": "Cómo llega un cambio a producción",
+    "steps": [
+      "Hago push a main. GitHub Actions ejecuta los tests, construye la imagen, la analiza y la firma.",
+      "La imagen va al registro de GitHub con su firma y una lista de materiales (SBOM).",
+      "Cada pocos minutos el servidor busca una imagen nueva y comprueba la firma antes de ejecutar nada.",
+      "Solo una imagen verificada sustituye a la actual, y si falla una comprobación de salud, recibo una alerta en Telegram."
+    ],
+    "backupTitle": "Copias de seguridad que he restaurado de verdad",
+    "backupBody": "Cada noche restic hace una copia cifrada en un disco USB y en Backblaze B2, y luego la comprueba. Un aviso de hombre muerto me escribe si falta una noche, y la restauración está probada, no supuesta.",
+    "privateNote": "El código del servidor está en un repositorio privado mientras lo reviso en busca de secretos."
+  },
+  "cv": {
+    "label": "CV",
+    "title": "Currículum",
+    "intro": "Una página, igual que el PDF. Imprímelo o descárgalo.",
+    "print": "Imprimir",
+    "pdfLetter": "PDF · Letter (Canadá)",
+    "pdfA4": "PDF · A4 (UE)",
+    "englishOnly": "El CV en sí está escrito en inglés."
+  },
+  "palette": {
+    "placeholder": "Ir a una obra, página o acción…",
+    "pages": "Páginas",
+    "sites": "Obras",
+    "actions": "Acciones",
+    "copyEmail": "Copiar el email",
+    "copied": "Email copiado",
+    "theme": "Cambiar turno de día / noche",
+    "language": "Idioma",
+    "empty": "No hay coincidencias",
+    "hint": "↑ ↓ para moverte · Enter para abrir · Esc para cerrar",
+    "close": "Cerrar"
   }
 }

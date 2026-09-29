@@ -1,99 +1,77 @@
 /* ============================================================
-   SPECIFICATION SHEET
-   A drafting-table visual language: warm paper, hairline rules,
-   monospace callouts, and display type at architectural scale.
-   All colour, type and spacing decisions live in this block.
+   BUILDING PERMIT — 2026
+   The site as the paperwork of a construction site: permit paper,
+   safety yellow, stencil lettering, inspection stamps. Yellow is a
+   field colour (blocks, bands, highlights), never small text on paper.
+   Day shift is the light theme; night shift the dark one.
    ============================================================ */
 
 :root {
-  /* surface */
-  --paper: #f1eee7;
-  --paper-2: #e6e1d7;
-  --paper-3: #dbd5c8;
+  /* surface: permit paper */
+  --paper: #fffdf2;
+  --paper-2: #f5f0da;
+  --paper-3: #e9e2c2;
 
   /* ink */
-  --ink: #14110d;
-  --ink-2: #4a443c;
-  --ink-3: #6f675a;
+  --ink: #111008;
+  --ink-2: #3b372b;
+  --ink-3: #5c5645;
 
   /* structure */
-  --rule: #c6bfb1;
-  --rule-soft: rgba(20, 17, 13, 0.09);
+  --rule: #d6ceac;
+  --rule-soft: rgba(17, 16, 8, 0.1);
 
-  /* signal — used for large type, blocks and rules only, never small body text */
-  --signal: #e63f00;
-  /* Small orange text needs 4.5:1; --signal only reaches 3.57 on paper,
-     which is fine for display type and blocks (3:1) but not for 11px mono. */
-  --signal-text: #bd3200;
-  --ok: #0f7a3d;
-  /* Near-black on the orange fill, not white: white reaches only 4.14:1
-     against #e63f00 and fails small text. Black on safety orange is also
-     the honest construction palette. */
-  --signal-ink: #14110d;
+  /* safety yellow: fields, bands and highlights only */
+  --signal: #f2c200;
+  /* Accent text on paper. Yellow reaches ~1.6:1 on paper, so small accent
+     text uses a deep ochre that clears 4.5:1. */
+  --signal-text: #7a5c00;
+  --signal-ink: #111008;
+  --ok: #1a7f45;
+  --hazard: #b3260a;
 
-  --measure: 1180px;
+  --measure: 1200px;
   --gutter: 32px;
+
+  --font-body: 'Public Sans', system-ui, -apple-system, 'Segoe UI', 'Noto Sans', sans-serif;
+  --font-display: 'Big Shoulders Stencil', 'Big Shoulders', 'Arial Narrow', 'Noto Sans', sans-serif;
+  --font-letter: 'Big Shoulders', 'Arial Narrow', 'Noto Sans', system-ui, sans-serif;
+  /* Typewriter, for what a permit clerk would type: addresses, readings, numbers. */
+  --font-data: 'Courier Prime', 'Courier New', ui-monospace, monospace;
 
   color-scheme: light;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --paper: #100f0d;
-    --paper-2: #191713;
-    --paper-3: #241f19;
-    --ink: #f2efe8;
-    --ink-2: #b8b1a4;
-    --ink-3: #8a8275;
-    --rule: #3a342b;
-    --rule-soft: rgba(242, 239, 232, 0.1);
-    --signal: #ff5c1f;
-    /* Bright orange on near-black already clears 4.5:1 at small sizes, so the
-       display and small-text tokens are the same value in dark mode. This must
-       be redeclared here — without it small orange text inherits the light
-       theme's darker #bd3200 and becomes unreadable on the dark ground. */
-    --signal-text: #ff5c1f;
-    --ok: #4ade80;
-    --signal-ink: #14110d;
+  :root:not([data-theme='light']) {
+    --paper: #12110c;
+    --paper-2: #1c1a13;
+    --paper-3: #29261b;
+    --ink: #f7f2dc;
+    --ink-2: #d4cdb2;
+    --ink-3: #aaa288;
+    --rule: #3d3927;
+    --rule-soft: rgba(247, 242, 220, 0.1);
+    --signal-text: #f2c200;
+    --ok: #5ad48e;
+    --hazard: #ff7a57;
     color-scheme: dark;
   }
 }
 
 :root[data-theme='dark'] {
-  --paper: #100f0d;
-  --paper-2: #191713;
-  --paper-3: #241f19;
-  --ink: #f2efe8;
-  --ink-2: #b8b1a4;
-  --ink-3: #8a8275;
-  --rule: #3a342b;
-  --rule-soft: rgba(242, 239, 232, 0.1);
-  --signal: #ff5c1f;
-  --signal-text: #ff5c1f;
-  --ok: #4ade80;
-  --signal-ink: #14110d;
+  --paper: #12110c;
+  --paper-2: #1c1a13;
+  --paper-3: #29261b;
+  --ink: #f7f2dc;
+  --ink-2: #d4cdb2;
+  --ink-3: #aaa288;
+  --rule: #3d3927;
+  --rule-soft: rgba(247, 242, 220, 0.1);
+  --signal-text: #f2c200;
+  --ok: #5ad48e;
+  --hazard: #ff7a57;
   color-scheme: dark;
-}
-
-:root[data-theme='light'] {
-  --paper: #f1eee7;
-  --paper-2: #e6e1d7;
-  --paper-3: #dbd5c8;
-  --ink: #14110d;
-  --ink-2: #4a443c;
-  --ink-3: #6f675a;
-  --rule: #c6bfb1;
-  --rule-soft: rgba(20, 17, 13, 0.09);
-  --signal: #e63f00;
-  /* Small orange text needs 4.5:1; --signal only reaches 3.57 on paper,
-     which is fine for display type and blocks (3:1) but not for 11px mono. */
-  --signal-text: #bd3200;
-  --ok: #0f7a3d;
-  /* Near-black on the orange fill, not white: white reaches only 4.14:1
-     against #e63f00 and fails small text. Black on safety orange is also
-     the honest construction palette. */
-  --signal-ink: #14110d;
-  color-scheme: light;
 }
 
 *,
@@ -111,7 +89,7 @@ html {
 body {
   background: var(--paper);
   color: var(--ink);
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: var(--font-body);
   font-size: 17px;
   line-height: 1.6;
   font-synthesis: none;
@@ -147,10 +125,17 @@ main {
 }
 
 .mono {
-  font-family: 'JetBrains Mono', ui-monospace, monospace;
-  font-size: 11.5px;
-  letter-spacing: 0.14em;
+  font-family: var(--font-letter);
+  font-weight: 600;
+  font-size: 12.5px;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
+}
+.data {
+  font-family: var(--font-data);
+  font-size: 13px;
+  letter-spacing: 0;
+  text-transform: none;
 }
 
 /* Section callout — a numbered annotation with a dimension line, the way a
@@ -194,17 +179,16 @@ h1,
 h2,
 h3,
 h4 {
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: var(--font-letter);
   font-weight: 800;
   line-height: 0.94;
-  letter-spacing: -0.03em;
+  letter-spacing: 0;
   text-wrap: balance;
 }
 
 .display {
   font-size: clamp(46px, 10.5vw, 132px);
   font-weight: 900;
-  font-stretch: 112%;
   text-transform: uppercase;
   line-height: 0.86;
   letter-spacing: -0.035em;
@@ -234,7 +218,7 @@ h4 {
   height: 62px;
 }
 .nav .mark {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-data);
   font-size: 12px;
   letter-spacing: 0.18em;
   font-weight: 600;
@@ -251,7 +235,7 @@ h4 {
   flex-wrap: wrap;
 }
 .nav a:not(.mark) {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-data);
   font-size: 11.5px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -298,7 +282,7 @@ h4 {
 }
 
 .icon-btn {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-data);
   font-size: 12px;
   background: none;
   border: 1px solid transparent;
@@ -358,7 +342,7 @@ h4 {
 }
 .lang-menu .latin {
   color: var(--ink-3);
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-data);
   font-size: 10.5px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -369,7 +353,7 @@ h4 {
 .lang-note {
   padding: 10px 14px;
   color: var(--ink-3);
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-data);
   font-size: 9.5px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -424,10 +408,13 @@ h4 {
 
 /* Project rows nudge toward the reader on hover. */
 .proj-row {
-  transition: background 0.18s ease, padding-left 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: background 0.18s ease;
 }
-.proj-row:hover {
-  padding-left: 14px;
+.proj-row > * {
+  transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.proj-row:hover > * {
+  transform: translateX(10px);
 }
 .proj-row .go {
   transition: color 0.18s ease, transform 0.22s cubic-bezier(0.22, 1, 0.36, 1);
@@ -456,7 +443,7 @@ h4 {
   gap: 8px;
 }
 .scenario-row button {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-data);
   font-size: 11px;
   letter-spacing: 0.08em;
   background: none;
@@ -550,7 +537,7 @@ h4 {
   gap: 8px;
 }
 .fighter-actions button {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-data);
   font-size: 10.5px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -588,7 +575,7 @@ h4 {
   padding: 7px 12px;
 }
 .arena-log .ct {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-data);
   font-size: 11.5px;
   color: var(--ink-2);
 }
@@ -628,7 +615,7 @@ h4 {
 .demo-transcript {
   width: 100%;
   border-collapse: collapse;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-data);
   font-size: 12px;
   margin-top: 16px;
 }
@@ -689,7 +676,7 @@ h4 {
   display: block;
   color: var(--ink-3);
   margin-bottom: 7px;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-data);
   font-size: 10px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -748,7 +735,7 @@ h4 {
   gap: 12px;
 }
 .btn {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-data);
   font-size: 11.5px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -799,7 +786,7 @@ h4 {
 }
 .dims .lbl {
   color: var(--ink-3);
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-data);
   font-size: 10.5px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -816,7 +803,6 @@ h4 {
   margin-bottom: 22px;
   text-transform: uppercase;
   font-weight: 900;
-  font-stretch: 108%;
 }
 .prose p {
   max-width: 62ch;
@@ -853,7 +839,7 @@ h4 {
 }
 .proj-row .idx {
   color: var(--signal-text);
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-data);
   font-size: 12px;
   font-weight: 600;
 }
@@ -872,7 +858,7 @@ h4 {
 }
 .proj-row .tags {
   color: var(--ink-3);
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-data);
   font-size: 10.5px;
   letter-spacing: 0.13em;
   text-transform: uppercase;
@@ -880,7 +866,7 @@ h4 {
 }
 .proj-row .go {
   color: var(--ink-3);
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-data);
   font-size: 11px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -899,7 +885,7 @@ h4 {
   display: inline-block;
   background: var(--signal);
   color: var(--signal-ink);
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-data);
   font-size: 9.5px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -918,7 +904,6 @@ h4 {
   font-size: clamp(36px, 7vw, 82px);
   text-transform: uppercase;
   font-weight: 900;
-  font-stretch: 108%;
   margin-bottom: 22px;
 }
 .spec-table {
@@ -937,7 +922,7 @@ h4 {
   display: block;
   color: var(--ink-3);
   margin-bottom: 6px;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-data);
   font-size: 10px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -947,7 +932,7 @@ h4 {
   font-weight: 600;
 }
 .back-link {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-data);
   font-size: 11px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -977,7 +962,7 @@ h4 {
 }
 .job .when {
   color: var(--ink-3);
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-data);
   font-size: 11px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -1029,7 +1014,7 @@ h4 {
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--ink-3);
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-data);
   font-weight: 600;
   margin-bottom: 12px;
 }
@@ -1040,7 +1025,7 @@ h4 {
 }
 .chip {
   border: 1px solid var(--rule);
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-data);
   font-size: 11.5px;
   padding: 5px 10px;
   color: var(--ink-2);
@@ -1068,7 +1053,7 @@ h4 {
 .contact-links .k {
   display: block;
   color: var(--ink-3);
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-data);
   font-size: 10px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -1093,7 +1078,7 @@ h4 {
   border: 1px solid var(--rule);
   padding: 22px 24px;
   color: var(--ink-2);
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-data);
   font-size: 13px;
 }
 .demo-controls {
@@ -1110,7 +1095,7 @@ h4 {
 }
 .demo-field label {
   color: var(--ink-3);
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-data);
   font-size: 10px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -1120,13 +1105,13 @@ h4 {
   background: var(--paper);
   border: 1px solid var(--ink);
   color: var(--ink);
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-data);
   font-size: 14px;
   padding: 11px 13px;
   min-width: 140px;
 }
 .demo-status {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-data);
   font-size: 12.5px;
   color: var(--ink-2);
   min-height: 1.6em;
@@ -1147,7 +1132,7 @@ h4 {
 .demo-stat .k {
   display: block;
   color: var(--ink-3);
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-data);
   font-size: 10px;
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -1175,7 +1160,7 @@ h4 {
   gap: 15px;
   padding: 11px 15px;
   border-bottom: 1px solid var(--rule);
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-data);
   font-size: 13px;
 }
 .demo-train li:last-child {
@@ -1199,7 +1184,7 @@ h4 {
   border: 1px solid var(--rule);
   background: none;
   color: var(--ink-2);
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-data);
   font-size: 10px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -1212,7 +1197,7 @@ h4 {
 }
 .demo-rules h3 {
   color: var(--ink-3);
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-data);
   font-size: 10px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -1275,7 +1260,7 @@ h4 {
   font-weight: 600;
 }
 .modal-close {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-data);
   font-size: 11px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -1346,7 +1331,7 @@ input:focus-visible {
   padding: 12px 18px;
   background: var(--signal);
   color: var(--signal-ink);
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-data);
   font-size: 12px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -1377,605 +1362,8 @@ input:focus-visible {
   .callout .line {
     transform: scaleX(1) !important;
   }
-  .proj-row:hover {
-    padding-left: 4px;
+  .proj-row:hover > * {
+    transform: translateX(3px);
   }
 }
 
-/* ============================================================
-   REDESIGN 2026 — "clean product site"
-   Everything below overrides the drafting-sheet styles above.
-   One neutral palette, one accent, rounded surfaces, and the
-   work in front. Tokens first, so every older rule picks them up.
-   ============================================================ */
-
-:root,
-:root[data-theme='light'] {
-  --paper: #fafaf9;
-  --paper-2: #f3f2ef;
-  --paper-3: #e8e6e1;
-  --card: #ffffff;
-  --ink: #16161a;
-  --ink-2: #44454c;
-  --ink-3: #5f6069;
-  --rule: #e3e1dc;
-  --rule-soft: rgba(22, 22, 26, 0.06);
-  /* One accent. Large marks and dots only; small text uses --signal-text,
-     which clears 4.5:1 on both paper and card. */
-  --signal: #e8590c;
-  --signal-text: #b3440a;
-  /* Near-black on the orange fill: white only reaches 3.6:1. */
-  --signal-ink: #16161a;
-  --ok: #15803d;
-  --radius: 14px;
-  --shadow: 0 1px 2px rgba(22, 22, 26, 0.04), 0 8px 24px rgba(22, 22, 26, 0.06);
-  --measure: 1120px;
-  color-scheme: light;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme='light']) {
-    --paper: #0e0f12;
-    --paper-2: #15171b;
-    --paper-3: #1e2126;
-    --card: #15171b;
-    --ink: #f3f4f6;
-    --ink-2: #c0c4cc;
-    --ink-3: #9a9fa9;
-    --rule: #272a31;
-    --rule-soft: rgba(243, 244, 246, 0.08);
-    --signal: #ff7a3d;
-    --signal-text: #ff9a66;
-    --signal-ink: #0e0f12;
-    --ok: #4ade80;
-    --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.35);
-    color-scheme: dark;
-  }
-}
-:root[data-theme='dark'] {
-  --paper: #0e0f12;
-  --paper-2: #15171b;
-  --paper-3: #1e2126;
-  --card: #15171b;
-  --ink: #f3f4f6;
-  --ink-2: #c0c4cc;
-  --ink-3: #9a9fa9;
-  --rule: #272a31;
-  --rule-soft: rgba(243, 244, 246, 0.08);
-  --signal: #ff7a3d;
-  --signal-text: #ff9a66;
-  --signal-ink: #0e0f12;
-  --ok: #4ade80;
-  --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.35);
-  color-scheme: dark;
-}
-
-body {
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  font-size: 16.5px;
-  line-height: 1.65;
-}
-
-h1,
-h2,
-h3,
-h4 {
-  font-weight: 700;
-  line-height: 1.15;
-  letter-spacing: -0.022em;
-}
-
-/* Small uppercase labels: calmer than before. */
-.mono {
-  font-size: 11.5px;
-  letter-spacing: 0.08em;
-}
-.callout {
-  margin-bottom: 18px;
-}
-
-.eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  font-family: 'JetBrains Mono', ui-monospace, monospace;
-  font-size: 12px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--ink-3);
-  margin-bottom: 16px;
-}
-
-.status-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--ok);
-  box-shadow: 0 0 0 0 color-mix(in srgb, var(--ok) 55%, transparent);
-  flex: none;
-  animation: pulse 2.4s ease-out infinite;
-}
-@keyframes pulse {
-  0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--ok) 55%, transparent); }
-  70% { box-shadow: 0 0 0 7px transparent; }
-  100% { box-shadow: 0 0 0 0 transparent; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .status-dot { animation: none; }
-}
-
-/* ---------- nav ---------- */
-
-.nav {
-  background: color-mix(in srgb, var(--paper) 86%, transparent);
-  backdrop-filter: saturate(1.4) blur(10px);
-  -webkit-backdrop-filter: saturate(1.4) blur(10px);
-  border-bottom: 1px solid var(--rule);
-}
-.nav .mark {
-  font-size: 15px;
-  letter-spacing: 0.04em;
-  font-weight: 700;
-}
-.nav a:not(.mark) {
-  font-family: inherit;
-  font-size: 14.5px;
-  letter-spacing: 0;
-  text-transform: none;
-  font-weight: 500;
-  border-radius: 999px;
-  padding: 7px 14px;
-  border: none;
-}
-.nav a:not(.mark):hover {
-  background: var(--paper-2);
-}
-.nav a.active {
-  color: var(--ink);
-  background: var(--paper-3);
-}
-.nav-tools {
-  border-left: none;
-  padding-left: 0;
-}
-.icon-btn {
-  border-radius: 8px;
-}
-.lang-menu {
-  border: 1px solid var(--rule);
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: var(--shadow);
-  background: var(--card);
-}
-
-/* ---------- type scale ---------- */
-
-.display {
-  font-size: clamp(34px, 5.4vw, 60px);
-  font-weight: 750;
-  font-stretch: normal;
-  text-transform: none;
-  line-height: 1.08;
-  letter-spacing: -0.03em;
-  max-width: 20ch;
-}
-.lede {
-  font-size: clamp(17px, 1.7vw, 19.5px);
-  line-height: 1.6;
-  max-width: 60ch;
-}
-.section > .wrap > h1,
-.section > .wrap > h2,
-.section h2 {
-  font-size: clamp(28px, 3.4vw, 40px);
-  text-transform: none;
-  font-weight: 700;
-  font-stretch: normal;
-  margin-bottom: 12px;
-}
-.section-intro {
-  color: var(--ink-2);
-  font-size: 17.5px;
-  max-width: 62ch;
-  margin-bottom: 32px;
-}
-
-/* ---------- buttons ---------- */
-
-.btn {
-  font-family: inherit;
-  font-size: 15px;
-  font-weight: 600;
-  letter-spacing: 0;
-  text-transform: none;
-  padding: 11px 18px;
-  border-radius: 10px;
-  border: 1px solid var(--rule);
-  background: var(--card);
-  color: var(--ink);
-  transition: border-color 0.15s ease, background 0.15s ease, transform 0.15s ease;
-}
-.btn:hover {
-  background: var(--card);
-  color: var(--ink);
-  border-color: var(--ink-3);
-}
-.btn.solid,
-.btn.solid:hover {
-  background: var(--ink);
-  border-color: var(--ink);
-  color: var(--paper);
-  filter: none;
-}
-.btn.solid:hover {
-  transform: translateY(-1px);
-}
-.btn.ghost {
-  background: transparent;
-  border-color: transparent;
-}
-.btn.ghost:hover {
-  border-color: var(--rule);
-}
-.btn.small {
-  font-size: 14px;
-  padding: 8px 13px;
-}
-.btn.block {
-  display: block;
-  text-align: center;
-  width: 100%;
-}
-
-/* ---------- home ---------- */
-
-.hero {
-  padding: clamp(64px, 10vw, 120px) 0 clamp(40px, 6vw, 64px);
-}
-.hero .display {
-  margin-bottom: 22px;
-}
-.hero .lede {
-  margin-bottom: 32px;
-}
-
-.section {
-  padding: clamp(56px, 7vw, 96px) 0 0;
-}
-.section.band {
-  background: var(--paper-2);
-  border-top: 1px solid var(--rule);
-  border-bottom: 1px solid var(--rule);
-  padding-bottom: clamp(56px, 7vw, 96px);
-  margin-top: clamp(56px, 7vw, 96px);
-}
-
-.card-grid {
-  list-style: none;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(245px, 1fr));
-  gap: 18px;
-}
-.card {
-  background: var(--card);
-  border: 1px solid var(--rule);
-  border-radius: var(--radius);
-  padding: 22px;
-  display: flex;
-  flex-direction: column;
-  box-shadow: var(--shadow);
-  transition: transform 0.2s ease, border-color 0.2s ease;
-}
-.card:hover {
-  transform: translateY(-2px);
-  border-color: var(--ink-3);
-}
-.card-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 18px;
-}
-.kind {
-  font-size: 12.5px;
-  font-weight: 600;
-  color: var(--ink-3);
-}
-.live-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  font-size: 12.5px;
-  font-weight: 600;
-  color: var(--ok);
-}
-.card h3 {
-  font-size: 20px;
-  margin-bottom: 8px;
-}
-.card p {
-  color: var(--ink-2);
-  font-size: 15px;
-  line-height: 1.55;
-}
-.card .domain {
-  text-transform: none;
-  letter-spacing: 0;
-  font-size: 13px;
-  color: var(--ink-3);
-  margin: 14px 0 18px;
-}
-.card-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: auto;
-}
-
-.split {
-  display: grid;
-  gap: 40px;
-  align-items: center;
-}
-@media (min-width: 880px) {
-  .split {
-    grid-template-columns: 1fr 1fr;
-    gap: 64px;
-  }
-}
-.split .section-intro {
-  margin-bottom: 24px;
-}
-.steps {
-  list-style: none;
-  background: var(--card);
-  border: 1px solid var(--rule);
-  border-radius: var(--radius);
-  padding: 6px 22px;
-}
-.steps li {
-  display: flex;
-  gap: 16px;
-  padding: 18px 0;
-  border-bottom: 1px solid var(--rule);
-  color: var(--ink-2);
-}
-.steps li:last-child {
-  border-bottom: none;
-}
-.step-n {
-  color: var(--signal-text);
-  font-weight: 600;
-  padding-top: 3px;
-}
-
-/* ---------- project list ---------- */
-
-.proj-list {
-  border-top: none;
-  display: grid;
-  gap: 12px;
-}
-.proj-row {
-  border: 1px solid var(--rule);
-  border-radius: var(--radius);
-  background: var(--card);
-  padding: 20px 22px;
-}
-.proj-row:hover {
-  padding-left: 22px;
-  background: var(--card);
-  border-color: var(--ink-3);
-}
-.proj-row h2,
-.proj-row h3 {
-  font-size: 19px;
-  text-transform: none;
-  font-stretch: normal;
-  letter-spacing: -0.015em;
-}
-.badge {
-  border-radius: 999px;
-  font-family: inherit;
-  letter-spacing: 0;
-  text-transform: none;
-  font-size: 12px;
-  font-weight: 600;
-  padding: 2px 9px;
-  margin-left: 8px;
-}
-.badge.live {
-  color: var(--ok);
-  border-color: var(--ok);
-  background: transparent;
-}
-
-/* ---------- client work ---------- */
-
-.page-head .section-intro {
-  margin-bottom: 0;
-}
-.case {
-  scroll-margin-top: 72px;
-}
-.case-grid {
-  display: grid;
-  gap: 32px;
-  padding-top: 8px;
-}
-@media (min-width: 920px) {
-  .case-grid {
-    grid-template-columns: minmax(0, 1fr) 300px;
-    gap: 56px;
-    align-items: start;
-  }
-  .case-side {
-    position: sticky;
-    top: 88px;
-  }
-}
-.case .lede {
-  margin-bottom: 20px;
-}
-.browser {
-  border: 1px solid var(--rule);
-  border-radius: var(--radius);
-  overflow: hidden;
-  background: var(--card);
-  box-shadow: var(--shadow);
-  margin-bottom: 28px;
-}
-.browser-bar {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 10px 14px;
-  background: var(--paper-2);
-  border-bottom: 1px solid var(--rule);
-}
-.browser-bar > span:not(.browser-url) {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--paper-3);
-}
-.browser-url {
-  margin-left: 10px;
-  font-size: 12.5px;
-  color: var(--ink-3);
-  text-transform: none;
-  letter-spacing: 0;
-}
-.browser-body {
-  min-height: 210px;
-  padding: 40px 32px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  gap: 6px;
-  color: #ffffff;
-}
-.browser-azclean {
-  background: linear-gradient(135deg, #0e7490 0%, #164e63 100%);
-}
-.browser-way {
-  background: linear-gradient(135deg, #6d28d9 0%, #3b0764 100%);
-}
-.browser-title {
-  font-size: clamp(24px, 3vw, 32px);
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 1.1;
-}
-.browser-tag {
-  font-size: 15.5px;
-  color: #f1f5f9;
-}
-.facts {
-  background: var(--card);
-  border: 1px solid var(--rule);
-  border-radius: var(--radius);
-  padding: 4px 20px;
-  margin-bottom: 14px;
-}
-.facts > div {
-  padding: 14px 0;
-  border-bottom: 1px solid var(--rule);
-}
-.facts > div:last-child {
-  border-bottom: none;
-}
-.facts dt {
-  font-size: 12.5px;
-  font-weight: 600;
-  color: var(--ink-3);
-  margin-bottom: 2px;
-}
-.facts dd {
-  font-size: 15px;
-  color: var(--ink);
-}
-
-/* ---------- modal & spec table ---------- */
-
-.modal {
-  border-radius: 18px;
-  border-color: var(--rule);
-  background: var(--card);
-}
-.spec-table {
-  border-radius: 12px;
-  overflow: hidden;
-}
-
-/* ---------- footer ---------- */
-
-.site-footer {
-  border-top: 1px solid var(--rule);
-  margin-top: clamp(64px, 8vw, 110px);
-  padding: 44px 0 28px;
-  font-size: 15px;
-}
-.footer-grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 24px;
-}
-.site-footer .mark {
-  font-weight: 700;
-  text-decoration: none;
-}
-.footer-name {
-  font-weight: 600;
-  margin-top: 10px;
-}
-.footer-meta {
-  color: var(--ink-3);
-}
-.footer-links {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-.footer-links a {
-  color: var(--ink-2);
-  text-decoration: none;
-}
-.footer-links a:hover {
-  color: var(--ink);
-  text-decoration: underline;
-}
-.footer-base {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 12px 24px;
-  margin-top: 32px;
-  padding-top: 20px;
-  border-top: 1px solid var(--rule);
-  color: var(--ink-3);
-  font-size: 13.5px;
-}
-.site-footer .translation-note {
-  border: none;
-  padding: 0;
-  max-width: 70ch;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .route,
-  .js [data-reveal],
-  .card,
-  .btn {
-    transition: none;
-    transform: none;
-  }
-  .js [data-reveal],
-  .route {
-    opacity: 1;
-  }
-}
