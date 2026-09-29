@@ -135,7 +135,7 @@ export default function Home() {
               <div className="file-actions">
                 <Link className="btn solid" to={`/projects/${current.slug}`}>{t('home.file.open')} <Icon name="arrow" /></Link>
                 {current.live && (
-                  <a className="btn on-ink" href={current.live} target={current.live.startsWith('https://xgbuilds.dev') ? undefined : '_blank'} rel="noopener noreferrer">
+                  <a className="btn on-ink" href={current.live} target={new URL(current.live).host === 'xgbuilds.dev' ? undefined : '_blank'} rel="noopener noreferrer">
                     {t('home.file.live')} <Icon name="external" />
                   </a>
                 )}
