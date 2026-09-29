@@ -28,6 +28,10 @@ const ROUTES = [
   '/work',
   '/about',
   '/contact',
+  '/engine-room',
+  '/cv',
+  '/privacy',
+  '/projects/ai-eng',
   // Both demo routes: interactive controls and data tables are where this
   // breaks, so a project gaining a demo must be added here.
   '/projects/train-yard-manager',

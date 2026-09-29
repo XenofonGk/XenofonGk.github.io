@@ -1755,3 +1755,16 @@ body { font-size: 17px; }
 @media (prefers-reduced-motion: reduce) {
   .placard, .client, .btn { transition: none; }
 }
+
+/* ---------- fixes after the first render ---------- */
+.notice h1.stencil { font-size: clamp(56px, 8.2vw, 124px); overflow-wrap: anywhere; }
+@media (min-width: 1000px) { .notice h1.stencil { font-size: clamp(64px, 6.6vw, 112px); } }
+.nav .nav-right a { font-family: var(--font-letter); font-size: 17px; letter-spacing: 0.08em; font-weight: 800; color: var(--ink); }
+.nav .nav-right a.active { color: var(--site-ink); }
+@media (min-width: 900px) { .file-boxes:not(.in-modal) { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.file-boxes .box:nth-child(2n) { border-right: none; }
+.file-boxes .box:nth-last-child(-n + 2) { border-bottom: none; }
+.lang-trigger { font-family: var(--font-letter); font-weight: 700; font-size: 16px; letter-spacing: 0.04em; color: var(--ink); }
+.notice h1.stencil { overflow-wrap: normal; }
+@media (max-width: 999px) { .notice h1.stencil { font-size: clamp(40px, 12vw, 96px); } }
+.notice .cta-row { margin-top: 8px; }

@@ -179,20 +179,24 @@ export default function Home() {
       </section>
 
       <section className="section engine-teaser" aria-labelledby="engine-title">
-        <div className="wrap engine-teaser-grid">
-          <h2 id="engine-title" data-reveal>{t('home.engineTitle')}</h2>
-          <div data-reveal>
-            <p className="section-intro">{t('home.engineIntro')}</p>
-            <Link className="btn solid" to="/engine-room">{t('home.engineCta')} <Icon name="arrow" /></Link>
+        <div className="wrap">
+          <div className="engine-teaser-grid">
+            <h2 id="engine-title" data-reveal>{t('home.engineTitle')}</h2>
+            <div data-reveal>
+              <p className="section-intro">{t('home.engineIntro')}</p>
+              <Link className="btn solid" to="/engine-room">{t('home.engineCta')} <Icon name="arrow" /></Link>
+            </div>
           </div>
         </div>
       </section>
 
       <section className="section hire" aria-labelledby="hire-title">
-        <div className="wrap hire-box" data-reveal>
-          <h2 id="hire-title" className="stencil">{t('home.contactTitle')}</h2>
-          <p>{t('home.contactBody')}</p>
-          <a className="btn solid" href={`mailto:${profile.email}`}>{t('home.contactCta')}</a>
+        <div className="wrap">
+          <div className="hire-box" data-reveal>
+            <h2 id="hire-title" className="stencil">{t('home.contactTitle')}</h2>
+            <p>{t('home.contactBody')}</p>
+            <a className="btn solid" href={`mailto:${profile.email}`}>{t('home.contactCta')}</a>
+          </div>
         </div>
       </section>
     </>
