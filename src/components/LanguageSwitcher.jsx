@@ -33,7 +33,8 @@ export default function LanguageSwitcher() {
         aria-haspopup="listbox"
         aria-label={t('nav.language')}
       >
-        {meta.native}
+        <span className="lang-full">{meta.native}</span>
+        <span className="lang-code" aria-hidden="true">{meta.code.toUpperCase()}</span>
       </button>
 
       {open && (
