@@ -1,46 +1,39 @@
-# Xenofon Gkioka — Portfolio
+# xgbuilds.dev
 
-React + Vite portfolio site, blueprint-drafting design theme.
-Live at **[xenofongk.github.io](https://xenofongk.github.io)**.
+Portfolio of Xenofon Gkioka: three static pages (Home, Websites, Projects).
 
-## Local dev
+Next.js 16 (static export), TypeScript, Tailwind CSS 4. English only, light and dark theme.
+
+## Develop
 
 ```bash
 npm install
-npm run dev
+npm run dev        # http://localhost:3000
+npm run typecheck
+npm run build      # static site in out/
+npm start          # serve out/ locally
 ```
 
-`npm run build` outputs to `dist/`; `npm run preview` serves that build locally.
+All copy and links live in `lib/site.ts`; the pages only handle layout.
 
-## Structure
+The C and C++ demos are compiled to WebAssembly (`wasm/` has the sources, `npm run build:wasm` rebuilds them into `public/wasm/`) and load only when a visitor opens them.
 
-```
-src/
-  App.jsx              # assembles all sections
-  index.css            # design system (colors, type, layout — all in CSS variables)
-  components/
-    Nav.jsx
-    Hero.jsx
-    About.jsx           # edit `specs` array
-    Experience.jsx      # edit `jobs` array to update work history
-    Skills.jsx          # edit `categories` array
-    Projects.jsx        # edit `projects` array — update repo links here
-    Contact.jsx
-    Footer.jsx
-```
+## Deploy (Cloudflare Pages)
 
-To update content (new job, new project, new skill), you don't touch CSS or layout —
-just edit the data array at the top of the relevant component file.
+Connect this repo in Cloudflare Pages and use:
 
-## Deploying
+| Setting | Value |
+| --- | --- |
+| Production branch | `main` |
+| Build command | `npm run build` |
+| Build output directory | `out` |
+| Node version | `22` (env var `NODE_VERSION`) |
 
-`.github/workflows/deploy.yml` builds the site and publishes it on every push to `main`.
-It runs `npm ci && npm run build` and uploads `dist/` via `actions/deploy-pages`.
+Then add `xgbuilds.dev` under Custom domains. Live demos (Task Manager API, Resume Classifier) stay on home-server subdomains behind the Cloudflare Tunnel.
 
-This requires **Settings → Pages → Source → "GitHub Actions"** on this repo. If Pages is
-instead set to "Deploy from a branch", GitHub serves the repo root as static files — which
-means it serves `index.html` pointing at `/src/main.jsx`, the browser refuses to execute it
-as `text/jsx`, and the site renders as a blank page. The build step is not optional.
+When the real-Bash games (CheerpX) are added, put a `public/_headers` file in place with `Cross-Origin-Opener-Policy: same-origin` and `Cross-Origin-Embedder-Policy: require-corp` for the games route.
 
-To watch a deploy, use the **Actions** tab. To redeploy without pushing, run the workflow
-manually from there (`workflow_dispatch`).
+## Content still to add
+
+- Screenshots of azclean.gr and wayempowerment.com (`public/work/`, then set `image` in `lib/site.ts`)
+- A larger photo (800px or wider) to replace `public/xenofon.jpg`

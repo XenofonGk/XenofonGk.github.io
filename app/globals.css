@@ -1,0 +1,403 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/bricolage-grotesque';
+@import '@fontsource-variable/inter';
+
+/* Dark mode follows a data-theme attribute on <html>, set before paint by the
+   inline script in app/layout.tsx (system setting first, then the visitor's
+   saved choice). */
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+
+:root {
+  --bg: #ffffff;
+  --surface: #f3f4f6;
+  --ink: #101114;
+  --muted: #525866;
+  --line: #e2e4e8;
+  --accent: #2347ff;
+  --accent-hover: #1a37d6;
+  --on-accent: #ffffff;
+  --ok: #0b7a3b;
+  color-scheme: light;
+}
+
+[data-theme='dark'] {
+  --bg: #0f1013;
+  --surface: #1a1c21;
+  --ink: #f2f3f5;
+  --muted: #a9afba;
+  --line: #2c2f36;
+  --accent: #8fa3ff;
+  --accent-hover: #b0bfff;
+  --on-accent: #0f1013;
+  --ok: #5ad48e;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-on-accent: var(--on-accent);
+  --font-display: 'Bricolage Grotesque Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
+}
+
+html {
+  background: var(--bg);
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.font-display {
+  font-family: var(--font-display);
+  font-variation-settings: 'opsz' 96;
+  letter-spacing: -0.03em;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.skip-link {
+  position: absolute;
+  left: 16px;
+  top: -100px;
+  z-index: 50;
+  background: var(--ink);
+  color: var(--bg);
+  padding: 10px 16px;
+  border-radius: 8px;
+}
+.skip-link:focus {
+  top: 12px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ---------- WebAssembly demos (ported from the previous site) ---------- */
+
+.demo {
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 24px;
+  background: var(--bg);
+}
+.demo-note {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 20px 22px;
+  color: var(--muted);
+  font-size: 15px;
+}
+.demo-hint {
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.55;
+  margin-bottom: 18px;
+  max-width: 62ch;
+}
+.demo .mono,
+.scenarios-title,
+.demo-field label,
+.demo-stat .k,
+.demo-rules h3,
+.fighter .role {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+  letter-spacing: 0;
+  text-transform: none;
+}
+.scenarios {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-bottom: 18px;
+}
+.scenarios-title {
+  margin-bottom: 10px;
+}
+.scenario-row,
+.fighter-actions,
+.demo-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.demo-controls {
+  align-items: flex-end;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+.scenario-row button,
+.fighter-actions button,
+.demo-train button {
+  font: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  background: none;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--ink);
+  min-height: 40px;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+.scenario-row button:hover,
+.fighter-actions button:hover:not(:disabled),
+.demo-train button:hover {
+  border-color: var(--ink);
+}
+.scenario-row button.is-active {
+  border-color: var(--accent);
+  color: var(--accent);
+  box-shadow: inset 0 0 0 1px var(--accent);
+}
+.fighter-actions button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.btn {
+  font: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  min-height: 44px;
+  padding: 0 18px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: none;
+  color: var(--ink);
+  cursor: pointer;
+}
+.btn:hover {
+  border-color: var(--ink);
+}
+.btn.solid {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--on-accent);
+}
+.btn.solid:hover {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+}
+.demo-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.demo-field select,
+.demo-field input {
+  background: var(--bg);
+  border: 1px solid var(--muted);
+  border-radius: 8px;
+  color: var(--ink);
+  font: inherit;
+  font-size: 15px;
+  min-height: 44px;
+  padding: 0 12px;
+  min-width: 140px;
+}
+.demo-status {
+  font-size: 15px;
+  color: var(--ink);
+  min-height: 1.6em;
+  margin-bottom: 18px;
+}
+.demo-readout {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+.demo-stat {
+  background: var(--bg);
+  padding: 14px 16px;
+}
+.demo-stat .k {
+  display: block;
+  margin-bottom: 4px;
+}
+.demo-stat .v {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+}
+.demo-stat.verdict.is-safe .v {
+  color: var(--ok);
+}
+.demo-stat.verdict.is-unsafe .v {
+  color: var(--accent);
+}
+.demo-train {
+  list-style: none;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+.demo-train li {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--line);
+  font-size: 15px;
+}
+.demo-train li:last-child {
+  border-bottom: none;
+}
+.demo-train li.is-engine {
+  background: var(--surface);
+}
+.demo-train .idx {
+  color: var(--muted);
+  min-width: 2ch;
+  font-variant-numeric: tabular-nums;
+}
+.demo-train .ct {
+  flex: 1;
+  font-weight: 500;
+}
+.demo-train .cwt {
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.demo-rules h3 {
+  margin-bottom: 10px;
+}
+.demo-rules ul {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 6px;
+}
+.demo-rules li {
+  color: var(--muted);
+  font-size: 15px;
+  padding-left: 18px;
+  position: relative;
+}
+.demo-rules li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 12px;
+  width: 8px;
+  height: 2px;
+  background: var(--line);
+}
+.demo-rules li.is-cited {
+  color: var(--ink);
+  font-weight: 600;
+}
+.demo-rules li.is-cited::before {
+  background: var(--accent);
+  width: 10px;
+}
+.arena {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 18px;
+}
+.fighter {
+  padding: 18px;
+  border-right: 1px solid var(--line);
+}
+.fighter:last-child {
+  border-right: none;
+}
+.fighter.is-active {
+  box-shadow: inset 4px 0 0 var(--accent);
+}
+.fighter.is-winner {
+  box-shadow: inset 4px 0 0 var(--ok);
+}
+.fighter.is-down {
+  opacity: 0.55;
+}
+.fighter-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.fighter-head h3 {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+}
+.fighter .hp {
+  width: 100%;
+  height: 8px;
+  appearance: none;
+  border: none;
+  border-radius: 4px;
+  background: var(--surface);
+}
+.fighter .hp::-webkit-progress-bar {
+  background: var(--surface);
+  border-radius: 4px;
+}
+.fighter .hp::-webkit-progress-value {
+  background: var(--ok);
+  border-radius: 4px;
+}
+.fighter .hp::-moz-progress-bar {
+  background: var(--ok);
+}
+.fighter.is-down .hp::-webkit-progress-value {
+  background: var(--accent);
+}
+.fighter .hp-text {
+  color: var(--muted);
+  font-size: 13px;
+  margin: 8px 0 14px;
+}
+.arena-log li {
+  display: block;
+  padding: 7px 12px;
+}
+.arena-log .ct {
+  font-size: 14px;
+  color: var(--muted);
+}
+.arena-log .cwt {
+  color: var(--accent);
+}

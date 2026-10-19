@@ -1,0 +1,106 @@
+{
+  "demo": {
+    "intro": "A train may only leave the yard if it satisfies every coupling and load rule. Add cars and watch which rules refuse them — and note that removing a car is refused too when the train it would leave behind is unsafe.",
+    "tryThis": "Try one of these",
+    "sentenceEnd": ".",
+    "rejectedBecause": "{type} car weighing {weight} rejected — {reason}",
+    "removeRejectedBecause": "Car {i} cannot be removed — {reason}",
+    "reasons": {
+      "none": "accepted",
+      "nullTrain": "no train",
+      "trainFull": "the train is already at its 50-car limit",
+      "badType": "that is not a valid car type",
+      "badWeight": "a car must weigh more than nothing",
+      "totalWeight": "the train would exceed its 20,000 total weight limit",
+      "engineOrder": "engines must all sit at the front, and freight is already coupled",
+      "oilFirstFreight": "the first freight car behind the engines may not be oil",
+      "woodOilAdjacent": "it would put a wood car next to an oil car",
+      "pullCapacity": "the freight would weigh more than the engines can pull",
+      "badIndex": "there is no car at that position",
+      "lastEngine": "a train must keep at least one engine"
+    },
+    "scenarios": {
+      "oilFirst": {
+        "label": "Oil first",
+        "rejected": "Refused: {reason} Put a food or wood car behind the engine first, then the oil is allowed.",
+        "accepted": "Accepted."
+      },
+      "buffer": {
+        "label": "Remove the buffer",
+        "rejected": "This is the interesting one. The train is Engine, Wood, Food, Oil — the food car keeps the wood and oil apart. Removing it is refused: {reason} The rules are symmetric, so what cannot be built cannot be uncovered either.",
+        "accepted": "Accepted."
+      },
+      "capacity": {
+        "label": "Overload the engines",
+        "rejected": "Refused: {reason} Total weight and pull capacity are separate limits — this train is far under 20,000 but one engine can only pull 5,000.",
+        "accepted": "Accepted."
+      },
+      "engineOrder": {
+        "label": "Engine at the back",
+        "rejected": "Refused: {reason} Engines can only be appended while every car ahead of them is also an engine.",
+        "accepted": "Accepted."
+      }
+    },
+    "carType": "Car type",
+    "weight": "Weight",
+    "addCar": "Add car",
+    "reset": "Reset",
+    "remove": "Remove",
+    "removeCar": "Remove car {i}, {type}, weight {weight}",
+    "cars": "Cars",
+    "engines": "Engines",
+    "totalWeight": "Total weight",
+    "freightCapacity": "Freight / capacity",
+    "status": "Status",
+    "safe": "SAFE",
+    "unsafe": "UNSAFE",
+    "loading": "Loading the compiled validator…",
+    "failed": "The interactive demo could not load in this browser. The source and test suite are linked above.",
+    "added": "{type} car weighing {weight} added.",
+    "rejected": "{type} car weighing {weight} rejected — it would break one of the rules below.",
+    "removed": "Car {i} removed.",
+    "removeRejected": "Car {i} cannot be removed — the remaining train would be invalid.",
+    "resetDone": "Train reset.",
+    "rulesTitle": "Rules enforced by the C validator",
+    "rules": [
+      "Engines must all sit at the front of the train.",
+      "Total weight cannot exceed 20,000.",
+      "Freight weight cannot exceed pull capacity (5,000 per engine).",
+      "Wood and oil cars cannot be adjacent.",
+      "The first freight car cannot be oil."
+    ],
+    "types": {
+      "engine": "Engine",
+      "food": "Food",
+      "wood": "Wood",
+      "oil": "Oil"
+    }
+  },
+  "arenaDemo": {
+    "loading": "Loading the compiled arena…",
+    "failed": "The interactive demo could not load in this browser. The source is linked above.",
+    "warrior": "Warrior",
+    "mage": "Mage",
+    "health": "HP",
+    "level": "Lv",
+    "damage": "DMG",
+    "takeTurn": "Take turn",
+    "hint": "Level up to hit harder, take less, and strike first — the higher level always opens. Then pick an opponent and trade blows.",
+    "defence": "DEF",
+    "opponent": "Opponent",
+    "ready": "Ready.",
+    "reset": "Reset",
+    "finished": "Fight over",
+    "addPower": "+3 power",
+    "levelUp": "Level up",
+    "toAct": "to act.",
+    "wins": "wins.",
+    "notesTitle": "What this demonstrates",
+    "notes": [
+      "Warrior and Mage are compiled from the repository C++ and run here as WebAssembly — the combat is not reimplemented in JavaScript.",
+      "Damage is dispatched through the abstract Character base, so which subclass is acting decides whether skills or spell power are summed.",
+      "Health changes through the class's own operator+=, and adding power uses operator+= on the concrete type.",
+      "The starting values come from the repository's roster file, so a fight here produces the same numbers as the native binary."
+    ]
+  }
+}
