@@ -40,6 +40,7 @@ export const clientSites: ClientSite[] = [
     name: 'AZ Clean',
     domain: 'azclean.gr',
     url: 'https://azclean.gr',
+    image: '/work/azclean.jpg',
     summary:
       'Website for a cleaning business in Greece, on its own domain, with Google Search set up so customers can find it.',
   },
@@ -153,7 +154,7 @@ export const projects: Project[] = [
   },
   {
     id: 'kyklos',
-    title: 'Kyklos, a field-service app for trades',
+    title: 'KykloC, a field-service app for trades',
     body: 'Client, appointment, job, payment and repeat job in one flow, for cleaners, electricians and plumbers. It started from a real business: AZ Clean.',
     tags: ['React Native', 'Next.js', 'PostgreSQL'],
     inProgress: true,

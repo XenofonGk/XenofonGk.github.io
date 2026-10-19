@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Footer from '@/components/Footer'
-import { Button, Container, SectionHeading, TextLink } from '@/components/ui'
+import LiveSite from '@/components/LiveSite'
+import { Button, Container, SectionHeading } from '@/components/ui'
 import { clientSites, faq, mailto, packages, process } from '@/lib/site'
 
 export const metadata: Metadata = {
@@ -55,29 +56,9 @@ export default function Websites() {
           <ul className="grid gap-5 md:grid-cols-2">
             {clientSites.map((s) => (
               <li key={s.domain} className="flex min-w-0 flex-col gap-3">
-                <a
-                  href={s.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group block overflow-hidden rounded-2xl border border-line bg-surface no-underline"
-                >
-                  {s.image ? (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img src={s.image} alt={`The ${s.name} homepage`} className="aspect-[16/10] w-full object-cover object-top" />
-                  ) : (
-                    <span className="flex aspect-[16/10] items-end p-7">
-                      <span className="font-display break-all text-[clamp(26px,4vw,46px)] font-bold leading-none text-ink transition-colors group-hover:text-accent">
-                        {s.domain}
-                      </span>
-                    </span>
-                  )}
-                  <span className="sr-only">Visit {s.name} (opens in a new tab)</span>
-                </a>
+                <LiveSite name={s.name} domain={s.domain} url={s.url} image={s.image} />
                 <h3 className="font-display mt-2 text-[28px] font-bold leading-tight">{s.name}</h3>
                 <p className="text-muted">{s.summary}</p>
-                <p>
-                  <TextLink href={s.url}>Visit {s.domain}</TextLink>
-                </p>
               </li>
             ))}
           </ul>

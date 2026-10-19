@@ -42,8 +42,8 @@ export default function Home() {
           <Image
             src="/xenofon.jpg"
             alt="Xenofon Gkioka, smiling, in a navy t-shirt"
-            width={400}
-            height={400}
+            width={1000}
+            height={1000}
             priority
             className="order-first aspect-square w-full max-w-[280px] rounded-[20px] object-cover md:order-none md:max-w-none"
           />
