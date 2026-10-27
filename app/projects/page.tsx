@@ -135,11 +135,12 @@ export default function Projects() {
           <article aria-labelledby={kyklos.id} className="mt-5 grid gap-8 rounded-2xl border border-line p-7 sm:p-8 lg:grid-cols-2 lg:gap-12">
             <div className="flex flex-col gap-4">
               <div className="flex flex-wrap items-center gap-2">
-                <span className="rounded-md bg-accent px-2.5 py-1 text-[13px] font-semibold text-on-accent">In progress</span>
+                <span className="rounded-md bg-accent px-2.5 py-1 text-[13px] font-semibold text-on-accent">Live demo</span>
                 <Tags tags={kyklos.tags} />
               </div>
               <h3 id={kyklos.id} className="font-display text-[26px] font-bold leading-tight">{kyklos.title}</h3>
               <p className="text-muted">{kyklos.body}</p>
+              <div className="mt-auto pt-1"><Links project={kyklos} /></div>
             </div>
             <div>
               <p className="font-semibold">How it&apos;s built</p>

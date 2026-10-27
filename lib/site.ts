@@ -48,7 +48,16 @@ export const clientSites: ClientSite[] = [
     name: 'WAY Empowerment',
     domain: 'wayempowerment.com',
     url: 'https://www.wayempowerment.com',
+    image: '/work/wayempowerment.jpg',
     summary: 'A rebuilt website for WAY Empowerment, a non-profit organization.',
+  },
+  {
+    name: 'Beauty by Beautia',
+    domain: 'beautybybeautia.pages.dev',
+    url: 'https://beautybybeautia.pages.dev',
+    image: '/work/beautybybeautia.jpg',
+    summary:
+      'Website for a Toronto makeup and hair artist, with a Sanity editor so the owner can change text and photos without touching code.',
   },
 ]
 
@@ -105,7 +114,6 @@ export type Project = {
   links: Link[]
   stat?: { value: string; label: string }
   demo?: 'train-yard' | 'arenacore'
-  inProgress?: boolean
   details?: string[]
 }
 
@@ -155,16 +163,15 @@ export const projects: Project[] = [
   {
     id: 'kyklos',
     title: 'KykloC, a field-service app for trades',
-    body: 'Client, appointment, job, payment and repeat job in one flow, for cleaners, electricians and plumbers. It started from a real business: AZ Clean.',
-    tags: ['React Native', 'Next.js', 'PostgreSQL'],
-    inProgress: true,
-    links: [],
+    body: 'Client, appointment, job, payment and repeat job in one flow, for cleaners, electricians and plumbers. It started from a real business: AZ Clean. The live demo runs in your browser with no account.',
+    tags: ['React', 'TanStack Start', 'Supabase'],
+    links: [{ label: 'Try the live demo', href: 'https://pixel-perfect-recreation-892-alpha.vercel.app' }],
     details: [
-      'Multi-tenant: every business is its own tenant, isolated in the database with PostgreSQL Row-Level Security, not only in code.',
-      'Offline-first mobile app, because jobs often happen where there is no signal.',
-      'A modular monolith with a queue and workers for reminders, repeat jobs, payment webhooks and PDFs.',
-      'Subscriptions through Stripe Billing, with webhooks driving the subscription lifecycle. No card data is stored.',
-      'MVP planned for 2027, piloting with AZ Clean.',
+      'Multi-tenant: every business is isolated in the database with PostgreSQL row-level security, not only in code.',
+      'Staff see only their assigned jobs, through an API that leaves out prices, VAT and payment data.',
+      'Built for patchy signal: failed saves wait in a persistent outbox and retry when the connection returns.',
+      'Greek and English interface.',
+      'Not yet: card payments and subscription billing. A customer trial is next.',
     ],
   },
 ]
