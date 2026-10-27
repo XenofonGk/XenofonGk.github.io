@@ -91,6 +91,38 @@ body {
   top: 12px;
 }
 
+/* Client-site strip (SiteCarousel) */
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee {
+  overflow-x: hidden;
+}
+.marquee-track {
+  animation: marquee linear infinite;
+}
+.marquee[data-paused] .marquee-track,
+.marquee:hover .marquee-track,
+.marquee:focus-within .marquee-track {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee {
+    overflow-x: auto;
+    padding-inline: 20px;
+  }
+  .marquee-track {
+    animation: none !important;
+  }
+  .marquee-track > ul[aria-hidden],
+  .marquee-track li[aria-hidden],
+  .marquee-toggle {
+    display: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

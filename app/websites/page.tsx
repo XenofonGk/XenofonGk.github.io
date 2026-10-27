@@ -51,10 +51,16 @@ export default function Websites() {
           ))}
         </ul>
 
-        <section id="work" aria-labelledby="work-title" className="scroll-mt-6 pb-24">
-          <SectionHeading id="work-title">Sites I&apos;ve built</SectionHeading>
-          <SiteCarousel sites={clientSites} />
-        </section>
+      </Container>
+
+      <section id="work" aria-labelledby="work-title" className="scroll-mt-6 pb-24">
+        <h2 id="work-title" className="font-display mb-10 px-5 text-center text-[clamp(28px,3.4vw,38px)] font-bold leading-[1.1]">
+          Sites I&apos;ve built
+        </h2>
+        <SiteCarousel sites={clientSites} />
+      </section>
+
+      <Container>
 
         <section aria-labelledby="packages-title" className="pb-24">
           <SectionHeading
