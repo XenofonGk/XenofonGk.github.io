@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import Footer from '@/components/Footer'
-import LiveSite from '@/components/LiveSite'
+import SiteCarousel from '@/components/SiteCarousel'
 import { Button, Container, SectionHeading } from '@/components/ui'
 import { clientSites, faq, mailto, packages, process } from '@/lib/site'
 
@@ -53,15 +53,7 @@ export default function Websites() {
 
         <section id="work" aria-labelledby="work-title" className="scroll-mt-6 pb-24">
           <SectionHeading id="work-title">Sites I&apos;ve built</SectionHeading>
-          <ul className="grid gap-5 md:grid-cols-2">
-            {clientSites.map((s) => (
-              <li key={s.domain} className="flex min-w-0 flex-col gap-3">
-                <LiveSite name={s.name} domain={s.domain} url={s.url} image={s.image} />
-                <h3 className="font-display mt-2 text-[28px] font-bold leading-tight">{s.name}</h3>
-                <p className="text-muted">{s.summary}</p>
-              </li>
-            ))}
-          </ul>
+          <SiteCarousel sites={clientSites} />
         </section>
 
         <section aria-labelledby="packages-title" className="pb-24">
