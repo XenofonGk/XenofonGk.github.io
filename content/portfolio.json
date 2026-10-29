@@ -5,15 +5,16 @@
       "id": "ai-eng",
       "slug": "ai-eng",
       "title": "ai-eng",
-      "summary": "Mutation testing for changed lines of code.",
+      "summary": "Mutation testing scoped to the lines a change touches, to show whether existing tests would notice if those lines were wrong.",
       "category": "engineering",
       "placement": "featured",
       "homepageOrder": 1,
-      "role": "Developer",
+      "role": "Specification, benchmark design and review. The implementation was written by Claude Code from that specification, as the repository's README states.",
       "stack": [
-        "TypeScript",
+        "JavaScript",
         "Node.js",
-        "Testing"
+        "Babel",
+        "Vitest"
       ],
       "status": "prototype",
       "links": [
@@ -21,74 +22,306 @@
           "label": "Source",
           "kind": "code",
           "url": "https://github.com/XenofonGk/ai-eng"
+        },
+        {
+          "label": "Benchmark write-up",
+          "kind": "benchmark",
+          "url": "https://github.com/XenofonGk/ai-eng/blob/main/docs/progress/01-benchmark.md"
         }
       ],
-      "evidence": [],
-      "media": [],
-      "caseStudy": null
+      "evidence": [
+        {
+          "claim": "On 59 real zod bug fixes reverted one at a time, surviving mutants flagged the reverted lines as weakly tested in 27; zod's existing test suite caught none of the 59.",
+          "label": "Benchmark",
+          "url": "https://github.com/XenofonGk/ai-eng/blob/main/docs/progress/01-benchmark.md",
+          "basis": "repository-reported",
+          "checkedAt": "2026-10-28",
+          "scope": "Numbers as reported in the repository and recomputed from its committed results.jsonl at 0b91c0c. The benchmark itself was not re-run (it needs a zod checkout and about 30 minutes). 'Flagged' means at least one mutant survived on the reverted lines, not that the tool identified the bug."
+        },
+        {
+          "claim": "The engine's 19 unit tests pass.",
+          "label": "Unit tests",
+          "url": null,
+          "basis": "executed",
+          "checkedAt": "2026-10-28",
+          "scope": "npm ci && npm test (node --test) at commit 0b91c0c on Node 26.5.0: 19 passed, 0 failed."
+        },
+        {
+          "claim": "Run on a one-line change, it reports which mutants survived and a behaviour change found by comparing old and new code on generated inputs.",
+          "label": "Sample run",
+          "url": null,
+          "basis": "executed",
+          "checkedAt": "2026-10-28",
+          "scope": "node engine/cli.js --repo . on a small Vitest sample repository with one uncommitted change, ai-eng at 0b91c0c. Output shown verbatim in the screenshot."
+        }
+      ],
+      "media": [
+        {
+          "type": "image",
+          "src": "/work/case-studies/ai-eng/cli-run.webp",
+          "alt": "Terminal output from ai-eng on a one-line change to a discount function: four mutants on line 2, three survived and one was killed, giving a trust score of 25% with the verdict 'read every line'. It lists each surviving mutation, such as '&&' changed to '||', and one behaviour change on 1 of 33 generated calls. The command exits with status 1.",
+          "width": 1400,
+          "height": 804
+        }
+      ],
+      "caseStudy": {
+        "problem": "A green test suite shows that tests ran, not that they would fail if the code they cover were wrong. In review, that matters most for the lines a change actually touches, which is where existing tests are least likely to have been written with the new behaviour in mind.",
+        "constraints": [
+          "It had to work on an ordinary repository and an ordinary diff, without asking the author to write new tests first.",
+          "Running a test suite once per mutant is slow, so the work had to be limited to changed lines and to the tests that cover them.",
+          "The result had to be checkable against real bugs, not only against examples chosen to make the tool look good."
+        ],
+        "decisions": [
+          {
+            "choice": "Mutate only the lines in the diff, using eight AST-level operators such as boundary, negated condition and logical operator.",
+            "alternative": "Mutate the whole file or project, as general mutation testing tools do.",
+            "reason": "The question in review is about the change. Restricting mutants to changed lines keeps a run short enough to be used on each diff."
+          },
+          {
+            "choice": "Measure on real bugs: revert 60 actual fix commits in zod and hold each fix's own regression test back as the oracle.",
+            "alternative": "Measure on seeded artificial faults.",
+            "reason": "Artificial faults tend to resemble the mutation operators themselves. Real fixes show how the tool behaves on bugs that previously shipped."
+          },
+          {
+            "choice": "Report no score when the baseline suite is failing, no covering test is found, or nothing on the changed lines can be mutated.",
+            "alternative": "Return a low or default score in those cases.",
+            "reason": "A number in those cases would look like evidence without being any. Most of the 32 missed benchmark cases are reported as having no score for these reasons."
+          }
+        ],
+        "verification": "The unit tests were run for this page (19 passed). The benchmark figures are the repository's own, recomputed from its committed raw results but not re-run. The screenshot is a real run on a small sample repository.",
+        "limitations": [
+          "Prototype, version 0.1.0. It supports only repositories that use Vitest, with dependencies installed.",
+          "A flagged change means its lines are weakly tested; it does not mean the tool found the bug.",
+          "Zod's baseline of 0 caught reflects the corpus: these are bugs that shipped because the tests missed them.",
+          "The implementation was generated by Claude Code from a human-written specification and review; the README says so."
+        ]
+      }
     },
     {
       "id": "kykloc",
       "slug": "kykloc",
       "title": "KykloC",
-      "summary": "A field-service application for trades, started from the workflow of AZ Clean.",
+      "summary": "A field-service app for small trade businesses: customers, appointments, jobs, payments and repeat work in one place, in Greek and English.",
       "category": "engineering",
       "placement": "featured",
       "homepageOrder": 2,
-      "role": "Developer",
+      "role": "Product direction and development. The project was scaffolded with Lovable and developed from there.",
       "stack": [
         "React",
         "TanStack Start",
-        "Supabase"
+        "Supabase",
+        "PostgreSQL",
+        "Vitest"
       ],
       "status": "prototype",
       "links": [
         {
-          "label": "Website",
+          "label": "Try it on this device",
           "kind": "live",
           "url": "https://pixel-perfect-recreation-892-alpha.vercel.app"
         }
       ],
-      "evidence": [],
-      "media": [],
-      "caseStudy": null
+      "evidence": [
+        {
+          "claim": "Anyone can try it without an account: the trial runs in the browser with sample data that stays on the device.",
+          "label": "Live trial",
+          "url": "https://pixel-perfect-recreation-892-alpha.vercel.app",
+          "basis": "executed",
+          "checkedAt": "2026-10-28",
+          "scope": "Opened the public URL in a clean browser, chose English and 'Try on this device'. Every request observed went to the app's own host. Source review of continueDemo in the store confirms trial data is kept in localStorage and Supabase sync is skipped."
+        },
+        {
+          "claim": "Each business's records are separated by PostgreSQL row-level security, checked by a database test that switches between users.",
+          "label": "Database checks",
+          "url": null,
+          "basis": "executed",
+          "checkedAt": "2026-10-28",
+          "scope": "scripts/verify-database.mjs at commit 095778d applies every migration to an in-memory Postgres (PGlite) and runs 124 assertions as different authenticated roles: all passed. This is a test environment, not the production database."
+        },
+        {
+          "claim": "Saves that fail while offline are kept in a persistent outbox and retried when the connection returns.",
+          "label": "Source",
+          "url": null,
+          "basis": "source-reviewed",
+          "checkedAt": "2026-10-28",
+          "scope": "outbox.ts and its 7 Vitest tests (reload survival, order after a failed write, full storage) at commit 095778d. Not observed against a real network outage."
+        },
+        {
+          "claim": "The automated test suite runs offline.",
+          "label": "Unit tests",
+          "url": null,
+          "basis": "executed",
+          "checkedAt": "2026-10-28",
+          "scope": "npx vitest run at commit 095778d: 110 passed, 1 failed (an address-search quota test expecting 503 that received 429)."
+        }
+      ],
+      "media": [
+        {
+          "type": "image",
+          "src": "/work/case-studies/kykloc/schedule-desktop.webp",
+          "alt": "KykloC's schedule for Wednesday 28 October in the on-device trial: three jobs totalling 383.78 euros, each with a time, customer, services, address, assigned worker, and status labels such as Scheduled, Completed, Paid and Unpaid. The names and addresses are the app's built-in sample data.",
+          "width": 1440,
+          "height": 900
+        },
+        {
+          "type": "image",
+          "src": "/work/case-studies/kykloc/schedule-mobile.webp",
+          "alt": "The same KykloC schedule on a phone, with job cards stacked in a timeline, a New Job button and bottom navigation for Schedule, Customers, Money and More. Sample data.",
+          "width": 780,
+          "height": 1688
+        },
+        {
+          "type": "image",
+          "src": "/work/case-studies/kykloc/customers-desktop.webp",
+          "alt": "KykloC's customer list in the trial: five sample customers with phone numbers and job counts, a search field, an Add customer button and an import or export option.",
+          "width": 1440,
+          "height": 900
+        }
+      ],
+      "caseStudy": {
+        "problem": "Small trade businesses such as cleaners and electricians often run on a phone, a paper diary and memory. KykloC started from how one cleaning business, AZ Clean, books and follows up work: a customer calls, an appointment is set, the job is done, payment is recorded, and repeat work is due months later.",
+        "constraints": [
+          "Several businesses share one database, so one business must never see another's records.",
+          "Work happens on site, where mobile signal is unreliable.",
+          "The owners work in Greek, and the app also needs English.",
+          "Someone evaluating it should be able to try it without creating an account."
+        ],
+        "decisions": [
+          {
+            "choice": "Enforce tenant separation in PostgreSQL with row-level security policies.",
+            "alternative": "Filter by business only in application code.",
+            "reason": "A missed filter in one query would leak another business's data. A database policy applies to every query, including ones written later."
+          },
+          {
+            "choice": "Queue failed writes in a persistent outbox in local storage and retry them in order when the browser reports it is back online.",
+            "alternative": "Show an error and ask the user to try again.",
+            "reason": "On site the user may not notice a failed save until the data is needed. Keeping writes in order avoids replaying them out of sequence."
+          },
+          {
+            "choice": "Offer an on-device trial with sample data instead of a shared demo account.",
+            "alternative": "A public demo login on the real backend.",
+            "reason": "A shared login would expose whatever visitors type to everyone else and to the real database. Local data keeps visitors separate and the backend untouched."
+          }
+        ],
+        "verification": "The trial was used in a clean browser for this page, and the screenshots come from it. The database checks and unit tests were run offline at commit 095778d against an in-memory Postgres, not the production database.",
+        "limitations": [
+          "Prototype. There are no card payments or subscription billing: payments are recorded, not charged.",
+          "One unit test currently fails (address-search quota handling).",
+          "The finance fields shown to staff accounts are still being restricted, so that is not claimed here.",
+          "Row-level security and the outbox are verified by automated tests, not by production use.",
+          "The deployed commit was not determined."
+        ]
+      }
     },
     {
       "id": "az-clean",
       "slug": "az-clean",
       "title": "AZ Clean",
-      "summary": "A website for a cleaning business in Greece.",
+      "summary": "A Greek-language website for a cleaning business in the southern suburbs of Athens, built around calling or sending a photo for a quote.",
       "category": "client",
       "placement": "featured",
       "homepageOrder": 3,
-      "role": "Developer",
+      "role": "Redesign and front-end development.",
       "stack": [
-        "Web development"
+        "React",
+        "Vite",
+        "GitHub Pages"
       ],
       "status": "live",
       "links": [
         {
-          "label": "Website",
+          "label": "azclean.gr",
           "kind": "live",
           "url": "https://azclean.gr"
         }
       ],
-      "evidence": [],
-      "media": [],
-      "caseStudy": null
+      "evidence": [
+        {
+          "claim": "The site is live on the business's own domain.",
+          "label": "Live site",
+          "url": "https://azclean.gr",
+          "basis": "executed",
+          "checkedAt": "2026-10-28",
+          "scope": "Fetched https://azclean.gr: HTTP 200, served by GitHub Pages."
+        },
+        {
+          "claim": "Search engines get a sitemap, robots.txt and structured data describing the business and its FAQ.",
+          "label": "Live site",
+          "url": "https://azclean.gr",
+          "basis": "executed",
+          "checkedAt": "2026-10-28",
+          "scope": "robots.txt and sitemap.xml return 200, and the home page includes LocalBusiness and FAQPage JSON-LD. Whether Google has indexed or ranks it was not checked."
+        },
+        {
+          "claim": "The before-and-after photo comparisons work by mouse, touch or keyboard.",
+          "label": "Source",
+          "url": null,
+          "basis": "source-reviewed",
+          "checkedAt": "2026-10-28",
+          "scope": "The comparison component pairs drag and touch handlers with a labelled range input for keyboard and screen-reader use. The live page has four labelled range controls. Not tested with a screen reader."
+        }
+      ],
+      "media": [
+        {
+          "type": "image",
+          "src": "/work/case-studies/az-clean/home-desktop.webp",
+          "alt": "The AZ Clean home page on desktop: a dark hero photo of a worker in a branded T-shirt cleaning a mattress, a Greek headline meaning 'The right way to clean', service areas, a 'Call us' button and a 'Send a photo' button.",
+          "width": 1440,
+          "height": 900
+        },
+        {
+          "type": "image",
+          "src": "/work/case-studies/az-clean/home-mobile.webp",
+          "alt": "The AZ Clean home page on a phone: the Greek headline and services list above the hero photo, with call and WhatsApp buttons fixed to the bottom of the screen.",
+          "width": 780,
+          "height": 1688
+        }
+      ],
+      "caseStudy": {
+        "problem": "AZ Clean cleans sofas, mattresses, rugs, cars and boats in customers' homes. Most customers arrive on a phone and want to know quickly whether the business covers their area and what a job costs.",
+        "constraints": [
+          "Greek-speaking local customers, mostly on mobile.",
+          "Quotes depend on what needs cleaning, so the site has to make contact easy rather than list fixed prices.",
+          "A small business needs a site that is cheap to host and keep running."
+        ],
+        "decisions": [
+          {
+            "choice": "Make calling and sending a photo the main actions, with call and WhatsApp buttons fixed to the bottom on phones.",
+            "alternative": "A multi-step booking form.",
+            "reason": "A photo lets the owner quote accurately, and a phone call is how customers already book."
+          },
+          {
+            "choice": "Build a static React and Vite site and serve it from GitHub Pages on the business's own domain.",
+            "alternative": "A hosted website builder or a server-rendered CMS.",
+            "reason": "There is no server to maintain and no hosting fee, and the domain stays the owner's."
+          },
+          {
+            "choice": "Write the before-and-after comparison slider from scratch with a native range input underneath.",
+            "alternative": "A third-party slider library.",
+            "reason": "The range input gives keyboard and screen-reader access without extra code, and the component stays small."
+          }
+        ],
+        "verification": "The live site, robots.txt, sitemap and structured data were fetched for this page, and the screenshots were taken from the live site on 28 October 2026. The slider's accessibility was checked in source and in the rendered page's controls, not with assistive technology.",
+        "limitations": [
+          "The site's review rating and testimonials are the business's own content and were not verified here.",
+          "No traffic, ranking or enquiry figures are available, so none are claimed.",
+          "The source repository is private."
+        ]
+      }
     },
     {
       "id": "aoda-scan",
       "slug": "aoda-scan",
       "title": "aoda-scan",
-      "summary": "A tool for crawling websites and reporting automated accessibility findings.",
+      "summary": "Crawls a site, runs axe-core WCAG 2.1 A and AA checks on each page, and ranks the failing rules by how many pages they affect.",
       "category": "engineering",
       "placement": "supporting",
       "homepageOrder": null,
-      "role": "Developer",
+      "role": "Developer.",
       "stack": [
         "Node.js",
-        "Playwright"
+        "Playwright",
+        "axe-core"
       ],
       "status": "prototype",
       "links": [
@@ -98,7 +331,16 @@
           "url": "https://github.com/XenofonGk/aoda-scan"
         }
       ],
-      "evidence": [],
+      "evidence": [
+        {
+          "claim": "The unit and regression tests pass.",
+          "label": "Tests",
+          "url": null,
+          "basis": "executed",
+          "checkedAt": "2026-10-28",
+          "scope": "PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 npm ci --ignore-scripts && npm test at commit 182cbbb: 38 passed, 0 failed. None of these tests launches a browser."
+        }
+      ],
       "media": [],
       "caseStudy": null
     },
@@ -106,14 +348,15 @@
       "id": "arenacore",
       "slug": "arenacore",
       "title": "ArenaCore",
-      "summary": "A turn-based C++ combat engine compiled to WebAssembly.",
+      "summary": "A turn-based C++ combat engine using abstract classes, operator overloading and manual memory management, compiled to WebAssembly to run on this site.",
       "category": "engineering",
       "placement": "supporting",
       "homepageOrder": null,
-      "role": "Developer",
+      "role": "Developer.",
       "stack": [
-        "C++",
-        "WebAssembly"
+        "C++17",
+        "WebAssembly",
+        "Emscripten"
       ],
       "status": "prototype",
       "links": [
@@ -123,7 +366,24 @@
           "url": "https://github.com/XenofonGk/Cpp/tree/main/ArenaCore"
         }
       ],
-      "evidence": [],
+      "evidence": [
+        {
+          "claim": "The browser build gives the same results as the native build for the same seeded fights.",
+          "label": "Parity check",
+          "url": null,
+          "basis": "executed",
+          "checkedAt": "2026-10-28",
+          "scope": "bash wasm/tests/run.sh: 39 numeric states (health, level, damage, defence, winner) identical between a native ASan/UBSan build and the shipped WebAssembly, across two seeds, level-ups, power changes and invalid pairings. Fight text is not compared."
+        },
+        {
+          "claim": "The site runs the upstream source unmodified.",
+          "label": "Source",
+          "url": "https://github.com/XenofonGk/Cpp/tree/main/ArenaCore",
+          "basis": "source-reviewed",
+          "checkedAt": "2026-10-28",
+          "scope": "All ten vendored files are byte-identical to XenofonGk/Cpp at 6e86eee; only the stdin input file is left out."
+        }
+      ],
       "media": [],
       "caseStudy": null
     },
@@ -131,11 +391,11 @@
       "id": "agentmesh",
       "slug": "agentmesh",
       "title": "AgentMesh",
-      "summary": "A self-hosted control plane for AI coding agents, in development.",
+      "summary": "A self-hosted control plane for running AI coding agents with your own provider keys and reviewing their changes as diffs. In development.",
       "category": "engineering",
       "placement": "supporting",
       "homepageOrder": null,
-      "role": "Developer",
+      "role": "Developer, working with AI coding agents; many commits are authored by Claude.",
       "stack": [
         "Next.js",
         "Fastify",
@@ -149,7 +409,59 @@
           "url": "https://github.com/XenofonGk/AgentMesh"
         }
       ],
-      "evidence": [],
+      "evidence": [
+        {
+          "claim": "The tests that need no database pass; the vault, proxy, API and orchestrator tests need Postgres and were skipped.",
+          "label": "Tests",
+          "url": null,
+          "basis": "executed",
+          "checkedAt": "2026-10-28",
+          "scope": "pnpm test at commit aeb8de1: 190 passed, 112 skipped (10 files that require TEST_DATABASE_URL), 0 failed."
+        }
+      ],
+      "media": [],
+      "caseStudy": null
+    },
+    {
+      "id": "train-yard",
+      "slug": "train-yard",
+      "title": "Train yard validator",
+      "summary": "Rules for assembling a safe train, written in C and compiled to WebAssembly so the browser runs the same validator.",
+      "category": "engineering",
+      "placement": "supporting",
+      "homepageOrder": null,
+      "role": "Developer.",
+      "stack": [
+        "C",
+        "WebAssembly",
+        "Emscripten"
+      ],
+      "status": "prototype",
+      "links": [
+        {
+          "label": "Source",
+          "kind": "code",
+          "url": "https://github.com/XenofonGk/train-yard-manager"
+        }
+      ],
+      "evidence": [
+        {
+          "claim": "Removing an engine is refused if the remaining engines could not pull the freight, and the train is left unchanged.",
+          "label": "Regression test",
+          "url": null,
+          "basis": "executed",
+          "checkedAt": "2026-10-28",
+          "scope": "wasm/tests/train_yard_regression.c failed (exit 1) on the previous source and passes after the fix, built with ASan and UBSan."
+        },
+        {
+          "claim": "The browser build gives the same results as the native build.",
+          "label": "Parity check",
+          "url": null,
+          "basis": "executed",
+          "checkedAt": "2026-10-28",
+          "scope": "bash wasm/tests/run.sh: 30 numeric states (result code, reject reason, car count, engines, weight, pull capacity, safety, every car) identical across valid adds, unsafe removals, adjacency rules and resets."
+        }
+      ],
       "media": [],
       "caseStudy": null
     }

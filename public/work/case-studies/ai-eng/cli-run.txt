@@ -1,0 +1,23 @@
+$ node ai-eng/engine/cli.js --repo .
+
+src/discount.js  (1 changed lines)
+  test target: ./src/discount.test.js
+  checking baseline...
+  baseline green (1 tests)
+  [1/4] survived   L2 logical
+  [2/4] survived   L2 conditional-boundary
+  [3/4] survived   L2 conditional-boundary
+  [4/4] killed     L2 arithmetic
+  differential: 33 calls compared, 1 behaviour change(s)
+
+────────────────────────────────────────────────────────────────
+src/discount.js   TRUST  25%   ~read every line
+  mutation score 25% (1/4 killed)
+  SURVIVED L2 logical: total >= 100 && total > 0  ->  total >= 100 || total > 0
+  SURVIVED L2 conditional-boundary: total >= 100  ->  total > 100
+  SURVIVED L2 conditional-boundary: total > 0  ->  total >= 0
+  BEHAVIOUR CHANGED on 1 of 33 generated calls:
+    discount(9007199254740991):  9007199254740991  ->  8106479329266892
+
+$ echo $?
+1

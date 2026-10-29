@@ -1,0 +1,45 @@
+{
+  "note": "Source and capture details for every asset in this directory. All images are captures of real software; none is a mock-up.",
+  "assets": [
+    {
+      "path": "ai-eng/cli-run.webp",
+      "source": "Verbatim stdout of `node ai-eng/engine/cli.js --repo .` (ai-eng 0b91c0c60471f7c2e1565fc3b14240938478284d) on a small Vitest sample repository with one uncommitted change, followed by the exit status. Text in ai-eng/cli-run.txt, rendered to an image in monospace.",
+      "captured": "2026-10-28"
+    },
+    {
+      "path": "ai-eng/cli-run.txt",
+      "source": "The captured terminal text the image above is rendered from.",
+      "captured": "2026-10-28"
+    },
+    {
+      "path": "kykloc/schedule-desktop.webp",
+      "source": "https://pixel-perfect-recreation-892-alpha.vercel.app, English, 'Try on this device', default onboarding, Schedule > Calendar. 1440x900, headless Chromium. Built-in sample data from the app's seed; no real customer data. No sign-in.",
+      "captured": "2026-10-28"
+    },
+    {
+      "path": "kykloc/schedule-mobile.webp",
+      "source": "Same trial, Schedule view, 390x844 viewport at 2x.",
+      "captured": "2026-10-28"
+    },
+    {
+      "path": "kykloc/customers-desktop.webp",
+      "source": "Same trial, Customers view, 1440x900.",
+      "captured": "2026-10-28"
+    },
+    {
+      "path": "kykloc/welcome-desktop.webp",
+      "source": "Same URL before entering the trial, English selected, 1440x900. Not referenced by content yet.",
+      "captured": "2026-10-28"
+    },
+    {
+      "path": "az-clean/home-desktop.webp",
+      "source": "https://azclean.gr home page, first viewport, 1440x900, headless Chromium, light scheme.",
+      "captured": "2026-10-28"
+    },
+    {
+      "path": "az-clean/home-mobile.webp",
+      "source": "https://azclean.gr home page, first viewport, 390x844 at 2x.",
+      "captured": "2026-10-28"
+    }
+  ]
+}
