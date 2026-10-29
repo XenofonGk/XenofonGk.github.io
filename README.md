@@ -34,6 +34,8 @@ Social previews are generated from `scripts/social-template.html` and the projec
 
 C and C++ sources live in `wasm/`. `npm run build:wasm` rebuilds the browser modules in `public/wasm/` with Emscripten. The interface downloads the module after a visitor launches the demo; combat logic runs in the compiled C++.
 
+On Linux, install Clang, `libc++-dev` and `libc++abi-dev`, then run `CC=clang CXX="clang++ -stdlib=libc++" npm run test:wasm`. Emscripten and the native test must use libc++: the C++ standard permits different `uniform_int_distribution` implementations, which can produce different seeded combat results across standard libraries. macOS uses libc++ by default.
+
 The native gate builds with AddressSanitizer and UndefinedBehaviorSanitizer, executes a regression for unsafe engine removal, and compares numeric state against the committed browser modules for identical operation sequences. Names and log text are excluded. CI checks committed artifacts, rebuilds with Emscripten **6.0.5**, then runs parity again. This checks the defined scenarios; it is not a proof for every possible input. Compiler setup uses the [official Emscripten action](https://github.com/emscripten-core/setup-emsdk).
 
 ## Hosting
