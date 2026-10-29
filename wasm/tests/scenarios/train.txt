@@ -1,0 +1,39 @@
+# Valid build-up: two engines, 8,500 of freight
+add 0 1000
+add 0 1000
+add 1 3000
+add 2 2000
+add 1 1500
+add 3 2000
+# Adjacency: wood straight after oil is refused on add, and removing the food
+# between wood and oil would couple them
+add 2 500
+rm 4
+# Unsafe engine removal: 8,500 of freight needs both engines
+rm 0
+rm 1
+# Lighten the train; still too heavy for one engine
+rm 5
+rm 0
+# Down to 3,500 of freight, so one engine is now enough
+rm 2
+rm 0
+# Engine after freight, bad index, bad type/weight, total weight cap
+add 0 500
+rm 9
+rm -1
+add 7 100
+add 1 0
+add 1 20000
+reset
+# Oil may not be the first freight car; pull capacity on add
+add 0 1000
+add 3 100
+add 1 4000
+add 1 1001
+add 0 1000
+reset
+# Last engine is never removable
+add 0 1000
+add 1 100
+rm 0

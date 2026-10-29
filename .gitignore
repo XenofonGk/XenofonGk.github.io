@@ -1,6 +1,8 @@
 node_modules/
-dist/
-dist-ssr/
+.next/
+out/
+next-env.d.ts
+*.tsbuildinfo
 .DS_Store
 *.local
 *.log
@@ -8,3 +10,7 @@ dist-ssr/
 # local editor config
 .vscode/
 .idea/
+
+# Browser acceptance artifacts
+test-results/
+playwright-report/

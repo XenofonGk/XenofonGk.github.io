@@ -4,11 +4,14 @@
 #
 # vendor/train_yard.{c,h} are copied verbatim from:
 #   https://github.com/XenofonGk/train-yard-manager
-#   commit fc5e98f25d6fa275c1cb32bc204324364efd60b7
+#   commit 216674ecd9e9a5e86045cd64ddd09c94a6caf9bc
 #   path   root/SourceCode/Project/
 #
 # To refresh them, copy the files again from that repo and re-run this script.
 # Nothing here modifies the validator; train_yard_api.c only adds accessors.
+#
+# After rebuilding, run wasm/tests/run.sh: it fails if public/wasm no longer
+# agrees with the native build of these sources.
 #
 # Requires emscripten:  brew install emscripten
 set -euo pipefail
