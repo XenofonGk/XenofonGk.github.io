@@ -100,7 +100,7 @@
       "Warrior and Mage are compiled from the repository C++ and run here as WebAssembly — the combat is not reimplemented in JavaScript.",
       "Damage is dispatched through the abstract Character base, so which subclass is acting decides whether skills or spell power are summed.",
       "Health changes through the class's own operator+=, and adding power uses operator+= on the concrete type.",
-      "The starting values come from the repository's roster file, so a fight here produces the same numbers as the native binary."
+      "The parity harness compares numeric combat state with a native build for deterministic seeded scenarios. Interactive fights vary between resets."
     ]
   }
 }

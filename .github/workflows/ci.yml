@@ -25,3 +25,23 @@ jobs:
         with:
           name: browser-test-diagnostics
           path: test-results/
+
+  compiled-demos:
+    runs-on: ubuntu-latest
+    env:
+      CC: clang
+      CXX: clang++
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Test committed artifacts against sanitized native builds
+        run: npm run test:wasm
+      - uses: emscripten-core/setup-emsdk@v15
+        with:
+          version: '6.0.5'
+      - name: Rebuild with the pinned Emscripten SDK
+        run: npm run build:wasm
+      - name: Test rebuilt artifacts against native builds
+        run: npm run test:wasm

@@ -12,7 +12,8 @@
     "test:browser": "playwright test",
     "check:content": "node scripts/check-content.mjs",
     "social": "node scripts/generate-social.mjs",
-    "format:check": "prettier --check app components/Header.tsx components/Footer.tsx components/ProjectRecord.tsx components/MutationExample.tsx lib/portfolio.ts lib/metadata.ts lib/site.ts tests scripts playwright.config.ts"
+    "format:check": "prettier --check app components/Header.tsx components/Footer.tsx components/ProjectRecord.tsx components/MutationExample.tsx lib/portfolio.ts lib/metadata.ts lib/site.ts tests scripts playwright.config.ts",
+    "test:wasm": "bash wasm/tests/run.sh"
   },
   "dependencies": {
     "ajv": "^8.20.0",

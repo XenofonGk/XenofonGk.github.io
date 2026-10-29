@@ -13,6 +13,7 @@ npm run preview     # http://127.0.0.1:4173
 npx playwright install chromium
 npm run test:browser
 npm run check:content
+npm run test:wasm
 ```
 
 The build uses Next.js’s webpack option for compatibility with restricted environments where Turbopack’s local worker port cannot bind. The preview server serves exported routes and returns the exported 404 page for unknown paths.
@@ -32,6 +33,8 @@ Social previews are generated from `scripts/social-template.html` and the projec
 ## Compiled demonstrations
 
 C and C++ sources live in `wasm/`. `npm run build:wasm` rebuilds the browser modules in `public/wasm/` with Emscripten. The interface downloads the module after a visitor launches the demo; combat logic runs in the compiled C++.
+
+The native gate builds with AddressSanitizer and UndefinedBehaviorSanitizer, executes a regression for unsafe engine removal, and compares numeric state against the committed browser modules for identical operation sequences. Names and log text are excluded. CI checks committed artifacts, rebuilds with Emscripten **6.0.5**, then runs parity again. This checks the defined scenarios; it is not a proof for every possible input. Compiler setup uses the [official Emscripten action](https://github.com/emscripten-core/setup-emsdk).
 
 ## Hosting
 
