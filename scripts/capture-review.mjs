@@ -3,7 +3,10 @@ import { mkdir } from 'node:fs/promises'
 const output = process.env.REVIEW_DIR || '/tmp/portfolio-review'
 await mkdir(output, { recursive: true })
 const browser = await chromium.launch()
-const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } })
+const page = await browser.newPage({
+  reducedMotion: 'reduce',
+  viewport: { width: 1440, height: 1000 },
+})
 for (const theme of ['light', 'dark']) {
   await page.addInitScript((t) => localStorage.setItem('xg-theme', t), theme)
   for (const [name, url] of [
@@ -14,6 +17,11 @@ for (const theme of ['light', 'dark']) {
     await page.evaluate(() => document.fonts.ready)
     for (const image of await page.locator('img').all())
       await image.scrollIntoViewIfNeeded()
+    await page
+      .locator('img')
+      .evaluateAll((images) =>
+        Promise.all(images.map((img) => img.decode().catch(() => {}))),
+      )
     await page.evaluate(() => scrollTo(0, 0))
     await page.screenshot({
       path: `${output}/${name}-${theme}.png`,
@@ -42,6 +50,11 @@ for (const theme of ['light', 'dark']) {
             ),
       )
     }
+    await page
+      .locator('img')
+      .evaluateAll((images) =>
+        Promise.all(images.map((img) => img.decode().catch(() => {}))),
+      )
     await page.evaluate(() => scrollTo(0, 0))
     await page.screenshot({
       path: `${output}/case-${slug}-${theme}.png`,

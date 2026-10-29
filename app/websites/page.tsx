@@ -83,8 +83,7 @@ export default function Websites() {
                       (p) =>
                         p.category === 'client' &&
                         p.caseStudy &&
-                        (p.id === 'az-clean' ||
-                          p.links.some((l) => l.url === s.url)),
+                        p.links.some((l) => l.url === s.url),
                     )
                     .slice(0, 1)
                     .map((p) => (

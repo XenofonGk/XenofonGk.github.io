@@ -240,3 +240,17 @@ for (const theme of ['light', 'dark']) {
     ).toBe(true)
   })
 }
+
+test('Client case-study links describe the website they belong to', async ({
+  page,
+}) => {
+  await page.goto('/websites')
+  for (const item of await page.locator('.website-item').all()) {
+    for (const link of await item.locator('a[href^="/projects/"]').all()) {
+      const slug = (await link.getAttribute('href'))!.split('/').at(-1)
+      const project = content.projects.find((p) => p.slug === slug)
+      expect(project).toBeTruthy()
+      expect(await item.locator('h3').innerText()).toContain(project!.title)
+    }
+  }
+})
