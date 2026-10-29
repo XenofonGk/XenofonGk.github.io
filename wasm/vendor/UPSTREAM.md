@@ -1,26 +1,20 @@
-# Local changes to vendored sources
+# Vendored sources
 
-## train_yard.c — `removeCar` did not re-check pull capacity
+Both are copied verbatim; nothing in `vendor/` differs from upstream.
 
-Upstream: `XenofonGk/train-yard-manager` at `fc5e98f25d6fa275c1cb32bc204324364efd60b7`,
-`root/SourceCode/Project/train_yard.c`.
+| Files | Upstream | Commit |
+|---|---|---|
+| `train_yard.c`, `train_yard.h` | `XenofonGk/train-yard-manager`, `root/SourceCode/Project/` | `216674ecd9e9a5e86045cd64ddd09c94a6caf9bc` |
+| `arena/*` | `XenofonGk/Cpp`, `ArenaCore/{include,src}` (without `src/input.cpp`) | `6e86eee6c07d3afd640d889bf5e261e1b7af506f` |
 
-`addCar` refuses freight the engines cannot pull (`engines * 5000`), and
-`isTrainSafe` checks the same rule, but `removeCar` never did. Removing an
-engine from a train whose freight needed every engine was accepted and left a
-train that `isTrainSafe` reports as unsafe.
+## History: removeCar pull capacity
 
-Reproduction (before the fix): two 1,000 engines, two 3,000 food cars, then
-`removeCar(train, 0)` returned 0 and left 6,000 of freight behind 5,000 of pull.
-`wasm/tests/train_yard_regression.c` encodes this and exited 1 against the
-unmodified file.
+`removeCar` once accepted removing an engine even when the remaining engines
+could not pull the freight, leaving a train `isTrainSafe` reports as unsafe.
+The fix was first applied here and then upstreamed in `216674e`, together with
+upstream's own regression test (AT-15) and a test runner that exits nonzero on
+failure. `wasm/tests/train_yard_regression.c` covers the same case for this
+build.
 
-Fix: after the existing checks on the candidate copy, sum the remaining freight
-and refuse with `REJECT_PULL_CAPACITY` if it exceeds the remaining engines'
-capacity. The refusal happens before the copy is written back, so the train is
-unchanged. No header or API change; the reject code already existed.
-
-Follow-up (not done from here): apply the same change and test upstream in
-`train-yard-manager`, then re-vendor from the new commit.
-
-`vendor/arena/*` is unmodified.
+To check a refresh: copy the files, `bash wasm/build.sh`, then
+`bash wasm/tests/run.sh`.
