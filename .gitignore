@@ -10,3 +10,7 @@ next-env.d.ts
 # local editor config
 .vscode/
 .idea/
+
+# Browser acceptance artifacts
+test-results/
+playwright-report/

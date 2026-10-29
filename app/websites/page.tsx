@@ -1,137 +1,163 @@
-import type { Metadata } from 'next'
+import Image from 'next/image'
+import Link from 'next/link'
 import Footer from '@/components/Footer'
-import SiteCarousel from '@/components/SiteCarousel'
-import { Button, Container, SectionHeading } from '@/components/ui'
-import { clientSites, faq, mailto, packages, process } from '@/lib/site'
-
-export const metadata: Metadata = {
-  title: 'Websites for small businesses',
-  description:
-    'Fast, accessible websites for small businesses: static sites, sites you can edit yourself, and online stores. Built to WCAG 2.1 AA, owned by you.',
-}
-
-const promises = [
-  { title: 'Built to WCAG 2.1 AA', body: "Usable by everyone, and ready for Ontario's AODA rules." },
-  { title: 'You own it', body: 'Your code and your domain. No lock-in, no hidden contracts.' },
-  { title: 'One person, start to finish', body: 'You deal directly with the developer who builds your site.' },
-]
-
-function Check() {
-  return (
-    <svg className="mt-[3px] shrink-0 text-accent" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <path d="M20 6 9 17l-5-5" />
-    </svg>
-  )
-}
-
+import { clientSites, mailto, packages, process, faq } from '@/lib/site'
+import { portfolio } from '@/lib/portfolio'
+import { pageMetadata } from '@/lib/metadata'
+export const metadata = pageMetadata(
+  'Websites for small businesses',
+  'Real websites, clear delivery scope and quote-based packages. Work directly with the developer building your website.',
+  '/websites',
+)
 export default function Websites() {
   return (
     <>
-      <Container>
-        <section aria-labelledby="hero-title" className="max-w-[880px] pb-16 pt-10 md:pt-16">
-          <h1 id="hero-title" className="font-display text-[clamp(42px,6.4vw,76px)] font-bold leading-[1]">
-            A website you own, built to work for your customers.
+      <div className="shell">
+        <section className="page-intro">
+          <p className="eyebrow">For businesses / Design & development</p>
+          <h1>
+            Your business.
+            <br />
+            <span>Clearly online.</span>
           </h1>
-          <p className="mt-7 max-w-[36em] text-[19px] leading-relaxed text-muted">
-            I design and build fast, accessible sites for local businesses. You talk to the developer who builds your
-            site, not a sales team.
+          <p>
+            A website should make your work easy to understand and your business
+            easy to contact. I design and build it with you, from the first
+            conversation to the handover.
           </p>
-          <div className="mt-9 flex flex-wrap gap-3">
-            <Button href={mailto('A website for my business')}>Email me about a website</Button>
-            <Button href="#work" variant="secondary">See my work</Button>
+          <div className="actions">
+            <a className="button" href={mailto('A website for my business')}>
+              Tell me about your website ↗
+            </a>
+            <a className="button secondary" href="#websites">
+              See the work ↓
+            </a>
           </div>
         </section>
-
-        <ul aria-label="What you get" className="grid gap-x-5 gap-y-6 pb-24 md:grid-cols-3">
-          {promises.map((p) => (
-            <li key={p.title} className="border-t border-line pt-4">
-              <p className="font-semibold">{p.title}</p>
-              <p className="mt-1 text-[16px] text-muted">{p.body}</p>
-            </li>
-          ))}
-        </ul>
-
-      </Container>
-
-      <section id="work" aria-labelledby="work-title" className="scroll-mt-6 pb-24">
-        <h2 id="work-title" className="font-display mb-10 px-5 text-center text-[clamp(28px,3.4vw,38px)] font-bold leading-[1.1]">
-          Sites I&apos;ve built
-        </h2>
-        <SiteCarousel sites={clientSites} />
-      </section>
-
-      <Container>
-
-        <section aria-labelledby="packages-title" className="pb-24">
-          <SectionHeading
-            id="packages-title"
-            intro="Every project is quoted for your business. Tell me what you need and I'll send a clear quote, with no hidden costs."
-          >
-            Three ways to start
-          </SectionHeading>
-          <ul className="grid gap-5 lg:grid-cols-3">
+        <section
+          id="websites"
+          className="section gallery-section"
+          aria-labelledby="gallery-title"
+        >
+          <div className="section-heading">
+            <div>
+              <p className="eyebrow">01 / Client websites</p>
+              <h2 id="gallery-title">
+                Real businesses.
+                <br />
+                Their own identity.
+              </h2>
+            </div>
+            <p>Stationary previews. Take your time.</p>
+          </div>
+          <div className="website-gallery">
+            {clientSites.map((s, i) => (
+              <article className="website-item" key={s.url}>
+                <a href={s.url} aria-label={`Visit ${s.name}`}>
+                  {s.image && (
+                    <Image
+                      src={s.image}
+                      alt={`${s.name} website homepage`}
+                      width={800}
+                      height={499}
+                      sizes="(max-width: 700px) 92vw, 50vw"
+                      className="work-image"
+                    />
+                  )}
+                </a>
+                <div className="website-caption">
+                  <span className="eyebrow">0{i + 1} / Website</span>
+                  <h3>
+                    <a href={s.url}>{s.name} ↗</a>
+                  </h3>
+                  <p>{s.summary}</p>
+                  <p className="eyebrow">{s.domain}</p>
+                  {portfolio.projects
+                    .filter(
+                      (p) =>
+                        p.category === 'client' &&
+                        p.caseStudy &&
+                        (p.id === 'az-clean' ||
+                          p.links.some((l) => l.url === s.url)),
+                    )
+                    .slice(0, 1)
+                    .map((p) => (
+                      <Link
+                        className="text-link"
+                        href={`/projects/${p.slug}`}
+                        key={p.id}
+                      >
+                        Read case study →
+                      </Link>
+                    ))}
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+        <section className="section" aria-labelledby="packages">
+          <p className="eyebrow">02 / Scope & ownership</p>
+          <div className="section-heading">
+            <h2 id="packages">
+              A clear place
+              <br />
+              to start.
+            </h2>
+            <p>
+              Every project gets its own quote. We agree the scope before the
+              build starts.
+            </p>
+          </div>
+          <div className="package-grid">
             {packages.map((p) => (
-              <li key={p.name} className="flex flex-col gap-4 rounded-2xl bg-surface p-8">
-                <h3 className="font-display text-[26px] font-bold leading-tight">{p.name}</h3>
-                <p className="text-[16px] text-muted">{p.for}</p>
-                <ul className="flex flex-col gap-2.5">
+              <article key={p.name}>
+                <h3>{p.name}</h3>
+                <p>{p.for}</p>
+                <ul>
                   {p.items.map((i) => (
-                    <li key={i} className="flex gap-2.5 text-[16px] leading-snug">
-                      <Check />
-                      <span>{i}</span>
-                    </li>
+                    <li key={i}>{i}</li>
                   ))}
                 </ul>
-                <p className="mt-auto pt-2">
-                  <a className="font-semibold text-accent underline underline-offset-4" href={mailto(`Quote: ${p.name}`)}>
-                    Ask for a quote
-                  </a>
-                </p>
-              </li>
+                <a className="text-link" href={mailto(`Quote: ${p.name}`)}>
+                  Ask for a quote ↗
+                </a>
+              </article>
             ))}
-          </ul>
-          <ul className="mt-8 grid gap-x-5 gap-y-6 md:grid-cols-2">
-            <li className="border-t border-line pt-4">
-              <p className="font-semibold">Monthly care plan</p>
-              <p className="mt-1 text-[16px] text-muted">Hosting, backups, security updates and small edits each month. Optional.</p>
-            </li>
-            <li className="border-t border-line pt-4">
-              <p className="font-semibold">Other languages</p>
-              <p className="mt-1 text-[16px] text-muted">
-                Need the site in Greek, French or another language? Translation is available as an add-on.
-              </p>
-            </li>
-          </ul>
+          </div>
         </section>
-
-        <section aria-labelledby="process-title" className="pb-24">
-          <SectionHeading id="process-title">How it works</SectionHeading>
-          <ol className="grid gap-x-5 gap-y-8 sm:grid-cols-2 lg:grid-cols-4">
-            {process.map((s, i) => (
-              <li key={s.title} className="border-t border-line pt-5">
-                <span className="text-[15px] font-semibold text-accent">Step {i + 1}</span>
-                <h3 className="font-display mt-1.5 text-[22px] font-bold leading-tight">{s.title}</h3>
-                <p className="mt-2 text-[16px] text-muted">{s.body}</p>
+        <section className="section">
+          <p className="eyebrow">03 / The process</p>
+          <h2>
+            One person.
+            <br />
+            From brief to handover.
+          </h2>
+          <ol className="process-grid">
+            {process.map((p, i) => (
+              <li key={p.title}>
+                <span className="eyebrow">0{i + 1}</span>
+                <h3>{p.title}</h3>
+                <p>{p.body}</p>
               </li>
             ))}
           </ol>
         </section>
-
-        <section aria-labelledby="faq-title" className="pb-16">
-          <SectionHeading id="faq-title">Questions</SectionHeading>
-          <dl className="max-w-[860px]">
+        <section className="section">
+          <p className="eyebrow">04 / Useful to know</p>
+          <h2>Before we start.</h2>
+          <dl className="faq">
             {faq.map((f) => (
-              <div key={f.q} className="border-b border-line py-6 first:border-t">
-                <dt className="text-[19px] font-semibold">{f.q}</dt>
-                <dd className="mt-2 text-muted">{f.a}</dd>
+              <div key={f.q}>
+                <dt>{f.q}</dt>
+                <dd>{f.a}</dd>
               </div>
             ))}
           </dl>
         </section>
-      </Container>
+      </div>
       <Footer
-        heading="Ready to talk about your website?"
-        sub="Email me and tell me about your business."
+        heading="A website that feels like your business."
+        sub="Tell me what you do and what the website needs to do."
         subject="A website for my business"
       />
     </>

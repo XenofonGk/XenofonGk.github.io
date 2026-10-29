@@ -146,7 +146,7 @@ export default function ArenaCoreDemo() {
               </span>
             </div>
 
-            <progress className="hp" max={side.maxHealth} value={Math.max(0, side.health)} />
+            <progress aria-label={`${side.name} health`} className="hp" max={side.maxHealth} value={Math.max(0, side.health)} />
             <p className="mono hp-text">
               {t('arenaDemo.health')} {side.health}/{side.maxHealth} · {t('arenaDemo.level')}{' '}
               {side.level} · {t('arenaDemo.damage')} {side.damage} · {t('arenaDemo.defence')}{' '}

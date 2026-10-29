@@ -2,11 +2,11 @@ name: CI
 
 on:
   push:
-    branches: [main, redesign-v5]
+    branches: [main, codex/portfolio-interface]
   pull_request:
 
 jobs:
-  build:
+  interface:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -15,5 +15,13 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      - run: npm run check:content
       - run: npm run typecheck
       - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:browser
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: browser-test-diagnostics
+          path: test-results/
