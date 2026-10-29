@@ -45,3 +45,5 @@ jobs:
         run: npm run build:wasm
       - name: Test rebuilt artifacts against native builds
         run: npm run test:wasm
+      - name: Reject generated artifact drift
+        run: git diff --exit-code -- public/wasm

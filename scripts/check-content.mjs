@@ -14,6 +14,8 @@ for (const id of ['ai-eng', 'kykloc', 'az-clean']) {
     throw new Error(
       `${id}: completed case study, real media and scoped evidence required before release`,
     )
+  if (p.caseStudy.decisions.length < 2)
+    throw new Error(`${id}: at least two technical decisions are required`)
   for (const key of ['constraints', 'decisions', 'limitations'])
     if (!p.caseStudy[key].length) throw new Error(`${id}: missing ${key}`)
   for (const m of p.media) await access('public' + m.src)
