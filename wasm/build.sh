@@ -2,13 +2,16 @@
 #
 # Compiles the C and C++ demos to WebAssembly for the site.
 #
-# vendor/train_yard.{c,h} are copied verbatim from:
+# vendor/train_yard.{c,h} are copied from:
 #   https://github.com/XenofonGk/train-yard-manager
 #   commit fc5e98f25d6fa275c1cb32bc204324364efd60b7
 #   path   root/SourceCode/Project/
+# with one local fix in removeCar (pull capacity after removal), recorded in
+# vendor/UPSTREAM.md. Re-apply it if the files are refreshed from upstream.
+# train_yard_api.c only adds accessors.
 #
-# To refresh them, copy the files again from that repo and re-run this script.
-# Nothing here modifies the validator; train_yard_api.c only adds accessors.
+# After rebuilding, run wasm/tests/run.sh: it fails if public/wasm no longer
+# agrees with the native build of these sources.
 #
 # Requires emscripten:  brew install emscripten
 set -euo pipefail
