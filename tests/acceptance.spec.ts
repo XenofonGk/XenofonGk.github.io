@@ -208,3 +208,35 @@ test('Exported navigation and preview assets resolve without SPA fallbacks', asy
   for (const href of localLinks)
     expect((await request.get(href.split('#')[0])).status(), href).toBe(200)
 })
+
+for (const theme of ['light', 'dark']) {
+  test(`Train validator preserves numeric state on unsafe removal: ${theme}`, async ({
+    page,
+  }) => {
+    await page.addInitScript((t) => localStorage.setItem('xg-theme', t), theme)
+    await page.goto('/projects')
+    await page.getByRole('button', { name: 'Launch train validator' }).click()
+    await page.getByRole('button', { name: 'Remove a loaded engine' }).click()
+    const readout = page.locator('.demo-readout .demo-stat .v')
+    expect(
+      (await readout.allTextContents())
+        .slice(0, 4)
+        .map((s) => s.replaceAll(',', '').trim()),
+    ).toEqual(['3', '2', '8000 / 20000', '6000 / 10000'])
+    const before = await readout.allTextContents()
+    await page
+      .getByRole('button', { name: 'Remove car 0, Engine, weight 1000' })
+      .click()
+    expect(await readout.allTextContents()).toEqual(before)
+    await expect(page.locator('.demo-status')).toContainText(
+      'the freight would weigh more than the engines can pull',
+    )
+    expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([])
+    await page.setViewportSize({ width: 375, height: 850 })
+    expect(
+      await page.evaluate(
+        () => document.documentElement.scrollWidth <= innerWidth,
+      ),
+    ).toBe(true)
+  })
+}

@@ -39,6 +39,11 @@
         "label": "Engine at the back",
         "rejected": "Refused: {reason} Engines can only be appended while every car ahead of them is also an engine.",
         "accepted": "Accepted."
+      },
+      "removeEngine": {
+        "label": "Remove a loaded engine",
+        "rejected": "Refused: {reason} Both engines are still needed. The rejected removal leaves every car unchanged.",
+        "accepted": "Accepted."
       }
     },
     "carType": "Car type",

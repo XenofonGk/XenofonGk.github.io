@@ -1297,3 +1297,29 @@ dt {
     padding: 25px;
   }
 }
+
+.website-item:nth-child(2) {
+  grid-column: 1/-1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  align-items: center;
+}
+.website-text-only {
+  grid-column: 1/-1;
+  border-top: 1px solid var(--line);
+  padding-top: 20px;
+}
+.website-text-only .website-caption {
+  max-width: 65ch;
+}
+.case-media-portrait {
+  max-width: 430px;
+  margin-inline: auto;
+}
+@media (max-width: 700px) {
+  .website-item:nth-child(2) {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+}

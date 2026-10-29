@@ -33,6 +33,9 @@ export type ClientSite = {
   summary: string
   /** Optional screenshot in /public/work. Without one, the card shows the domain. */
   image?: string
+  imageWidth?: number
+  imageHeight?: number
+  status?: 'in-progress'
 }
 
 export const clientSites: ClientSite[] = [
@@ -40,7 +43,9 @@ export const clientSites: ClientSite[] = [
     name: 'AZ Clean',
     domain: 'azclean.gr',
     url: 'https://azclean.gr',
-    image: '/work/azclean.jpg',
+    image: '/work/case-studies/az-clean/home-desktop.webp',
+    imageWidth: 1440,
+    imageHeight: 900,
     summary:
       'Website for a cleaning business in Greece, on its own domain, with Google Search set up so customers can find it.',
   },
@@ -56,9 +61,9 @@ export const clientSites: ClientSite[] = [
     name: 'Beauty by Beautia',
     domain: 'beautybybeautia.pages.dev',
     url: 'https://beautybybeautia.pages.dev',
-    image: '/work/beautybybeautia.jpg',
+    status: 'in-progress',
     summary:
-      'Website for a Toronto makeup and hair artist, with a Sanity editor so the owner can change text and photos without touching code.',
+      'Website in development for a Toronto makeup and hair artist. The current preview still needs portfolio imagery.',
   },
 ]
 

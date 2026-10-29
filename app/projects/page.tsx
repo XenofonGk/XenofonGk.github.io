@@ -48,6 +48,11 @@ export default function Projects() {
           {projects.map((p, i) => (
             <div key={p.id}>
               <ProjectRecord headingLevel={2} project={p} index={i} />
+              {p.id === 'train-yard' && (
+                <div className="inline-demo">
+                  <DemoPanel demo="train-yard" label="Launch train validator" />
+                </div>
+              )}
               {p.id === 'arenacore' && (
                 <div className="inline-demo">
                   <DemoPanel demo="arenacore" label="Launch ArenaCore" />

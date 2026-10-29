@@ -29,6 +29,11 @@ const REASON_KEYS = [
    should say about it. The cars are added through the C like any other. */
 const SCENARIOS = [
   {
+    id: 'removeEngine',
+    setup: [[0, 1000], [0, 1000], [1, 6000]],
+    try: { kind: 'remove', index: 0 },
+  },
+  {
     id: 'oilFirst',
     setup: [[0, 5000]],
     try: { kind: 'add', type: 3, weight: 500 },

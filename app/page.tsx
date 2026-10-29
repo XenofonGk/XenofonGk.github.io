@@ -13,6 +13,9 @@ export const metadata = pageMetadata(
   '/',
 )
 export default function Home() {
+  const heroMedia = selectedWork
+    .find((p) => p.id === 'az-clean')
+    ?.media.find((m) => m.type === 'image')
   return (
     <>
       <div className="shell">
@@ -47,10 +50,10 @@ export default function Home() {
             <figure className="hero-preview">
               <a href="https://azclean.gr" aria-label="Visit AZ Clean website">
                 <Image
-                  src="/work/azclean.jpg"
+                  src={heroMedia?.src || '/work/azclean.jpg'}
                   alt="AZ Clean website: a Greek cleaning business with service information and direct contact actions"
-                  width={800}
-                  height={499}
+                  width={heroMedia?.width || 800}
+                  height={heroMedia?.height || 499}
                   priority
                   sizes="(max-width: 700px) 92vw, 46vw"
                 />

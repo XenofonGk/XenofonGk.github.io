@@ -4,9 +4,7 @@ import Footer from '@/components/Footer'
 import { ProjectMedia } from '@/components/ProjectRecord'
 import { portfolio } from '@/lib/portfolio'
 import { pageMetadata } from '@/lib/metadata'
-const caseStudies = portfolio.projects.filter(
-  (p) => p.caseStudy !== null || p.homepageOrder !== null,
-)
+const caseStudies = portfolio.projects.filter((p) => p.caseStudy !== null)
 export const dynamicParams = false
 export function generateStaticParams() {
   return caseStudies.map((p) => ({ slug: p.slug }))
@@ -20,21 +18,7 @@ export async function generateMetadata({ params }: Props) {
 export default async function CaseStudyPage({ params }: Props) {
   const { slug } = await params
   const p = caseStudies.find((p) => p.slug === slug)
-  if (!p) notFound()
-  if (!p.caseStudy)
-    return (
-      <>
-        <div className="shell page-intro">
-          <Link href="/projects" className="text-link">
-            ← Back to work
-          </Link>
-          <h1>{p.title}</h1>
-          <p>{p.summary}</p>
-          <p>Full case-study evidence has not been integrated yet.</p>
-        </div>
-        <Footer />
-      </>
-    )
+  if (!p?.caseStudy) notFound()
   const c = p.caseStudy
   return (
     <>
@@ -67,9 +51,18 @@ export default async function CaseStudyPage({ params }: Props) {
           </div>
         </div>
         {p.media.map((m, i) => (
-          <figure className="case-media" key={m.src}>
+          <figure
+            className={`case-media ${m.height > m.width ? 'case-media-portrait' : ''}`}
+            key={m.src}
+          >
             <ProjectMedia media={m} priority={i === 0} />
-            <figcaption>{m.alt}</figcaption>
+            <figcaption>
+              <span>
+                {p.title} / {m.type === 'image' ? 'Screenshot' : 'Recording'}{' '}
+                {i + 1}
+              </span>
+              <span>Actual project capture</span>
+            </figcaption>
           </figure>
         ))}
         <div className="case-body">

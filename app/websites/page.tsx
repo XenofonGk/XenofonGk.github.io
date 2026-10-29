@@ -52,21 +52,27 @@ export default function Websites() {
           </div>
           <div className="website-gallery">
             {clientSites.map((s, i) => (
-              <article className="website-item" key={s.url}>
-                <a href={s.url} aria-label={`Visit ${s.name}`}>
-                  {s.image && (
+              <article
+                className={`website-item ${s.image ? '' : 'website-text-only'}`}
+                key={s.url}
+              >
+                {s.image && (
+                  <a href={s.url} aria-label={`Visit ${s.name}`}>
                     <Image
                       src={s.image}
                       alt={`${s.name} website homepage`}
-                      width={800}
-                      height={499}
+                      width={s.imageWidth ?? 800}
+                      height={s.imageHeight ?? 499}
                       sizes="(max-width: 700px) 92vw, 50vw"
                       className="work-image"
                     />
-                  )}
-                </a>
+                  </a>
+                )}
                 <div className="website-caption">
-                  <span className="eyebrow">0{i + 1} / Website</span>
+                  <span className="eyebrow">
+                    0{i + 1} /{' '}
+                    {s.status === 'in-progress' ? 'In development' : 'Website'}
+                  </span>
                   <h3>
                     <a href={s.url}>{s.name} ↗</a>
                   </h3>

@@ -29,6 +29,25 @@ for (const theme of ['light', 'dark']) {
     path: `${output}/websites-${theme}.png`,
     fullPage: true,
   })
+  for (const slug of ['ai-eng', 'kykloc', 'az-clean']) {
+    await page.goto(`http://127.0.0.1:4173/projects/${slug}`)
+    await page.evaluate(() => document.fonts.ready)
+    for (const image of await page.locator('img').all()) {
+      await image.scrollIntoViewIfNeeded()
+      await image.evaluate((el) =>
+        el.complete
+          ? Promise.resolve()
+          : new Promise((resolve) =>
+              el.addEventListener('load', resolve, { once: true }),
+            ),
+      )
+    }
+    await page.evaluate(() => scrollTo(0, 0))
+    await page.screenshot({
+      path: `${output}/case-${slug}-${theme}.png`,
+      fullPage: true,
+    })
+  }
   await page.setViewportSize({ width: 375, height: 850 })
   await page.goto('http://127.0.0.1:4173')
   await page.screenshot({
