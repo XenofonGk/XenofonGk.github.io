@@ -96,6 +96,25 @@ export default function ProjectRecord({
         <div className={`project-art project-art-${p.id}`}>
           {p.media[0] ? (
             <ProjectMedia media={p.media[0]} />
+          ) : p.id === 'home-server' ? (
+            <div className="server-diagram">
+              <span className="eyebrow">Request path / Simplified</span>
+              <ol aria-label="How requests reach the hosted applications">
+                <li>
+                  Cloudflare <span>↓</span>
+                </li>
+                <li>
+                  Cloudflare Tunnel <span>↓</span>
+                </li>
+                <li>
+                  Caddy reverse proxy <span>↓</span>
+                </li>
+                <li>Docker services</li>
+              </ol>
+              <p>
+                Scheduled encrypted local backups are configured separately.
+              </p>
+            </div>
           ) : (
             <div className="artifact-note">
               <span className="eyebrow">

@@ -464,6 +464,58 @@
       ],
       "media": [],
       "caseStudy": null
+    },
+    {
+      "id": "home-server",
+      "slug": "home-server",
+      "title": "Home server",
+      "summary": "A self-hosted Ubuntu server running two public demos in Docker, with Caddy and Cloudflare Tunnel handling requests. The configuration includes scheduled encrypted local backups and an optional offsite copy.",
+      "category": "engineering",
+      "placement": "supporting",
+      "homepageOrder": null,
+      "role": "Infrastructure design, deployment and operations.",
+      "stack": [
+        "Ubuntu",
+        "Docker",
+        "Caddy",
+        "Cloudflare Tunnel",
+        "OpenTofu",
+        "Prometheus",
+        "Grafana"
+      ],
+      "status": "live",
+      "links": [
+        {
+          "label": "Task Manager API",
+          "kind": "live",
+          "url": "https://tasks.xgbuilds.dev/swagger"
+        },
+        {
+          "label": "Resume Classifier",
+          "kind": "live",
+          "url": "https://resume-classifier.xgbuilds.dev"
+        }
+      ],
+      "evidence": [
+        {
+          "claim": "Both public demo endpoints returned HTTP 200 when checked on 28 October 2026.",
+          "label": "Endpoint checks",
+          "url": null,
+          "basis": "executed",
+          "checkedAt": "2026-10-28",
+          "scope": "Requests to the Task Manager Swagger endpoint and Resume Classifier returned HTTP 200. This is a point-in-time response check, not an uptime or full functionality guarantee."
+        },
+        {
+          "claim": "The infrastructure configuration defines a Docker-based proxy, Cloudflare Tunnel and scheduled encrypted local backups.",
+          "label": "Configuration review",
+          "url": null,
+          "basis": "source-reviewed",
+          "checkedAt": "2026-10-28",
+          "scope": "Reviewed the private Home-server repository at commit f639ec71fe85462cb855ee25a1667a0d73fdc6f4, including proxy, tunnel, backup script and systemd timer. Configuration does not by itself prove a successful backup or restore."
+        }
+      ],
+      "media": [],
+      "caseStudy": null
     }
   ],
   "experience": [

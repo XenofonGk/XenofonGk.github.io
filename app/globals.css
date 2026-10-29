@@ -1323,3 +1323,33 @@ dt {
     gap: 0;
   }
 }
+
+.server-diagram {
+  padding: 36px;
+}
+.server-diagram ol {
+  margin-block: 24px;
+}
+.server-diagram li {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  border-top: 1px solid var(--line);
+  padding-block: 12px;
+  font-weight: 500;
+}
+.server-diagram li:last-child {
+  border-bottom: 1px solid var(--line);
+}
+.server-diagram li span {
+  color: var(--accent);
+}
+.server-diagram p {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+@media (max-width: 700px) {
+  .server-diagram {
+    padding: 24px;
+  }
+}

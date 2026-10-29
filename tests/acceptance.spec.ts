@@ -254,3 +254,22 @@ test('Client case-study links describe the website they belong to', async ({
     }
   }
 })
+
+test('Home server project links to both hosted demos', async ({ page }) => {
+  await page.goto('/projects')
+  const project = page.locator('article').filter({
+    has: page.getByRole('heading', { name: 'Home server', exact: true }),
+  })
+  await expect(project).toHaveCount(1)
+  await expect(
+    project.getByRole('link', { name: /Task Manager API/ }),
+  ).toHaveAttribute('href', 'https://tasks.xgbuilds.dev/swagger')
+  await expect(
+    project.getByRole('link', { name: /Resume Classifier/ }),
+  ).toHaveAttribute('href', 'https://resume-classifier.xgbuilds.dev')
+  await expect(
+    project.getByRole('list', {
+      name: 'How requests reach the hosted applications',
+    }),
+  ).toBeVisible()
+})
