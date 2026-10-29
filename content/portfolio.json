@@ -1,0 +1,171 @@
+{
+  "schemaVersion": 1,
+  "projects": [
+    {
+      "id": "ai-eng",
+      "slug": "ai-eng",
+      "title": "ai-eng",
+      "summary": "Mutation testing for changed lines of code.",
+      "category": "engineering",
+      "placement": "featured",
+      "homepageOrder": 1,
+      "role": "Developer",
+      "stack": [
+        "TypeScript",
+        "Node.js",
+        "Testing"
+      ],
+      "status": "prototype",
+      "links": [
+        {
+          "label": "Source",
+          "kind": "code",
+          "url": "https://github.com/XenofonGk/ai-eng"
+        }
+      ],
+      "evidence": [],
+      "media": [],
+      "caseStudy": null
+    },
+    {
+      "id": "kykloc",
+      "slug": "kykloc",
+      "title": "KykloC",
+      "summary": "A field-service application for trades, started from the workflow of AZ Clean.",
+      "category": "engineering",
+      "placement": "featured",
+      "homepageOrder": 2,
+      "role": "Developer",
+      "stack": [
+        "React",
+        "TanStack Start",
+        "Supabase"
+      ],
+      "status": "prototype",
+      "links": [
+        {
+          "label": "Website",
+          "kind": "live",
+          "url": "https://pixel-perfect-recreation-892-alpha.vercel.app"
+        }
+      ],
+      "evidence": [],
+      "media": [],
+      "caseStudy": null
+    },
+    {
+      "id": "az-clean",
+      "slug": "az-clean",
+      "title": "AZ Clean",
+      "summary": "A website for a cleaning business in Greece.",
+      "category": "client",
+      "placement": "featured",
+      "homepageOrder": 3,
+      "role": "Developer",
+      "stack": [
+        "Web development"
+      ],
+      "status": "live",
+      "links": [
+        {
+          "label": "Website",
+          "kind": "live",
+          "url": "https://azclean.gr"
+        }
+      ],
+      "evidence": [],
+      "media": [],
+      "caseStudy": null
+    },
+    {
+      "id": "aoda-scan",
+      "slug": "aoda-scan",
+      "title": "aoda-scan",
+      "summary": "A tool for crawling websites and reporting automated accessibility findings.",
+      "category": "engineering",
+      "placement": "supporting",
+      "homepageOrder": null,
+      "role": "Developer",
+      "stack": [
+        "Node.js",
+        "Playwright"
+      ],
+      "status": "prototype",
+      "links": [
+        {
+          "label": "Source",
+          "kind": "code",
+          "url": "https://github.com/XenofonGk/aoda-scan"
+        }
+      ],
+      "evidence": [],
+      "media": [],
+      "caseStudy": null
+    },
+    {
+      "id": "arenacore",
+      "slug": "arenacore",
+      "title": "ArenaCore",
+      "summary": "A turn-based C++ combat engine compiled to WebAssembly.",
+      "category": "engineering",
+      "placement": "supporting",
+      "homepageOrder": null,
+      "role": "Developer",
+      "stack": [
+        "C++",
+        "WebAssembly"
+      ],
+      "status": "prototype",
+      "links": [
+        {
+          "label": "Source",
+          "kind": "code",
+          "url": "https://github.com/XenofonGk/Cpp/tree/main/ArenaCore"
+        }
+      ],
+      "evidence": [],
+      "media": [],
+      "caseStudy": null
+    },
+    {
+      "id": "agentmesh",
+      "slug": "agentmesh",
+      "title": "AgentMesh",
+      "summary": "A self-hosted control plane for AI coding agents, in development.",
+      "category": "engineering",
+      "placement": "supporting",
+      "homepageOrder": null,
+      "role": "Developer",
+      "stack": [
+        "Next.js",
+        "Fastify",
+        "TypeScript"
+      ],
+      "status": "in-progress",
+      "links": [
+        {
+          "label": "Source",
+          "kind": "code",
+          "url": "https://github.com/XenofonGk/AgentMesh"
+        }
+      ],
+      "evidence": [],
+      "media": [],
+      "caseStudy": null
+    }
+  ],
+  "experience": [
+    {
+      "organization": "Mercell",
+      "role": "Developer intern",
+      "period": "2026",
+      "summary": "React development during an internship in Copenhagen."
+    },
+    {
+      "organization": "Spinworks",
+      "role": "Developer",
+      "period": "2021",
+      "summary": "Worked on a B2B e-commerce platform."
+    }
+  ]
+}
