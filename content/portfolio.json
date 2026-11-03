@@ -118,14 +118,14 @@
         {
           "label": "Try it on this device",
           "kind": "live",
-          "url": "https://pixel-perfect-recreation-892-alpha.vercel.app"
+          "url": "https://kykloc.vercel.app"
         }
       ],
       "evidence": [
         {
           "claim": "Anyone can try it without an account: the trial runs in the browser with sample data that stays on the device.",
           "label": "Live trial",
-          "url": "https://pixel-perfect-recreation-892-alpha.vercel.app",
+          "url": "https://kykloc.vercel.app",
           "basis": "executed",
           "checkedAt": "2026-10-28",
           "scope": "Opened the public URL in a clean browser, chose English and 'Try on this device'. Every request observed went to the app's own host. Source review of continueDemo in the store confirms trial data is kept in localStorage and Supabase sync is skipped."
