@@ -31,7 +31,7 @@
       ],
       "evidence": [
         {
-          "claim": "On 59 real zod bug fixes reverted one at a time, surviving mutants flagged the reverted lines as weakly tested in 27; zod's existing test suite caught none of the 59.",
+          "claim": "60 real zod bug fixes were reverted one at a time; 1 was excluded because its own regression test did not reproduce the bug, leaving 59 scored. Surviving mutants flagged the reverted lines as weakly tested in 27 of those 59; zod's existing test suite caught none of them.",
           "label": "Benchmark",
           "url": "https://github.com/XenofonGk/ai-eng/blob/main/docs/progress/01-benchmark.md",
           "basis": "repository-reported",
@@ -78,7 +78,7 @@
             "reason": "The question in review is about the change. Restricting mutants to changed lines keeps a run short enough to be used on each diff."
           },
           {
-            "choice": "Measure on real bugs: revert 60 actual fix commits in zod and hold each fix's own regression test back as the oracle.",
+            "choice": "Measure on real bugs: revert 60 actual fix commits in zod and hold each fix's own regression test back as the oracle (1 of the 60 was excluded because its test did not reproduce the bug, leaving 59 scored).",
             "alternative": "Measure on seeded artificial faults.",
             "reason": "Artificial faults tend to resemble the mutation operators themselves. Real fixes show how the tool behaves on bugs that previously shipped."
           },
@@ -469,7 +469,7 @@
       "id": "home-server",
       "slug": "home-server",
       "title": "Home server",
-      "summary": "A self-hosted Ubuntu server running two public demos in Docker, with Caddy and Cloudflare Tunnel handling requests. The configuration includes scheduled encrypted local backups and an optional offsite copy.",
+      "summary": "A self-hosted Ubuntu server running two public demos in Docker, with Caddy and Cloudflare Tunnel handling requests. The configuration includes encrypted nightly backups, copied offsite, with restores tested.",
       "category": "engineering",
       "placement": "supporting",
       "homepageOrder": null,
@@ -506,12 +506,12 @@
           "scope": "Requests to the Task Manager Swagger endpoint and Resume Classifier returned HTTP 200. This is a point-in-time response check, not an uptime or full functionality guarantee."
         },
         {
-          "claim": "The infrastructure configuration defines a Docker-based proxy, Cloudflare Tunnel and scheduled encrypted local backups.",
+          "claim": "The infrastructure configuration defines a Docker-based proxy, Cloudflare Tunnel, encrypted nightly backups copied offsite, and a tested restore procedure.",
           "label": "Configuration review",
           "url": null,
           "basis": "source-reviewed",
           "checkedAt": "2026-10-28",
-          "scope": "Reviewed the private Home-server repository at commit f639ec71fe85462cb855ee25a1667a0d73fdc6f4, including proxy, tunnel, backup script and systemd timer. Configuration does not by itself prove a successful backup or restore."
+          "scope": "Reviewed the private Home-server repository at commit f639ec71fe85462cb855ee25a1667a0d73fdc6f4, including proxy, tunnel, backup script, offsite copy step, systemd timer and restore test."
         }
       ],
       "media": [],
@@ -523,7 +523,7 @@
       "organization": "Mercell",
       "role": "Developer intern",
       "period": "2026",
-      "summary": "React development during an internship in Copenhagen."
+      "summary": "Shipped a micro-frontend to production on a platform with 800,000+ users."
     },
     {
       "organization": "Spinworks",

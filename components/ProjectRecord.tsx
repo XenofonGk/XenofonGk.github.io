@@ -112,7 +112,7 @@ export default function ProjectRecord({
                 <li>Docker services</li>
               </ol>
               <p>
-                Scheduled encrypted local backups are configured separately.
+                Encrypted nightly backups are copied offsite, with restores tested.
               </p>
             </div>
           ) : (
