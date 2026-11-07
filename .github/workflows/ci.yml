@@ -5,6 +5,10 @@ on:
     branches: [main, codex/portfolio-interface]
   pull_request:
 
+# CI only reads the repo; don't hand jobs a token that can push or edit settings.
+permissions:
+  contents: read
+
 jobs:
   interface:
     runs-on: ubuntu-latest
