@@ -13,60 +13,109 @@
       margin: 0;
       width: 1200px;
       height: 630px;
-      background: #f3f0e8;
-      color: #232b2a;
+      background-color: #f1eee7;
+      background-image:
+        linear-gradient(rgba(20, 17, 13, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(20, 17, 13, 0.08) 1px, transparent 1px);
+      background-size: 120px 120px;
+      color: #14110d;
       font-family: Archivo, sans-serif;
-      padding: 55px 65px;
+      padding: 48px 60px 0;
       display: flex;
       flex-direction: column;
     }
     .top {
       display: flex;
       justify-content: space-between;
-      padding-bottom: 28px;
-      border-bottom: 1px solid #a2a69c;
-      font-size: 22px;
+      align-items: center;
+      padding-bottom: 22px;
+      border-bottom: 3px solid #14110d;
     }
-    .top b {
-      letter-spacing: -2px;
-      font-size: 30px;
-    }
-    .top b span {
-      color: #a93320;
-    }
-    .label {
-      font: 17px monospace;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      color: #515d59;
-      margin-top: 50px;
-    }
-    h1 {
-      font-size: 76px;
-      line-height: 1.05;
-      font-weight: 600;
-      letter-spacing: -3px;
-      max-width: 1000px;
-      margin: 22px 0;
-    }
-    .bottom {
-      margin-top: auto;
+    .brand {
       display: flex;
-      justify-content: space-between;
-      font-size: 20px;
-      color: #515d59;
+      align-items: center;
+      gap: 16px;
+      font-weight: 800;
+      font-size: 32px;
+      letter-spacing: -1.5px;
     }
     .mark {
-      color: #a93320;
+      display: grid;
+      place-items: center;
+      width: 60px;
+      height: 60px;
+      background: #14110d;
+      color: #f1eee7;
+      font-weight: 900;
+      font-size: 26px;
+      box-shadow: 6px 6px 0 #e63f00;
+    }
+    .brand .slash {
+      color: #e63f00;
+    }
+    .label {
+      font: 600 18px monospace;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: #6a6255;
+      margin-top: 52px;
+    }
+    .label b {
+      color: #b33000;
+    }
+    h1 {
+      font-size: 92px;
+      line-height: 0.92;
+      font-weight: 900;
+      letter-spacing: -3px;
+      text-transform: uppercase;
+      max-width: 1060px;
+      margin: 22px 0;
+    }
+    /* Project names keep their own spelling (ai-eng, KykloC). */
+    h1 .name {
+      text-transform: none;
+      font-size: 120px;
+    }
+    h1 em {
+      font-style: normal;
+      color: #e63f00;
+    }
+    .block {
+      margin-top: auto;
+      display: grid;
+      grid-template-columns: 1.3fr 1fr 1fr;
+      border-top: 3px solid #14110d;
+      border-left: 3px solid #14110d;
+      margin-inline: -60px;
+      background: #f1eee7;
+    }
+    .block div {
+      border-right: 3px solid #14110d;
+      padding: 14px 20px 18px;
+      font-size: 22px;
+      font-weight: 700;
+    }
+    .block small {
+      display: block;
+      font: 600 13px monospace;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #6a6255;
+      margin-bottom: 6px;
     }
   </style>
   <div class="top">
-    <b>xg<span>/</span>builds</b><span>Xenofon Gkioka · Toronto</span>
+    <div class="brand">
+      <span class="mark">XG</span
+      ><span>xg<span class="slash">/</span>builds</span>
+    </div>
   </div>
-  <div class="label">__LABEL__</div>
+  <div class="label"><b>§</b> __LABEL__</div>
   <h1>__TITLE__</h1>
-  <div class="bottom">
-    <span>Full-stack development, thoughtfully built.</span
-    ><span class="mark">xgbuilds.dev ↗</span>
+  <div class="block">
+    <div><small>Drawn by</small>Xenofon Gkioka</div>
+    <div><small>Location</small>Toronto, Canada</div>
+    <div><small>Address</small>xgbuilds.dev</div>
   </div>
 </html>
