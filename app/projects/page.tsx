@@ -1,71 +1,52 @@
 import Link from 'next/link'
+import Callout from '@/components/Callout'
 import Footer from '@/components/Footer'
 import ProjectRecord from '@/components/ProjectRecord'
-import DemoPanel from '@/components/DemoPanel'
-import { portfolio } from '@/lib/portfolio'
+import { archivedWork, engineeringWork } from '@/lib/portfolio'
 import { pageMetadata } from '@/lib/metadata'
+
 export const metadata = pageMetadata(
   'Engineering work',
-  'Developer tools, full-stack prototypes and compiled C++ demonstrations, with source, evidence and limitations.',
+  'Developer tools, full-stack prototypes, a home server and compiled C and C++ demonstrations, with source, evidence and limitations.',
   '/projects',
 )
+
 export default function Projects() {
-  const order = ['ai-eng', 'kykloc', 'aoda-scan', 'arenacore', 'agentmesh']
-  const projects = portfolio.projects
-    .filter(
-      (p) =>
-        p.category === 'engineering' &&
-        !['archive', 'hold'].includes(p.placement),
-    )
-    .sort((a, b) => {
-      const ai = order.indexOf(a.id),
-        bi = order.indexOf(b.id)
-      return (ai < 0 ? 99 : ai) - (bi < 0 ? 99 : bi)
-    })
-  const archive = portfolio.projects.filter(
-    (p) => p.placement === 'archive' || p.placement === 'hold',
-  )
   return (
     <>
       <div className="shell">
         <section className="page-intro">
-          <p className="eyebrow">Engineering / Selected projects</p>
+          <Callout n="00" note={`${engineeringWork.length} sheets`}>
+            Engineering / Drawing set
+          </Callout>
           <h1>
-            Work you can
-            <br />
-            <span>look inside.</span>
+            Work you can <em>look inside.</em>
           </h1>
           <p>
             Tools that ask better questions, applications shaped by real
-            workflows, and native code brought to the browser. Each project
-            carries its current scope and limitations.
+            workflows, a server I run myself, and native code brought to the
+            browser. Each sheet states its current scope and limitations.
           </p>
           <Link href="/websites" className="text-link">
-            Looking for client websites? →
+            Looking for client websites? <span aria-hidden="true">→</span>
           </Link>
         </section>
         <section aria-label="Engineering projects">
-          {projects.map((p, i) => (
-            <div key={p.id}>
-              <ProjectRecord headingLevel={2} project={p} index={i} />
-              {p.id === 'train-yard' && (
-                <div className="inline-demo">
-                  <DemoPanel demo="train-yard" label="Launch train validator" />
-                </div>
-              )}
-              {p.id === 'arenacore' && (
-                <div className="inline-demo">
-                  <DemoPanel demo="arenacore" label="Launch ArenaCore" />
-                </div>
-              )}
-            </div>
+          {engineeringWork.map((p, i) => (
+            <ProjectRecord
+              headingLevel={2}
+              project={p}
+              index={i}
+              key={p.id}
+              withDemo
+            />
           ))}
         </section>
-        {archive.length > 0 && (
-          <section className="section">
-            <p className="eyebrow">Archive / Earlier work</p>
-            <h2>Other explorations.</h2>
-            {archive.map((p) => (
+        {archivedWork.length > 0 && (
+          <section className="section" aria-labelledby="archive-title">
+            <Callout n="99">Archive</Callout>
+            <h2 id="archive-title">Other explorations.</h2>
+            {archivedWork.map((p) => (
               <article className="archive-item" key={p.id}>
                 <h3>{p.title}</h3>
                 <p>{p.summary}</p>
@@ -76,7 +57,7 @@ export default function Projects() {
                 </span>
                 {p.links.map((l) => (
                   <a href={l.url} key={l.url}>
-                    {l.label} ↗
+                    {l.label} <span aria-hidden="true">↗</span>
                   </a>
                 ))}
               </article>
@@ -84,7 +65,7 @@ export default function Projects() {
           </section>
         )}
       </div>
-      <Footer />
+      <Footer sheet="A-10 / Engineering work" />
     </>
   )
 }

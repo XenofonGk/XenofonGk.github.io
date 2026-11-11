@@ -52,7 +52,7 @@ for (const theme of ['light', 'dark']) {
             })),
           ),
         ).toEqual([])
-        for (const width of [375, 768, 1440]) {
+        for (const width of [375, 390, 768, 1440]) {
           await page.setViewportSize({ width, height: 1000 })
           expect(
             await page.evaluate(
@@ -270,6 +270,44 @@ test('Home server project links to both hosted demos', async ({ page }) => {
   await expect(
     project.getByRole('list', {
       name: 'How requests reach the hosted applications',
+    }),
+  ).toBeVisible()
+})
+
+test('Search engines get a sitemap, robots.txt and structured data', async ({
+  page,
+  request,
+}) => {
+  const sitemap = await (await request.get('/sitemap.xml')).text()
+  for (const route of routes)
+    expect(sitemap, route).toContain(
+      `<loc>https://xgbuilds.dev${route === '/' ? '' : route}</loc>`,
+    )
+  const robots = await (await request.get('/robots.txt')).text()
+  expect(robots).toContain('Sitemap: https://xgbuilds.dev/sitemap.xml')
+  for (const [route, type] of [
+    ['/', 'Person'],
+    ['/projects/ai-eng', 'CreativeWork'],
+  ]) {
+    await page.goto(route)
+    const blocks = await page
+      .locator('script[type="application/ld+json"]')
+      .allTextContents()
+    const types = blocks.flatMap((b) =>
+      [JSON.parse(b)].flat().map((d: { '@type': string }) => d['@type']),
+    )
+    expect(types, route).toContain(type)
+  }
+})
+
+test('Every project sheet on the work page has a working anchor', async ({
+  page,
+}) => {
+  await page.goto('/projects#train-yard')
+  await expect(page.locator('#train-yard')).toBeInViewport()
+  await expect(
+    page.locator('#train-yard').getByRole('button', {
+      name: 'Launch train validator',
     }),
   ).toBeVisible()
 })

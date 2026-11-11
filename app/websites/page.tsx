@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import Callout from '@/components/Callout'
 import Footer from '@/components/Footer'
 import { clientSites, mailto, packages, process, faq } from '@/lib/site'
 import { portfolio } from '@/lib/portfolio'
@@ -14,11 +15,11 @@ export default function Websites() {
     <>
       <div className="shell">
         <section className="page-intro">
-          <p className="eyebrow">For businesses / Design & development</p>
+          <Callout n="00" note="Quote-based">
+            For businesses / Design & development
+          </Callout>
           <h1>
-            Your business.
-            <br />
-            <span>Clearly online.</span>
+            Your business. <em>Clearly online.</em>
           </h1>
           <p>
             A website should make your work easy to understand and your business
@@ -27,10 +28,10 @@ export default function Websites() {
           </p>
           <div className="actions">
             <a className="button" href={mailto('A website for my business')}>
-              Tell me about your website ↗
+              Tell me about your website <span aria-hidden="true">↗</span>
             </a>
             <a className="button secondary" href="#websites">
-              See the work ↓
+              See the work <span aria-hidden="true">↓</span>
             </a>
           </div>
         </section>
@@ -39,16 +40,10 @@ export default function Websites() {
           className="section gallery-section"
           aria-labelledby="gallery-title"
         >
+          <Callout n="01">Client websites</Callout>
           <div className="section-heading">
-            <div>
-              <p className="eyebrow">01 / Client websites</p>
-              <h2 id="gallery-title">
-                Real businesses.
-                <br />
-                Their own identity.
-              </h2>
-            </div>
-            <p>Stationary previews. Take your time.</p>
+            <h2 id="gallery-title">Real businesses. Their own identity.</h2>
+            <p>Each one links to the real site.</p>
           </div>
           <div className="website-gallery">
             {clientSites.map((s, i) => (
@@ -70,11 +65,13 @@ export default function Websites() {
                 )}
                 <div className="website-caption">
                   <span className="eyebrow">
-                    0{i + 1} /{' '}
+                    Sheet 0{i + 1} /{' '}
                     {s.status === 'in-progress' ? 'In development' : 'Website'}
                   </span>
                   <h3>
-                    <a href={s.url}>{s.name} ↗</a>
+                    <a href={s.url}>
+                      {s.name} <span aria-hidden="true">↗</span>
+                    </a>
                   </h3>
                   <p>{s.summary}</p>
                   <p className="eyebrow">{s.domain}</p>
@@ -92,7 +89,7 @@ export default function Websites() {
                         href={`/projects/${p.slug}`}
                         key={p.id}
                       >
-                        Read case study →
+                        Read case study <span aria-hidden="true">→</span>
                       </Link>
                     ))}
                 </div>
@@ -101,13 +98,9 @@ export default function Websites() {
           </div>
         </section>
         <section className="section" aria-labelledby="packages">
-          <p className="eyebrow">02 / Scope & ownership</p>
+          <Callout n="02">Scope & ownership</Callout>
           <div className="section-heading">
-            <h2 id="packages">
-              A clear place
-              <br />
-              to start.
-            </h2>
+            <h2 id="packages">A clear place to start.</h2>
             <p>
               Every project gets its own quote. We agree the scope before the
               build starts.
@@ -124,32 +117,28 @@ export default function Websites() {
                   ))}
                 </ul>
                 <a className="text-link" href={mailto(`Quote: ${p.name}`)}>
-                  Ask for a quote ↗
+                  Ask for a quote <span aria-hidden="true">↗</span>
                 </a>
               </article>
             ))}
           </div>
         </section>
-        <section className="section">
-          <p className="eyebrow">03 / The process</p>
-          <h2>
-            One person.
-            <br />
-            From brief to handover.
-          </h2>
+        <section className="section" aria-labelledby="process-title">
+          <Callout n="03">The process</Callout>
+          <h2 id="process-title">One person. From brief to handover.</h2>
           <ol className="process-grid">
             {process.map((p, i) => (
               <li key={p.title}>
-                <span className="eyebrow">0{i + 1}</span>
+                <span className="eyebrow">Stage 0{i + 1}</span>
                 <h3>{p.title}</h3>
                 <p>{p.body}</p>
               </li>
             ))}
           </ol>
         </section>
-        <section className="section">
-          <p className="eyebrow">04 / Useful to know</p>
-          <h2>Before we start.</h2>
+        <section className="section" aria-labelledby="faq-title">
+          <Callout n="04">Useful to know</Callout>
+          <h2 id="faq-title">Before we start.</h2>
           <dl className="faq">
             {faq.map((f) => (
               <div key={f.q}>
@@ -164,6 +153,7 @@ export default function Websites() {
         heading="A website that feels like your business."
         sub="Tell me what you do and what the website needs to do."
         subject="A website for my business"
+        sheet="B-00 / Websites"
       />
     </>
   )

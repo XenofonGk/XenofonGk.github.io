@@ -20,9 +20,18 @@ const MAX_TOTAL_WEIGHT = 20000
 
 /* Matches enum RejectReason in train_yard.h. */
 const REASON_KEYS = [
-  'none', 'nullTrain', 'trainFull', 'badType', 'badWeight', 'totalWeight',
-  'engineOrder', 'oilFirstFreight', 'woodOilAdjacent', 'pullCapacity',
-  'badIndex', 'lastEngine',
+  'none',
+  'nullTrain',
+  'trainFull',
+  'badType',
+  'badWeight',
+  'totalWeight',
+  'engineOrder',
+  'oilFirstFreight',
+  'woodOilAdjacent',
+  'pullCapacity',
+  'badIndex',
+  'lastEngine',
 ]
 
 /* Each scenario builds a state, then names the move to try and what the rules
@@ -30,7 +39,11 @@ const REASON_KEYS = [
 const SCENARIOS = [
   {
     id: 'removeEngine',
-    setup: [[0, 1000], [0, 1000], [1, 6000]],
+    setup: [
+      [0, 1000],
+      [0, 1000],
+      [1, 6000],
+    ],
     try: { kind: 'remove', index: 0 },
   },
   {
@@ -40,23 +53,37 @@ const SCENARIOS = [
   },
   {
     id: 'buffer',
-    setup: [[0, 5000], [2, 400], [1, 300], [3, 400]],
+    setup: [
+      [0, 5000],
+      [2, 400],
+      [1, 300],
+      [3, 400],
+    ],
     try: { kind: 'remove', index: 2 },
   },
   {
     id: 'capacity',
-    setup: [[0, 5000], [1, 4000]],
+    setup: [
+      [0, 5000],
+      [1, 4000],
+    ],
     try: { kind: 'add', type: 1, weight: 2000 },
   },
   {
     id: 'engineOrder',
-    setup: [[0, 5000], [1, 500]],
+    setup: [
+      [0, 5000],
+      [1, 500],
+    ],
     try: { kind: 'add', type: 0, weight: 5000 },
   },
 ]
 
 const fill = (template, values) =>
-  Object.entries(values).reduce((s, [k, v]) => s.replaceAll(`{${k}}`, v), template)
+  Object.entries(values).reduce(
+    (s, [k, v]) => s.replaceAll(`{${k}}`, v),
+    template,
+  )
 
 export default function TrainYardDemo() {
   const api = useRef(null)
@@ -189,7 +216,11 @@ export default function TrainYardDemo() {
 
     let rc
     if (scenario.try.kind === 'add') {
-      rc = api.current.addCar(train.current, scenario.try.type, scenario.try.weight)
+      rc = api.current.addCar(
+        train.current,
+        scenario.try.type,
+        scenario.try.weight,
+      )
     } else {
       rc = api.current.removeCar(train.current, scenario.try.index)
     }
@@ -200,7 +231,9 @@ export default function TrainYardDemo() {
     setMessage(
       rc === 0
         ? t(`demo.scenarios.${scenario.id}.accepted`)
-        : fill(t(`demo.scenarios.${scenario.id}.rejected`), { reason: reasonLabel(code) }),
+        : fill(t(`demo.scenarios.${scenario.id}.rejected`), {
+            reason: reasonLabel(code),
+          }),
     )
     sync()
   }
@@ -235,9 +268,15 @@ export default function TrainYardDemo() {
       <form className="demo-controls" onSubmit={handleAdd}>
         <div className="demo-field">
           <label htmlFor="car-type">{t('demo.carType')}</label>
-          <select id="car-type" value={type} onChange={(e) => setType(Number(e.target.value))}>
+          <select
+            id="car-type"
+            value={type}
+            onChange={(e) => setType(Number(e.target.value))}
+          >
             {TYPE_KEYS.map((k, i) => (
-              <option key={k} value={i}>{t(`demo.types.${k}`)}</option>
+              <option key={k} value={i}>
+                {t(`demo.types.${k}`)}
+              </option>
             ))}
           </select>
         </div>
@@ -252,11 +291,17 @@ export default function TrainYardDemo() {
             onChange={(e) => setWeight(e.target.value)}
           />
         </div>
-        <button className="btn solid" type="submit">{t('demo.addCar')}</button>
-        <button className="btn" type="button" onClick={handleReset}>{t('demo.reset')}</button>
+        <button className="btn solid" type="submit">
+          {t('demo.addCar')}
+        </button>
+        <button className="btn" type="button" onClick={handleReset}>
+          {t('demo.reset')}
+        </button>
       </form>
 
-      <p className="demo-status" role="status" aria-live="polite">{message}</p>
+      <p className="demo-status" role="status" aria-live="polite">
+        {message}
+      </p>
 
       <div className="demo-readout">
         <div className="demo-stat">
@@ -270,7 +315,8 @@ export default function TrainYardDemo() {
         <div className="demo-stat">
           <span className="k">{t('demo.totalWeight')}</span>
           <span className="v">
-            {state.totalWeight.toLocaleString()} / {MAX_TOTAL_WEIGHT.toLocaleString()}
+            {state.totalWeight.toLocaleString()} /{' '}
+            {MAX_TOTAL_WEIGHT.toLocaleString()}
           </span>
         </div>
         <div className="demo-stat">
@@ -279,9 +325,13 @@ export default function TrainYardDemo() {
             {freight.toLocaleString()} / {state.capacity.toLocaleString()}
           </span>
         </div>
-        <div className={`demo-stat verdict ${state.safe ? 'is-safe' : 'is-unsafe'}`}>
+        <div
+          className={`demo-stat verdict ${state.safe ? 'is-safe' : 'is-unsafe'}`}
+        >
           <span className="k">{t('demo.status')}</span>
-          <span className="v">{state.safe ? t('demo.safe') : t('demo.unsafe')}</span>
+          <span className="v">
+            {state.safe ? t('demo.safe') : t('demo.unsafe')}
+          </span>
         </div>
       </div>
 
@@ -314,7 +364,14 @@ export default function TrainYardDemo() {
           {t('demo.rules').map((r, i) => (
             // The rule the C just cited is marked, so a rejection points at the
             // line that caused it instead of leaving it to be guessed.
-            <li key={r} className={reason !== null && RULE_FOR_REASON[reason] === i ? 'is-cited' : undefined}>
+            <li
+              key={r}
+              className={
+                reason !== null && RULE_FOR_REASON[reason] === i
+                  ? 'is-cited'
+                  : undefined
+              }
+            >
               {r}
             </li>
           ))}
@@ -326,9 +383,9 @@ export default function TrainYardDemo() {
 
 /* Maps a reject reason onto the rule it corresponds to in the displayed list. */
 const RULE_FOR_REASON = {
-  6: 0,  // engine order
-  5: 1,  // total weight
-  9: 2,  // pull capacity
-  8: 3,  // wood/oil adjacency
-  7: 4,  // oil as first freight
+  6: 0, // engine order
+  5: 1, // total weight
+  9: 2, // pull capacity
+  8: 3, // wood/oil adjacency
+  7: 4, // oil as first freight
 }

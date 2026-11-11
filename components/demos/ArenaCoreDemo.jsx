@@ -104,7 +104,8 @@ export default function ArenaCoreDemo() {
   }, [ready])
 
   if (failed) return <p className="demo-note">{t('arenaDemo.failed')}</p>
-  if (!ready || roster.length === 0) return <p className="demo-note">{t('arenaDemo.loading')}</p>
+  if (!ready || roster.length === 0)
+    return <p className="demo-note">{t('arenaDemo.loading')}</p>
 
   const fighters = [roster[left], roster[right]].filter(Boolean)
   const over = winner >= 0
@@ -146,11 +147,16 @@ export default function ArenaCoreDemo() {
               </span>
             </div>
 
-            <progress aria-label={`${side.name} health`} className="hp" max={side.maxHealth} value={Math.max(0, side.health)} />
+            <progress
+              aria-label={`${side.name} health`}
+              className="hp"
+              max={side.maxHealth}
+              value={Math.max(0, side.health)}
+            />
             <p className="mono hp-text">
-              {t('arenaDemo.health')} {side.health}/{side.maxHealth} · {t('arenaDemo.level')}{' '}
-              {side.level} · {t('arenaDemo.damage')} {side.damage} · {t('arenaDemo.defence')}{' '}
-              {side.defence}
+              {t('arenaDemo.health')} {side.health}/{side.maxHealth} ·{' '}
+              {t('arenaDemo.level')} {side.level} · {t('arenaDemo.damage')}{' '}
+              {side.damage} · {t('arenaDemo.defence')} {side.defence}
             </p>
 
             <div className="fighter-actions">
@@ -164,7 +170,9 @@ export default function ArenaCoreDemo() {
               <button
                 type="button"
                 disabled={over}
-                onClick={() => act((i) => api.current.addPower(i, 3), side.index)}
+                onClick={() =>
+                  act((i) => api.current.addPower(i, 3), side.index)
+                }
               >
                 {t('arenaDemo.addPower')}
               </button>
@@ -174,7 +182,12 @@ export default function ArenaCoreDemo() {
       </div>
 
       <div className="demo-controls">
-        <button className="btn solid" type="button" onClick={round} disabled={over}>
+        <button
+          className="btn solid"
+          type="button"
+          onClick={round}
+          disabled={over}
+        >
           {over ? t('arenaDemo.finished') : t('arenaDemo.takeTurn')}
         </button>
         <button className="btn" type="button" onClick={() => reset()}>
@@ -218,7 +231,9 @@ export default function ArenaCoreDemo() {
       <div className="demo-rules">
         <h3>{t('arenaDemo.notesTitle')}</h3>
         <ul>
-          {t('arenaDemo.notes').map((n) => <li key={n}>{n}</li>)}
+          {t('arenaDemo.notes').map((n) => (
+            <li key={n}>{n}</li>
+          ))}
         </ul>
       </div>
     </div>

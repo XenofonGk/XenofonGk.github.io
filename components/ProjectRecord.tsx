@@ -1,70 +1,56 @@
-import Image from 'next/image'
 import Link from 'next/link'
-import type { PortfolioProject, Media } from '@/lib/portfolio'
-export function ProjectMedia({
-  media,
-  priority = false,
-}: {
-  media: Media
-  priority?: boolean
-}) {
-  return media.type === 'image' ? (
-    <Image
-      src={media.src}
-      alt={media.alt}
-      width={media.width}
-      height={media.height}
-      sizes="(max-width: 700px) 92vw, 65vw"
-      priority={priority}
-      className="work-image"
-    />
-  ) : (
-    <video
-      controls
-      preload="none"
-      poster={media.poster}
-      width={media.width}
-      height={media.height}
-      aria-label={media.alt}
-    >
-      <source src={media.src} />
-      <a href={media.src}>Watch: {media.alt}</a>
-    </video>
-  )
-}
+import DemoPanel from './DemoPanel'
+import ProjectMedia from './ProjectMedia'
+import ServerDiagram from './ServerDiagram'
+import StatusStamp from './StatusStamp'
+import {
+  basisLabel,
+  projectPath,
+  sheetNumber,
+  type PortfolioProject,
+} from '@/lib/portfolio'
+
+const demoLabels = {
+  'train-yard': 'Launch train validator',
+  arenacore: 'Launch ArenaCore',
+} as const
+
+/** One project, laid out as a sheet in a drawing set. */
 export default function ProjectRecord({
-  project,
+  project: p,
   index,
   headingLevel = 3,
+  withDemo = false,
 }: {
   project: PortfolioProject
   index: number
   headingLevel?: 2 | 3
+  /** Show the project's WebAssembly demo under the sheet, if it has one. */
+  withDemo?: boolean
 }) {
-  const p = project
   const Heading = headingLevel === 2 ? 'h2' : 'h3'
+  const href = p.caseStudy ? projectPath(p) : null
+  const evidence = p.evidence[0]
+  const media = p.media[0]
+  // Without a screenshot, the art panel shows the inspection record instead,
+  // so the evidence is not repeated under the copy.
+  const evidenceInArt = !media && p.id !== 'home-server' && evidence
   return (
-    <article className="project-record">
-      <div className="project-label">
+    <article className="sheet" id={p.slug}>
+      <header className="sheet-head">
         <span className="eyebrow">
-          {String(index + 1).padStart(2, '0')} /{' '}
+          Sheet {sheetNumber(index)} /{' '}
           {p.category === 'client' ? 'Client website' : 'Engineering'}
         </span>
-        <span className="status-label">{p.status.replaceAll('-', ' ')}</span>
-      </div>
-      <div className="project-layout">
-        <div className="project-copy">
-          <Heading>
-            {p.caseStudy ? (
-              <Link href={`/projects/${p.slug}`}>
-                {p.title} <span aria-hidden="true">↗</span>
-              </Link>
-            ) : (
-              p.title
-            )}
+        <StatusStamp status={p.status} />
+      </header>
+      <div className="sheet-body">
+        <div className="sheet-copy">
+          <Heading className="sheet-title">
+            {href ? <Link href={href}>{p.title}</Link> : p.title}
           </Heading>
-          <p>{p.summary}</p>
-          <dl className="project-facts">
+          <p className="sheet-summary">{p.summary}</p>
+          <dl className="facts">
             <div>
               <dt>Role</dt>
               <dd>{p.role}</dd>
@@ -75,57 +61,59 @@ export default function ProjectRecord({
             </div>
           </dl>
           <div className="link-row">
-            {p.caseStudy && (
-              <Link className="text-link" href={`/projects/${p.slug}`}>
-                Read case study →
+            {href && (
+              <Link className="button" href={href}>
+                Read case study <span aria-hidden="true">→</span>
               </Link>
             )}
-            {p.links.slice(0, 2).map((l) => (
+            {p.links.map((l) => (
               <a key={l.url} href={l.url}>
-                {l.label} ↗
+                {l.label} <span aria-hidden="true">↗</span>
               </a>
             ))}
           </div>
-          {p.evidence.slice(0, 1).map((e) => (
-            <p className="evidence-note" key={e.claim}>
-              {e.claim} <span>({e.basis.replaceAll('-', ' ')}).</span>{' '}
-              {e.url && <a href={e.url}>{e.label} ↗</a>}
+          {evidence && !evidenceInArt && (
+            <p className="evidence-note">
+              <span className="eyebrow">{basisLabel(evidence.basis)}</span>{' '}
+              {evidence.claim}{' '}
+              {evidence.url && (
+                <a href={evidence.url}>
+                  {evidence.label} <span aria-hidden="true">↗</span>
+                </a>
+              )}
             </p>
-          ))}
-        </div>
-        <div className={`project-art project-art-${p.id}`}>
-          {p.media[0] ? (
-            <ProjectMedia media={p.media[0]} />
-          ) : p.id === 'home-server' ? (
-            <div className="server-diagram">
-              <span className="eyebrow">Request path / Simplified</span>
-              <ol aria-label="How requests reach the hosted applications">
-                <li>
-                  Cloudflare <span>↓</span>
-                </li>
-                <li>
-                  Cloudflare Tunnel <span>↓</span>
-                </li>
-                <li>
-                  Caddy reverse proxy <span>↓</span>
-                </li>
-                <li>Docker services</li>
-              </ol>
-              <p>
-                Encrypted nightly backups are copied offsite, with restores tested.
-              </p>
-            </div>
-          ) : (
-            <div className="artifact-note">
-              <span className="eyebrow">
-                {p.stack[0]} / {p.status.replaceAll('-', ' ')}
-              </span>
-              <p>{p.title}</p>
-              <a href={p.links[0]?.url}>Explore the project ↗</a>
-            </div>
           )}
         </div>
+        <div className="sheet-art">
+          {media ? (
+            <ProjectMedia media={media} />
+          ) : p.id === 'home-server' ? (
+            <ServerDiagram />
+          ) : evidence ? (
+            <div className="artifact-note">
+              <span className="eyebrow">
+                Inspection / {basisLabel(evidence.basis)}
+                {evidence.checkedAt ? ` / ${evidence.checkedAt}` : ''}
+              </span>
+              <p>{evidence.claim}</p>
+              {p.demo ? (
+                <span className="mono">Runs in this page</span>
+              ) : (
+                p.links[0] && (
+                  <a href={p.links[0].url}>
+                    {p.links[0].label} <span aria-hidden="true">↗</span>
+                  </a>
+                )
+              )}
+            </div>
+          ) : null}
+        </div>
       </div>
+      {withDemo && p.demo && (
+        <div className="sheet-demo">
+          <DemoPanel demo={p.demo} label={demoLabels[p.demo]} />
+        </div>
+      )}
     </article>
   )
 }

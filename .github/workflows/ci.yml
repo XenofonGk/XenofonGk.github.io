@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [main, codex/portfolio-interface]
+    branches: [main]
   pull_request:
 
 # CI only reads the repo; don't hand jobs a token that can push or edit settings.
@@ -19,6 +19,7 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      - run: npm run format:check
       - run: npm run check:content
       - run: npm run typecheck
       - run: npm run build
