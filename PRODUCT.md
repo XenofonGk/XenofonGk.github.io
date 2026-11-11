@@ -20,29 +20,30 @@ Former construction site supervisor (Toronto) turned full-stack developer. He bu
 
 ## Operating Context
 
-- Hosted on GitHub Pages at xgbuilds.dev (xenofongk.github.io); built by GitHub Actions on every push to main.
-- Live services on the home server: tasks.xgbuilds.dev (TaskManager API, Swagger), resume-classifier.xgbuilds.dev.
-- Six locales (en, el, es, fr, hi, zh) with a key-parity check (`npm run check:locales`).
-- Pre-rendered per route (SSR build + prerender script); axe-core accessibility check in CI with a zero-violation bar.
+- Served at xgbuilds.dev as a static export; a push to `main` updates the live site, so changes go through pull requests.
+- Live services on the home server: tasks.xgbuilds.dev (Task Manager API, Swagger), resume-classifier.xgbuilds.dev.
+- English only. (The earlier React + Vite site had six locales; they were not carried into the Next.js rebuild.)
+- Every route is prerendered by `next build`; axe-core runs in the Playwright suite in both themes with a zero-violation bar.
 
 ## Capabilities and Constraints
 
-- React 19 + Vite + react-router; hand-built CSS design system in custom properties, no UI library.
-- In-page demos: Train Yard validator (C compiled to WebAssembly), ArenaCore (C++ to WebAssembly), TaskManager demo.
+- Next.js (App Router, `output: 'export'`) + React 19 + TypeScript. One hand-written stylesheet (`app/globals.css`) built on CSS custom properties; no UI library, no CSS framework.
+- Content is typed and schema-validated: `content/portfolio.json` + `content/portfolio.schema.json`, loaded through `lib/portfolio.ts`. Contact details, client sites, timeline and live-work list are in `lib/site.ts`.
+- In-page demos: Train Yard validator (C to WebAssembly) and ArenaCore (C++ to WebAssembly), loaded only when a visitor launches them.
 - A live server-status panel is wanted; it needs a small public read-only status endpoint on the home server (not yet built). Must never expose secrets or internal addresses.
 - Light and dark themes exist and must stay.
 
 ## Brand Commitments
 
 - Headline line: "I build software the way I used to build houses" (owner likes it).
-- The earlier drafting/construction-drawing look on `main` (cream paper, safety orange, heavy grotesk capitals, § section numbers, title block footer) is liked; the owner wants it developed further, not replaced. The clean neutral card look (PR #3) was rejected.
+- The drafting/construction-drawing look (cream paper, safety orange, heavy grotesk capitals, § section callouts with dimension lines, project "sheets" with inspection stamps, a title-block footer) is liked; develop it further, do not replace it. The clean neutral card look (PR #3) was rejected.
 - Initials mark "XG".
 
 ## Evidence on Hand
 
 - Client sites, featuring approved by both owners: AZ Clean (azclean.gr, Athens) and WAY Empowerment (wayempowerment.com, Kenya NGO).
-- Experience: Software Engineer Intern at Mercell (Copenhagen); construction site supervisor in Toronto; Seneca Polytechnic.
-- Projects and write-ups in `src/i18n/locales/en.js` and `src/data/projects.js`: Train Yard Manager, TaskManager API, Resume Classifier, Inventory CRUD, ArenaCore, aoda-scan (npm), this portfolio.
+- Experience: Software Engineer Intern at Mercell (Copenhagen, Jun–Aug 2026); Junior Software Developer at Spinworks (Athens, Aug 2021–Aug 2022); construction site supervisor in Toronto; Computer Programming diploma at Seneca Polytechnic (expected April 2027).
+- Projects, evidence and case studies in `content/portfolio.json`: ai-eng, KykloC, AZ Clean, aoda-scan, ArenaCore, AgentMesh, Train yard validator, Home server.
 - Home server repo: github.com/XenofonGk/Home-server (private).
 - No testimonials, metrics, or client quotes exist; do not invent any.
 
@@ -56,4 +57,4 @@ Former construction site supervisor (Toronto) turned full-stack developer. He bu
 
 ## Accessibility & Inclusion
 
-WCAG 2.1 AA with zero axe-core violations (enforced in CI); reduced-motion respected; six languages including Greek, Hindi and Chinese scripts.
+Target WCAG 2.1 AA, with zero axe-core violations enforced in CI in both themes; keyboard paths and reduced motion are tested. Automated checks do not certify conformance.

@@ -1,5 +1,13 @@
 # Portfolio master plan (xgbuilds.dev)
 
+> **Historical document.** This is the September 2026 plan for the "Building
+> Permit" direction on the earlier React + Vite site. The site has since been
+> rebuilt as a Next.js static export and the owner chose the drafting-sheet
+> look (cream paper, safety orange, title-block footer) instead of the safety
+> yellow permit palette. Several items below (⌘K palette, six locales, the
+> engine-room page, a live status feed) are not implemented. See `README.md`
+> and `PRODUCT.md` for the current state.
+
 Written 2026-09-28. Direction chosen by Xenofon: **A · Building Permit**
 (canvas: https://claude.ai/artifact/1ayt5vER7NiaDnfpVDMHnZ).
 
