@@ -401,7 +401,7 @@
         "Fastify",
         "TypeScript"
       ],
-      "status": "in-progress",
+      "status": "live",
       "links": [
         {
           "label": "Source",
@@ -419,7 +419,15 @@
           "scope": "pnpm test at commit aeb8de1: 190 passed, 112 skipped (10 files that require TEST_DATABASE_URL), 0 failed."
         }
       ],
-      "media": [],
+      "media": [
+        {
+          "type": "image",
+          "src": "/social/agentmesh.png",
+          "alt": "AgentMesh control plane mock-up with AgentMesh branding",
+          "width": 1200,
+          "height": 630
+        }
+      ],
       "caseStudy": null
     },
     {
