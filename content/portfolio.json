@@ -96,7 +96,7 @@
       "id": "kykloc",
       "slug": "kykloc",
       "title": "KykloC",
-      "summary": "A field-service app for small trade businesses: customers, appointments, jobs, payments and repeat work in one place, in Greek and English.",
+      "summary": "A field-service app for small trade businesses: customers, appointments, jobs, payments and repeat work in one place.",
       "category": "engineering",
       "placement": "featured",
       "homepageOrder": 2,
@@ -172,7 +172,6 @@
         "constraints": [
           "Several businesses share one database, so one business must never see another's records.",
           "Work happens on site, where mobile signal is unreliable.",
-          "The owners work in Greek, and the app also needs English.",
           "Someone evaluating it should be able to try it without creating an account."
         ],
         "decisions": [
