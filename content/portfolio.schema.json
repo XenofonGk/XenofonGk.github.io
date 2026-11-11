@@ -29,24 +29,13 @@
             "minLength": 1
           },
           "category": {
-            "enum": [
-              "engineering",
-              "client"
-            ]
+            "enum": ["engineering", "client"]
           },
           "placement": {
-            "enum": [
-              "featured",
-              "supporting",
-              "archive",
-              "hold"
-            ]
+            "enum": ["featured", "supporting", "archive", "hold"]
           },
           "homepageOrder": {
-            "type": [
-              "integer",
-              "null"
-            ],
+            "type": ["integer", "null"],
             "minimum": 1
           },
           "role": {
@@ -61,12 +50,7 @@
             }
           },
           "status": {
-            "enum": [
-              "live",
-              "prototype",
-              "in-progress",
-              "archived"
-            ]
+            "enum": ["live", "prototype", "in-progress", "archived"]
           },
           "links": {
             "type": "array",
@@ -79,23 +63,14 @@
                   "minLength": 1
                 },
                 "kind": {
-                  "enum": [
-                    "live",
-                    "code",
-                    "benchmark",
-                    "write-up"
-                  ]
+                  "enum": ["live", "code", "benchmark", "write-up"]
                 },
                 "url": {
                   "type": "string",
                   "format": "uri"
                 }
               },
-              "required": [
-                "label",
-                "kind",
-                "url"
-              ]
+              "required": ["label", "kind", "url"]
             }
           },
           "evidence": {
@@ -113,24 +88,14 @@
                   "minLength": 1
                 },
                 "url": {
-                  "type": [
-                    "string",
-                    "null"
-                  ],
+                  "type": ["string", "null"],
                   "format": "uri"
                 },
                 "basis": {
-                  "enum": [
-                    "repository-reported",
-                    "source-reviewed",
-                    "executed"
-                  ]
+                  "enum": ["repository-reported", "source-reviewed", "executed"]
                 },
                 "checkedAt": {
-                  "type": [
-                    "string",
-                    "null"
-                  ]
+                  "type": ["string", "null"]
                 },
                 "scope": {
                   "type": "string",
@@ -154,10 +119,7 @@
               "additionalProperties": false,
               "properties": {
                 "type": {
-                  "enum": [
-                    "image",
-                    "video"
-                  ]
+                  "enum": ["image", "video"]
                 },
                 "src": {
                   "type": "string",
@@ -180,13 +142,7 @@
                   "pattern": "^/"
                 }
               },
-              "required": [
-                "type",
-                "src",
-                "alt",
-                "width",
-                "height"
-              ]
+              "required": ["type", "src", "alt", "width", "height"]
             }
           },
           "caseStudy": {
@@ -225,11 +181,7 @@
                           "minLength": 1
                         }
                       },
-                      "required": [
-                        "choice",
-                        "alternative",
-                        "reason"
-                      ]
+                      "required": ["choice", "alternative", "reason"]
                     }
                   },
                   "verification": {
@@ -256,6 +208,10 @@
                 "type": "null"
               }
             ]
+          },
+          "demo": {
+            "enum": ["train-yard", "arenacore"],
+            "description": "An in-browser WebAssembly demo shown with this project."
           }
         },
         "required": [
@@ -309,38 +265,24 @@
                   "minLength": 1
                 },
                 "kind": {
-                  "enum": [
-                    "live",
-                    "code",
-                    "benchmark",
-                    "write-up"
-                  ]
+                  "enum": ["live", "code", "benchmark", "write-up"]
                 },
                 "url": {
                   "type": "string",
                   "format": "uri"
                 }
               },
-              "required": [
-                "label",
-                "kind",
-                "url"
-              ]
+              "required": ["label", "kind", "url"]
             }
+          },
+          "location": {
+            "type": "string",
+            "minLength": 1
           }
         },
-        "required": [
-          "organization",
-          "role",
-          "period",
-          "summary"
-        ]
+        "required": ["organization", "role", "summary"]
       }
     }
   },
-  "required": [
-    "schemaVersion",
-    "projects",
-    "experience"
-  ]
+  "required": ["schemaVersion", "projects", "experience"]
 }

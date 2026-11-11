@@ -10,12 +10,7 @@
       "placement": "featured",
       "homepageOrder": 1,
       "role": "Specification, benchmark design and review. The implementation was written by Claude Code from that specification, as the repository's README states.",
-      "stack": [
-        "JavaScript",
-        "Node.js",
-        "Babel",
-        "Vitest"
-      ],
+      "stack": ["JavaScript", "Node.js", "Babel", "Vitest"],
       "status": "prototype",
       "links": [
         {
@@ -106,13 +101,7 @@
       "placement": "featured",
       "homepageOrder": 2,
       "role": "Product direction and development. The project was scaffolded with Lovable and developed from there.",
-      "stack": [
-        "React",
-        "TanStack Start",
-        "Supabase",
-        "PostgreSQL",
-        "Vitest"
-      ],
+      "stack": ["React", "TanStack Start", "Supabase", "PostgreSQL", "Vitest"],
       "status": "prototype",
       "links": [
         {
@@ -222,11 +211,7 @@
       "placement": "featured",
       "homepageOrder": 3,
       "role": "Redesign and front-end development.",
-      "stack": [
-        "React",
-        "Vite",
-        "GitHub Pages"
-      ],
+      "stack": ["React", "Vite", "GitHub Pages"],
       "status": "live",
       "links": [
         {
@@ -318,11 +303,7 @@
       "placement": "supporting",
       "homepageOrder": null,
       "role": "Developer.",
-      "stack": [
-        "Node.js",
-        "Playwright",
-        "axe-core"
-      ],
+      "stack": ["Node.js", "Playwright", "axe-core"],
       "status": "prototype",
       "links": [
         {
@@ -353,11 +334,7 @@
       "placement": "supporting",
       "homepageOrder": null,
       "role": "Developer.",
-      "stack": [
-        "C++17",
-        "WebAssembly",
-        "Emscripten"
-      ],
+      "stack": ["C++17", "WebAssembly", "Emscripten"],
       "status": "prototype",
       "links": [
         {
@@ -385,7 +362,8 @@
         }
       ],
       "media": [],
-      "caseStudy": null
+      "caseStudy": null,
+      "demo": "arenacore"
     },
     {
       "id": "agentmesh",
@@ -396,12 +374,8 @@
       "placement": "supporting",
       "homepageOrder": null,
       "role": "Developer, working with AI coding agents; many commits are authored by Claude.",
-      "stack": [
-        "Next.js",
-        "Fastify",
-        "TypeScript"
-      ],
-      "status": "live",
+      "stack": ["Next.js", "Fastify", "TypeScript"],
+      "status": "in-progress",
       "links": [
         {
           "label": "Source",
@@ -419,15 +393,7 @@
           "scope": "pnpm test at commit aeb8de1: 190 passed, 112 skipped (10 files that require TEST_DATABASE_URL), 0 failed."
         }
       ],
-      "media": [
-        {
-          "type": "image",
-          "src": "/social/agentmesh.png",
-          "alt": "AgentMesh control plane mock-up with AgentMesh branding",
-          "width": 1200,
-          "height": 630
-        }
-      ],
+      "media": [],
       "caseStudy": null
     },
     {
@@ -439,11 +405,7 @@
       "placement": "supporting",
       "homepageOrder": null,
       "role": "Developer.",
-      "stack": [
-        "C",
-        "WebAssembly",
-        "Emscripten"
-      ],
+      "stack": ["C", "WebAssembly", "Emscripten"],
       "status": "prototype",
       "links": [
         {
@@ -471,7 +433,8 @@
         }
       ],
       "media": [],
-      "caseStudy": null
+      "caseStudy": null,
+      "demo": "train-yard"
     },
     {
       "id": "home-server",
@@ -502,6 +465,11 @@
           "label": "Resume Classifier",
           "kind": "live",
           "url": "https://resume-classifier.xgbuilds.dev"
+        },
+        {
+          "label": "API source (DotNet repo)",
+          "kind": "code",
+          "url": "https://github.com/XenofonGk/DotNet/tree/main/WebAPI/TaskManagerAPI"
         }
       ],
       "evidence": [
@@ -529,15 +497,23 @@
   "experience": [
     {
       "organization": "Mercell",
-      "role": "Developer intern",
-      "period": "2026",
-      "summary": "Shipped a micro-frontend to production on a platform with 800,000+ users."
+      "role": "Software Engineer Intern",
+      "period": "Jun–Aug 2026",
+      "location": "Copenhagen, Denmark",
+      "summary": "React and TypeScript features for micro-frontends in an NX monorepo: a file-uploader library, accessibility fixes, and Jest and React Testing Library tests. Shipped a micro-frontend to production on a platform with 800,000+ users."
     },
     {
       "organization": "Spinworks",
-      "role": "Developer",
-      "period": "2021",
-      "summary": "Worked on a B2B e-commerce platform."
+      "role": "Junior Software Developer",
+      "period": "Aug 2021–Aug 2022",
+      "location": "Athens, Greece",
+      "summary": "Worked on a B2B e-commerce platform built with PHP, Symfony and OroCommerce."
+    },
+    {
+      "organization": "Construction sites",
+      "role": "Site supervisor",
+      "location": "Toronto, Canada",
+      "summary": "Supervised construction work in Toronto after moving to Canada, before returning to software studies at Seneca."
     }
   ]
 }

@@ -12,7 +12,8 @@
     "test:browser": "playwright test",
     "check:content": "node scripts/check-content.mjs",
     "social": "node scripts/generate-social.mjs",
-    "format:check": "prettier --check app components/Header.tsx components/Footer.tsx components/ProjectRecord.tsx components/MutationExample.tsx lib/portfolio.ts lib/metadata.ts lib/site.ts tests scripts playwright.config.ts",
+    "format:check": "prettier --check app components lib tests scripts content playwright.config.ts next.config.ts",
+    "format": "prettier --write app components lib tests scripts content playwright.config.ts next.config.ts",
     "test:wasm": "bash wasm/tests/run.sh"
   },
   "dependencies": {
@@ -24,13 +25,10 @@
   "devDependencies": {
     "@axe-core/playwright": "^4.14.0",
     "@playwright/test": "^1.64.1",
-    "@tailwindcss/postcss": "^4.3.3",
     "@types/node": "^26.6.5",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
-    "postcss": "^8.5.31",
     "prettier": "^3.9.10",
-    "tailwindcss": "^4.3.3",
     "typescript": "^5.9.3"
   }
 }

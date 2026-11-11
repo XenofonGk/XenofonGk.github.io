@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
+import Callout from '@/components/Callout'
 import Footer from '@/components/Footer'
-import { Button, Container } from '@/components/ui'
 
 export const metadata: Metadata = {
   title: 'Page not found',
@@ -12,22 +13,27 @@ export const metadata: Metadata = {
 export default function NotFound() {
   return (
     <>
-      <Container className="pb-32 pt-16">
-        <h1 className="font-display text-[clamp(40px,6vw,68px)] font-bold leading-none">
-          This page isn&apos;t here.
-        </h1>
-        <p className="mt-6 max-w-[34em] text-[19px] text-muted">
-          The link may be from the previous version of this site. Explore the
-          selected projects, client websites, or return to the homepage.
-        </p>
-        <div className="mt-8 flex flex-wrap gap-3">
-          <Button href="/">Go to the home page</Button>
-          <Button href="/projects" variant="secondary">
-            See projects
-          </Button>
-        </div>
-      </Container>
-      <Footer />
+      <div className="shell">
+        <section className="page-intro">
+          <Callout n="404" note="Not on the drawings">
+            Missing sheet
+          </Callout>
+          <h1>This page isn&apos;t here.</h1>
+          <p>
+            The link may be from the previous version of this site. Explore the
+            selected projects, client websites, or return to the homepage.
+          </p>
+          <div className="actions">
+            <Link className="button" href="/">
+              Go to the home page
+            </Link>
+            <Link className="button secondary" href="/projects">
+              See projects
+            </Link>
+          </div>
+        </section>
+      </div>
+      <Footer sheet="404 / Missing sheet" />
     </>
   )
 }

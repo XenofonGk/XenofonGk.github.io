@@ -13,6 +13,15 @@ export const site = {
   linkedin: 'https://www.linkedin.com/in/xenofon-gkioka',
   cv: '/cv/Xenofon_Gkioka_CV.pdf',
   cvA4: '/cv/Xenofon_Gkioka_CV_A4.pdf',
+  location: 'Toronto, Canada',
+  role: 'Full-stack developer',
+}
+
+export const education = {
+  school: 'Seneca Polytechnic',
+  program: 'Computer Programming diploma',
+  expected: 'April 2027',
+  location: 'Toronto, Canada',
 }
 
 export const mailto = (subject?: string) =>
@@ -20,10 +29,57 @@ export const mailto = (subject?: string) =>
 
 export const timeline = [
   { when: '2016', what: 'IT support, Athens' },
-  { when: '2021', what: 'Developer at Spinworks' },
-  { when: 'Nov 2021', what: 'Moved to Toronto' },
-  { when: '2025', what: 'Started at Seneca' },
-  { when: '2026', what: 'Intern at Mercell, Copenhagen' },
+  { when: 'Aug 2021', what: 'Junior Software Developer at Spinworks, Athens' },
+  { when: 'Nov 2021', what: 'Moved to Toronto; construction site supervisor' },
+  { when: '2025', what: 'Started Computer Programming at Seneca Polytechnic' },
+  { when: 'Jun 2026', what: 'Software Engineer Intern at Mercell, Copenhagen' },
+  { when: 'Apr 2027', what: 'Diploma expected' },
+]
+
+/** Things a visitor can open right now. Each entry must resolve today. */
+export type LiveWork = {
+  address: string
+  url: string
+  what: string
+  kind: string
+}
+export const liveWork: LiveWork[] = [
+  {
+    address: 'azclean.gr',
+    url: 'https://azclean.gr',
+    what: 'Website for a cleaning business in Athens',
+    kind: 'Client site',
+  },
+  {
+    address: 'wayempowerment.com',
+    url: 'https://www.wayempowerment.com',
+    what: 'Rebuilt website for a non-profit',
+    kind: 'Volunteer',
+  },
+  {
+    address: 'tasks.xgbuilds.dev',
+    url: 'https://tasks.xgbuilds.dev/swagger',
+    what: 'Task Manager API (ASP.NET Core, PostgreSQL), Swagger UI',
+    kind: 'Home server',
+  },
+  {
+    address: 'resume-classifier.xgbuilds.dev',
+    url: 'https://resume-classifier.xgbuilds.dev',
+    what: 'Resume Classifier demo',
+    kind: 'Home server',
+  },
+  {
+    address: 'kykloc.vercel.app',
+    url: 'https://kykloc.vercel.app',
+    what: 'KykloC field-service app, on-device trial with sample data',
+    kind: 'Prototype',
+  },
+  {
+    address: 'Train yard validator',
+    url: '/projects#train-yard',
+    what: 'C compiled to WebAssembly, running in this site',
+    kind: 'In the browser',
+  },
 ]
 
 export type ClientSite = {
@@ -53,9 +109,9 @@ export const clientSites: ClientSite[] = [
     name: 'WAY Empowerment',
     domain: 'wayempowerment.com',
     url: 'https://www.wayempowerment.com',
-    image: '/work/wayempowerment.jpg',
+    image: '/work/wayempowerment.webp',
     summary:
-      'A rebuilt website for WAY Empowerment, a non-profit organization.',
+      'A rebuilt website for WAY Empowerment, a non-profit organization. Volunteer work.',
   },
   {
     name: 'Beauty by Beautia',

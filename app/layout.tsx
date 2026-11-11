@@ -28,15 +28,22 @@ export const metadata: Metadata = {
     template: '%s · xgbuilds',
   },
   description:
-    'Xenofon Gkioka builds websites for small businesses and developer tools. Projects, client sites and contact.',
-  openGraph: { type: 'website', siteName: 'xgbuilds', images: ['/og.png'] },
+    'Xenofon Gkioka is a full-stack developer in Toronto: client websites, developer tools, and C and C++ running in the browser.',
+  authors: [{ name: site.name, url: site.url }],
+  creator: site.name,
+  openGraph: {
+    type: 'website',
+    siteName: site.brand,
+    locale: 'en_CA',
+    images: ['/og.png'],
+  },
   icons: { icon: '/favicon.svg', apple: '/apple-touch-icon.png' },
 }
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#f3f0e8' },
-    { media: '(prefers-color-scheme: dark)', color: '#172022' },
+    { media: '(prefers-color-scheme: light)', color: '#f1eee7' },
+    { media: '(prefers-color-scheme: dark)', color: '#12110e' },
   ],
 }
 

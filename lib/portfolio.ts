@@ -47,11 +47,15 @@ export type PortfolioProject = {
   evidence: Evidence[]
   media: Media[]
   caseStudy: CaseStudy | null
+  /** An in-browser WebAssembly demo shown alongside the project. */
+  demo?: DemoId
 }
+export type DemoId = 'train-yard' | 'arenacore'
 export type Experience = {
   organization: string
   role: string
-  period: string
+  period?: string
+  location?: string
   summary: string
   links?: PortfolioLink[]
 }
@@ -103,9 +107,46 @@ export function validatePortfolio(input: unknown): asserts input is Portfolio {
 }
 validatePortfolio(data)
 export const portfolio: Portfolio = data as Portfolio
+
+/** Featured projects, in the order the home page shows them. */
 export const selectedWork = portfolio.projects
   .filter((p) => p.homepageOrder !== null)
   .sort((a, b) => a.homepageOrder! - b.homepageOrder!)
+
+/** Projects with a full write-up at /projects/[slug]. */
 export const caseStudies = portfolio.projects.filter(
   (p) => p.caseStudy !== null,
 )
+
+/** Engineering work for /projects: featured first, then supporting work in
+    content order. Client websites live on /websites. */
+export const engineeringWork = [
+  ...selectedWork.filter((p) => p.category === 'engineering'),
+  ...portfolio.projects.filter(
+    (p) => p.category === 'engineering' && p.placement === 'supporting',
+  ),
+]
+
+export const archivedWork = portfolio.projects.filter(
+  (p) => p.placement === 'archive' || p.placement === 'hold',
+)
+
+export const projectPath = (p: PortfolioProject) => `/projects/${p.slug}`
+
+const statusLabels: Record<PortfolioProject['status'], string> = {
+  live: 'Live',
+  prototype: 'Prototype',
+  'in-progress': 'In progress',
+  archived: 'Archived',
+}
+export const statusLabel = (s: PortfolioProject['status']) => statusLabels[s]
+
+const basisLabels: Record<Evidence['basis'], string> = {
+  'repository-reported': 'Repository reported',
+  'source-reviewed': 'Source reviewed',
+  executed: 'Executed',
+}
+export const basisLabel = (b: Evidence['basis']) => basisLabels[b]
+
+/** Two-digit sheet numbers, as on a drawing set: 01, 02, ... */
+export const sheetNumber = (index: number) => String(index + 1).padStart(2, '0')
